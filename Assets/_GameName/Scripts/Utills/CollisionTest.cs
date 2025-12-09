@@ -12,6 +12,8 @@ namespace _GameName.Scripts.Utills
             Debug.Log("충돌테스트 1");
 
             Debug.Log("충돌테스트 2");
+            Debug.Log("충돌테스트 2");
+            Debug.Log("충돌테스트 3");
         }
 
     }
