@@ -11,13 +11,13 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
   - 
+  - Monster
+  - MonsterDetector
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Item
+  - InteractionObject
   - 
   - 
   - 
