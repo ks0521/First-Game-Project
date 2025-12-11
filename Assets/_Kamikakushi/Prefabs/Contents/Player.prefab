@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 1002145179468663135}
   - component: {fileID: 7516131665805118467}
   - component: {fileID: 5074383709073797114}
+  - component: {fileID: 5671862165917624293}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -276,3 +277,18 @@ MonoBehaviour:
   characterController: {fileID: 0}
   mouseSpeed: 5
   gravity: -9.8
+--- !u!114 &5671862165917624293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7747568938583171075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26593b8c76d06044ba8e7ba194d879da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sanity: 0
+  playerCount: 0
+  handeditems: {fileID: 0}
