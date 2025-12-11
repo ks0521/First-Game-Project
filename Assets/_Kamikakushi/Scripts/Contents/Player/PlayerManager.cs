@@ -10,7 +10,7 @@ namespace _Kamikakushi.Contents.Player
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
-        [SerializeField] int sanity;
+        [SerializeField] public int sanity;
         [SerializeField] int playerCount;
         [SerializeField] public ItemScript handeditems;
         void Awake()
