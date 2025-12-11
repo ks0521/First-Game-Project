@@ -1,0 +1,17 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using _Kamikakushi.Utills;
+using UnityEngine;
+
+namespace _Kamikakushi.Utills
+{
+    public class NoRequireItemKeyCode : IInteractionCondition
+    {
+        public bool CanInteract(PlayerManager target)
+        {
+            //상호작용에 요구조건 없음
+            return true;
+        }
+    }
+}
+
