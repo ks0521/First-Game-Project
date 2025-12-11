@@ -545,6 +545,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 610875891280025534, guid: d1dd9e1dd63567b42b29004e2718c020, type: 3}
+      propertyPath: condition
+      value: 6793636310387261441
+      objectReference: {fileID: 0}
+    - target: {fileID: 610875891280025534, guid: d1dd9e1dd63567b42b29004e2718c020, type: 3}
+      propertyPath: managedReferences[6793636310387261440]
+      value: Assembly-CSharp _Kamikakushi.Utills.NoRequireItemKeyCode
+      objectReference: {fileID: 0}
+    - target: {fileID: 610875891280025534, guid: d1dd9e1dd63567b42b29004e2718c020, type: 3}
+      propertyPath: managedReferences[6793636310387261441]
+      value: Assembly-CSharp RequireItemKeyCode
+      objectReference: {fileID: 0}
+    - target: {fileID: 610875891280025534, guid: d1dd9e1dd63567b42b29004e2718c020, type: 3}
+      propertyPath: managedReferences[6793636310387261441].requireKeycode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1848264323142111739, guid: d1dd9e1dd63567b42b29004e2718c020, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.029082
