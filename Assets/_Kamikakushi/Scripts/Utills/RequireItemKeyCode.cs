@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills;
 using UnityEngine;
 

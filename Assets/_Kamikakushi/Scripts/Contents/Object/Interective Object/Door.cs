@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Kamikakushi.Utills;
+using _Kamikakushi.Contents.Player;
 using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
