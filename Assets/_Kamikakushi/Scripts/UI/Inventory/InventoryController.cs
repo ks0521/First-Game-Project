@@ -38,6 +38,15 @@ namespace Project.Inventory
 
         private bool isOpen = false;
 
+        public ItemData equippedItem;
+        public ItemData EquippedItem
+        {
+            get => equippedItem;
+            set => equippedItem = value;
+        }
+
+        public HUDController hudController;
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -73,6 +82,58 @@ namespace Project.Inventory
 
             RefreshSlots();
             ClearRightPanel();
+
+        }
+
+        public bool AddItem(ItemData item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            if (currentItems.Count >= slotUIs.Count)
+            {
+                Debug.Log("인벤토리가 가득 찼습니다.");
+                return false;
+            }
+
+            currentItems.Add(item);
+            RefreshSlots();
+
+            Debug.Log("[" + item.itemName + "] 가 인벤토리에 추가되었습니다.");
+            return true;
+        }
+
+        public void EquipItem(ItemData item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            EquippedItem = item;
+
+            // 게임플레이 HUD에 표시
+            hudController?.SetEquippedItem(item);
+        }
+
+        public bool RemoveItem(ItemData item)
+        {
+            if (item == null) return false;
+            bool removed = currentItems.Remove(item);
+            if (removed)
+            {
+                RefreshSlots();
+                Debug.Log("[" +item.itemName + "] 가 인벤토리에서 제거되었습니다.");
+            }
+            return removed;
+        }
+
+        // 필요하면 인벤토리 전체 가져오기
+        public List<ItemData> GetCurrentItems()
+        {
+            return new List<ItemData>(currentItems);
         }
 
         private void Update()
@@ -131,29 +192,25 @@ namespace Project.Inventory
         {
             if (item == null)
             {
-                // 빈 슬롯 클릭하면 우측 클리어 되도록
                 ClearRightPanel();
                 return;
             }
 
             currentSelected = item;
 
-            if (selectedItemIcon != null && item.icon != null)
-            {
-                selectedItemIcon.sprite = item.icon;
-                selectedItemIcon.color = Color.white;
-            }
-
-            if (selectedItemName != null) selectedItemName.text = item.itemName;
-            if (selectedItemEx != null) selectedItemEx.text = item.explain;
+            selectedItemIcon.sprite = item.icon;
+            selectedItemIcon.color = Color.white;
+            selectedItemName.text = item.itemName;
+            selectedItemEx.text = item.explain;
         }
 
-        // Select 버튼 눌렀을 때 디버그 출력
+        // Select 버튼 눌렀을 때
         private void OnSelectButton()
         {
             if (currentSelected != null)
             {
-                Debug.Log("아이템이 선택되었습니다.");
+                EquipItem(currentSelected);
+                Debug.Log("[" + currentSelected.itemName + "] 가 장착되었습니다.");
             }
             else
             {

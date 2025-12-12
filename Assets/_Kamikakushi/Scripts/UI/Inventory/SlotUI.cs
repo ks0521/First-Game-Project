@@ -51,7 +51,7 @@ namespace Project.Inventory
             InventoryController.Instance?.OnSlotClicked(this, myItem);
         }
 
-        // 외부에서 필요하면 현재 아이템을 가져올 수 있게
+        // 외부에서 현재 아이템을 가져올 수 있게
         public ItemData GetItem() => myItem;
     }
 }
