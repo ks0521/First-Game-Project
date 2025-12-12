@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-namespace Assets._Kamikakushi.Contents.Monster
+namespace _Kamikakushi.Contents.Monster
 {
     public class Banshee : PhysicalMonster
     {
         protected override void Awake()
         {
-            speed = 4.5f; // ºü¸¥ ¸ó½ºÅÍ
+            speed = 4.5f; // ë¹ ë¥¸ ëª¬ìŠ¤í„°
             base.Awake();
         }
     }

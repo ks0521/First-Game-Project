@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-namespace Assets._Kamikakushi.Contents.Monster
+namespace _Kamikakushi.Contents.Monster
 {
     public class OldMan : MentalMonster
     {
         protected override void Awake()
         {
-            speed = 2f; // ´À¸° ¸ó½ºÅÍ
+            speed = 2f; // ëŠë¦° ëª¬ìŠ¤í„°
             base.Awake();
         }
     }

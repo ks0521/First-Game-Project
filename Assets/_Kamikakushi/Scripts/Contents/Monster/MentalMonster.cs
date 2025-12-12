@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-namespace Assets._Kamikakushi.Contents.Monster
+namespace _Kamikakushi.Contents.Monster
 {
     public class MentalMonster : Monster
     {
@@ -12,7 +12,7 @@ namespace Assets._Kamikakushi.Contents.Monster
 
         public virtual bool Hit(Vector3 targetPos)
         {
-            // ¸àÅ» Å¸ÀÔ °ø°Ý Ã³¸®
+            // ë©˜íƒˆ íƒ€ìž… ê³µê²© ì²˜ë¦¬
             Debug.Log($"{name} Mental Attack!");
             return true;
         }

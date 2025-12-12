@@ -1,7 +1,7 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets._Kamikakushi.Contents.Monster
+namespace _Kamikakushi.Contents.Monster
 {
     public abstract class Monster : MonoBehaviour
     {
@@ -41,7 +41,7 @@ namespace Assets._Kamikakushi.Contents.Monster
 
         protected virtual bool SearchPlayer()
         {
-            // ½Ã¾ß / °Å¸® Ã¼Å© µî ±¸Çö °¡´É
+            // ì‹œì•¼ / ê±°ë¦¬ ì²´í¬ ë“± êµ¬í˜„ ê°€ëŠ¥
             return true;
         }
 

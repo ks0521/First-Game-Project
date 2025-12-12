@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-namespace Assets._Kamikakushi.Contents.Monster
+namespace _Kamikakushi.Contents.Monster
 {
     public class PhysicalMonster : Monster
     {
@@ -12,7 +12,7 @@ namespace Assets._Kamikakushi.Contents.Monster
 
         public virtual bool Hit(Vector3 targetPos)
         {
-            // ±ÙÁ¢ °ø°Ý Ã³¸®
+            // ê·¼ì ‘ ê³µê²© ì²˜ë¦¬
             Debug.Log($"{name} Physical Hit!");
             return true;
         }
