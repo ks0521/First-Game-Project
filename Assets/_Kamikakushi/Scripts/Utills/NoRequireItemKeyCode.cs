@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Kamikakushi.Utills
 {
-    public class NoRequireItemKeyCode : IInteractionCondition
+    public class NoRequireItemKeyCode : MonoBehaviour,IInteractionCondition
     {
         public bool CanInteract(PlayerManager target)
         {
