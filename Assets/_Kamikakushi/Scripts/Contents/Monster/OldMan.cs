@@ -6,6 +6,7 @@ namespace _Kamikakushi.Contents.Monster
     {
         protected override void Awake()
         {
+            movementType = MovementType.Transform;
             speed = 2f; // 느린 몬스터
             base.Awake();
         }
