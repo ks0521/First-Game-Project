@@ -27,7 +27,7 @@ namespace _Kamikakushi.Contents.Player
         IEnumerator CameraShake(float ShakeTime)
         {
             //카메라 흔들리는 중(==피격판정 중)에는 다른 몬스터에게 피격당하지 않음
-            playerHit.enabled = false;
+            //playerHit.enabled = false;
             Debug.Log(playerHit.enabled);
             shakeCount = shakeCorrection;
             endTime = Time.time + ShakeTime;
