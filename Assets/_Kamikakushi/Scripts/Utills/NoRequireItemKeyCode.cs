@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills;
 using UnityEngine;
 
 namespace _Kamikakushi.Utills
 {
-    public class NoRequireItemKeyCode : IInteractionCondition
+    public class NoRequireItemKeyCode : MonoBehaviour,IInteractionCondition
     {
         public bool CanInteract(PlayerManager target)
         {

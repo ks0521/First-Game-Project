@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills;
 using UnityEngine;
 
-public class RequireItemKeyCode : IInteractionCondition
+public class RequireItemKeyCode : MonoBehaviour,IInteractionCondition
 {
     [SerializeField] private int requireKeycode;
     /// <summary>

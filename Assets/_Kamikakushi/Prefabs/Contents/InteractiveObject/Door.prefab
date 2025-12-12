@@ -119,11 +119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   condition:
-    rid: 6793636309241430016
+    rid: 6793636338141495297
   references:
     version: 2
     RefIds:
-    - rid: 6793636309241430016
+    - rid: 6793636338141495297
       type: {class: RequireItemKeyCode, ns: , asm: Assembly-CSharp}
       data:
-        requireKeycode: 0
+        requireKeycode: 3
