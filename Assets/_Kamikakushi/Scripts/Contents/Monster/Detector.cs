@@ -14,6 +14,7 @@ namespace _Kamikakushi.Contents.Monster
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Detector Trigger Enter: " + other.name);
             if (!other.CompareTag("Player")) return;
 
             owner?.OnPlayerDetected(other.transform.position);
@@ -24,5 +25,6 @@ namespace _Kamikakushi.Contents.Monster
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, range);
         }
+    
     }
 }
