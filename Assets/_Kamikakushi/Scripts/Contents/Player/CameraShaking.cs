@@ -6,7 +6,7 @@ namespace _Kamikakushi.Contents.Player
 {
     public class CameraShaking : MonoBehaviour
     {
-        [SerializeField] PlayerHit playerHit;
+        [SerializeField] PlayerEvents events;
         //카메라 흔들리는 세기
         [SerializeField][Range(0.01f, 0.1f)] float shakePower = 0.05f;
         //카메라가 한쪽으로만 흔들리는것을 보정해줌
@@ -20,15 +20,14 @@ namespace _Kamikakushi.Contents.Player
         float moveY;
         void Start()
         {
-            playerHit = GetComponentInParent<PlayerHit>();
-            playerHit.PlayerHitEvent += StartShaking;
+            events = GetComponentInParent<PlayerEvents>();
+            events.PlayerHitEvent += StartShaking;
         }
 
         IEnumerator CameraShake(float ShakeTime)
         {
             //카메라 흔들리는 중(==피격판정 중)에는 다른 몬스터에게 피격당하지 않음
             //playerHit.enabled = false;
-            Debug.Log(playerHit.enabled);
             shakeCount = shakeCorrection;
             endTime = Time.time + ShakeTime;
             Debug.Log(Time.time);
@@ -56,8 +55,6 @@ namespace _Kamikakushi.Contents.Player
 
             transform.position = initialPosition;
             //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음
-            playerHit.enabled = true;
-            Debug.Log(playerHit.enabled);
         }
         void StartShaking(float shakeTime)
         {

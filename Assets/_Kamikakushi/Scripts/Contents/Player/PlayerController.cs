@@ -10,7 +10,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] CharacterController characterController;
         [SerializeField] private float mouseSpeed = 5f;
         [SerializeField] private float gravity = -9.8f;
-        [SerializeField] PlayerHit PlayerHitEvent;
+        [SerializeField] PlayerEvents events;
 
         float mouseX = 0;
         float mouseY = 0;
@@ -30,8 +30,8 @@ namespace _Kamikakushi.Contents.Player
         {
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
             canControll = true;
-            PlayerHitEvent = GetComponent<PlayerHit>();
-            PlayerHitEvent.PlayerHitEvent += CameraHolding; 
+            events = GetComponent<PlayerEvents>();
+            events.PlayerHitEvent += CameraHolding; 
 
             characterController = GetComponent<CharacterController>();
             yaw = transform.rotation.eulerAngles.y;

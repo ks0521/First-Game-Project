@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Kamikakushi.Utills.Enums
 {
-    public enum layerMask
+    public enum AdaptedLayerMask
     {
         Player = 1 << 6,
         Monster = 1 << 8,
