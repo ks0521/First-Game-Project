@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
+    /// <summary>
+    /// 커서 및 자원, 숨기상태 관리
+    /// </summary>
     public class PlayerManager : MonoBehaviour
     {
 
@@ -36,6 +39,7 @@ namespace _Kamikakushi.Contents.Player
                     Cursor.lockState = CursorLockMode.Locked;
                 }
             }
+            
         }
     }
 

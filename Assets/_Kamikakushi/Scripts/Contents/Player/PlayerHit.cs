@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
+    /// <summary>
+    /// 플레이어 피격처리
+    /// </summary>
     public class PlayerHit : MonoBehaviour, IHittable
     {
         [SerializeField] private PlayerEvents events;
