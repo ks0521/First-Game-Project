@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;

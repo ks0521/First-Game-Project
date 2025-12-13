@@ -13,6 +13,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
         [SerializeField] public ItemScript handeditems;
+        [SerializeField] public bool IsHide {  get; private set; }
         void Awake()
         {
             //Cursor.lockState = CursorLockMode.Locked;
