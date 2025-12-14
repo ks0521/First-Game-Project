@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Enums;
+using _Kamikakushi.Utills.Interfaces;
 using UnityEngine;
 
+struct RaycastInfo
+{
+    
+}
 namespace _Kamikakushi.Contents.Player
 {
     /// <summary>
@@ -51,7 +56,11 @@ namespace _Kamikakushi.Contents.Player
             if (isHit != wasHit)
             {
                 //상호작용 오브젝트를 처음 raycast했을때
-                if (isHit == true) events.OnRaycastEnter(hit);
+                if (isHit == true)
+                {
+                    
+                    events.OnRaycastEnter(hit);
+                }
                 //상호작용 오브젝트에 raycast하지 못했을 때
                 else events.OnRaycastOut();
             }

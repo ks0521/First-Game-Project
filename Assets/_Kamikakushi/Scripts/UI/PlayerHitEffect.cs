@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using _Kamikakushi.Contents.Player;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Kamikakushi.Contents.Player
+namespace _Kamikakushi.Contents.UI
 {
-    public class CameraShaking : MonoBehaviour
+    public class PlayerHitEffect : MonoBehaviour
     {
         [SerializeField] PlayerEvents events;
         //카메라 흔들리는 세기
@@ -54,7 +55,7 @@ namespace _Kamikakushi.Contents.Player
             }
 
             transform.position = initialPosition;
-            //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음
+            //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음(구현필요)
         }
         void StartShaking(float shakeTime)
         {

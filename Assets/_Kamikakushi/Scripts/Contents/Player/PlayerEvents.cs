@@ -15,7 +15,8 @@ namespace _Kamikakushi.Contents.Player
         /// </summary>
         public event Action<float> PlayerHitEvent;
         /// <summary>
-        /// InteractableObject를 레이캐스트 성공시 발생, 탐지한 오브젝트 인자로 전달
+        /// InteractableObject를 레이캐스트 성공시 발생, 
+        /// 탐지한 오브젝트의 정보를 전달
         /// </summary>
         public event Action<RaycastHit> RaycastEnter;
         /// <summary>
@@ -28,7 +29,7 @@ namespace _Kamikakushi.Contents.Player
         }
         public void OnRaycastEnter(RaycastHit hit)
         {
-            Debug.Log("상호작용 성공");
+            Debug.Log("상호작용 탐지 성공");
             RaycastEnter?.Invoke(hit);
         }
         public void OnRaycastOut()

@@ -9,7 +9,7 @@ namespace _Kamikakushi.Utills.Interfaces
     public interface IInteractable
     {
         //상호작용 가능한 아이템에 달리는 인터페이스
-        public bool CanInteract(PlayerManager target);
-        public void Interact(PlayerManager target);
+        //상호작용이 가능하다면 true 반환
+        public bool Interact(PlayerManager target);
     }
 }
