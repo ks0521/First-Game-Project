@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Interfaces;
 using UnityEngine;
 
 namespace _Kamikakushi.Utills

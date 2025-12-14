@@ -6,16 +6,21 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
+    /// <summary>
+    /// 커서 및 자원, 숨기상태 관리
+    /// </summary>
     public class PlayerManager : MonoBehaviour
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
-        [SerializeField] public ItemScript handeditems;
+        [SerializeField] public PickUpItems handeditems;
+        [SerializeField] public bool IsHide {  get; private set; }
         void Awake()
         {
             //Cursor.lockState = CursorLockMode.Locked;
+            handeditems = null;
             sanity = 100;
             Debug.Log(sanity);
         }
@@ -35,6 +40,7 @@ namespace _Kamikakushi.Contents.Player
                     Cursor.lockState = CursorLockMode.Locked;
                 }
             }
+            
         }
     }
 

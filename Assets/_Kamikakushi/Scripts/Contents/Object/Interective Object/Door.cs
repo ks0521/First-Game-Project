@@ -1,37 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills;
 using _Kamikakushi.Contents.Player;
 using UnityEngine;
+using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Utills.Enums;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public class Door : MonoBehaviour, IInteractable
+    public class Door : InteractItems, IInteractable
     {
-        public IInteractionCondition[] conditions;
-
-        public void Awake()
+        protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
-            conditions = GetComponents<IInteractionCondition>();
+            interactType = InteractType.Door;
         }
-        public bool CanInteract(PlayerManager target)
+        public override bool CanInteract(PlayerManager target)
         {
-            foreach (IInteractionCondition condition in conditions)
+            if(!base.CanInteract(target))
             {
-                if (!condition.CanInteract(target)) return false;
+                return false;
             }
+
+            //오브젝트 특성별 interact 조건 추가
             return true;
-        }
 
-        public void Interact(PlayerManager target)
+        }
+        public bool Interact(PlayerManager target)
         {
-            //상호작용(문이 열린다 / 길이 나온다 / 이벤트 발생 등등....)
-            Debug.Log("상호작용 했습니다.");
+            if (CanInteract(target))
+            {
+                Debug.Log("상호작용 했습니다.");
+                return true;
+            }
+            return false;
         }
-
-        // Start is called before the first frame update
-
     }
-
 }
