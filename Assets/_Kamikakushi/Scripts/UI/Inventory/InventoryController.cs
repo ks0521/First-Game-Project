@@ -116,6 +116,12 @@ namespace Project.Inventory
 
             // 게임플레이 HUD에 표시
             hudController?.SetEquippedItem(item);
+
+            // 아이템 장착 액션 발생
+            if (item.itemAction != null)
+            {
+                item.itemAction.OnEquip(FindObjectOfType<Player>());
+            }
         }
 
         public bool RemoveItem(ItemData item)

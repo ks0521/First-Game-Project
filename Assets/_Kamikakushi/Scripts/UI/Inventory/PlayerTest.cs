@@ -72,6 +72,12 @@ public class Player : MonoBehaviour
         inv.hudController?.SetEquippedItem(null);
 
         inv.SendMessage("ClearRightPanel");
+
+        // 아이템 사용 시 액션 실행
+        if (equipped.itemAction != null)
+        {
+            equipped.itemAction.OnUse(this);
+        }
     }
 }
 

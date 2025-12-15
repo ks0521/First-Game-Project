@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b5c5bf2b1396afa49b3148ce2c120f08, type: 3}
   explain: "\uCCB4\uB825\uC774 \uD68C\uBCF5 \uB429\uB2C8\uB2E4."
   prefab: {fileID: 0}
+  itemAction: {fileID: 11400000, guid: a22780b8af2412d459e15a5688f8bbaa, type: 2}
