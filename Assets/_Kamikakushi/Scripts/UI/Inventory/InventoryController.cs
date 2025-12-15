@@ -47,6 +47,8 @@ namespace Project.Inventory
 
         public HUDController hudController;
 
+        public Player player;
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
@@ -117,10 +119,11 @@ namespace Project.Inventory
             // 게임플레이 HUD에 표시
             hudController?.SetEquippedItem(item);
 
-            // 아이템 장착 액션 발생
-            if (item.itemAction != null)
+            // 아이템 키 코드
+            if (player != null)
             {
-                item.itemAction.OnEquip(FindObjectOfType<Player>());
+                player.equippedKeyCode = item.keyCode;
+                Debug.Log("키 코드 장착됨 : " + item.keyCode);
             }
         }
 
@@ -222,6 +225,23 @@ namespace Project.Inventory
             {
                 Debug.Log("장착할 아이템이 없습니다.");
             }
+        }
+
+        public void OnItemConsumed(ItemData item)
+        {
+            if (item == null) return;
+
+            // 장착 해제
+            if (EquippedItem == item)
+            {
+                EquippedItem = null;
+                hudController?.SetEquippedItem(null);
+
+                if (player != null)
+                    player.equippedKeyCode = null;
+            }
+
+            ClearRightPanel();
         }
     }
 }

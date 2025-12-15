@@ -338,6 +338,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1218196579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 795299969518559154, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
+  m_PrefabInstance: {fileID: 1008793565776026677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596d226827bd8594086d67260d4793be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1749382857 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8364099160798479711, guid: 71c2327ba6237444891cfbb4a20e88bd, type: 3}
@@ -476,14 +487,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 795299969518559154, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
+      propertyPath: moveSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5366635610930755422, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
       propertyPath: m_Name
       value: Test
       objectReference: {fileID: 0}
-    - target: {fileID: 7112979621564685430, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
-      propertyPath: itemData
-      value: 
-      objectReference: {fileID: 11400000, guid: 1f536829519d5d24fa1254e6501540e9, type: 2}
+    - target: {fileID: 8135973327126928704, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9102819911133215665, guid: 37c10a86b1e7c504391edd7b1ab0bbdc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 436.6222
@@ -1064,6 +1079,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1218196579}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
       propertyPath: leftArea
       value: 
       objectReference: {fileID: 329017881}
@@ -1095,6 +1114,26 @@ PrefabInstance:
       propertyPath: selectedItemName
       value: 
       objectReference: {fileID: 1846873372}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: initialItems.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: initialItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ecaba7c9fd4bf0419802f35ee9b09b9, type: 2}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: initialItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 15d84703cdd37694ca540e1561119a14, type: 2}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: initialItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 15d84703cdd37694ca540e1561119a14, type: 2}
+    - target: {fileID: 5779153115972780564, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
+      propertyPath: initialItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 15d84703cdd37694ca540e1561119a14, type: 2}
     - target: {fileID: 7477854569396161621, guid: 20e351052618e284f88ed0ee8fc2b53f, type: 3}
       propertyPath: m_Name
       value: InventoryController

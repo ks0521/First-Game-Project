@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
 
+    public string equippedKeyCode;
+
     private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -60,23 +62,24 @@ public class Player : MonoBehaviour
 
         Debug.Log("[" + equipped.itemName + "] 아이템이 사용되었습니다.");
 
-        // 여기서 아이템 효과 처리할 수 있습니다.
-
         // 인벤토리에서 삭제
         inv.RemoveItem(equipped);
+        inv.OnItemConsumed(equipped);
+    }
 
-        // 장착 해제
-        inv.EquippedItem = null;
+    public void ConsumeEquippedKey()
+    {
+        if (string.IsNullOrEmpty(equippedKeyCode))
+            return;
 
-        // HUD에서 아이콘 제거
-        inv.hudController?.SetEquippedItem(null);
+        Debug.Log("열쇠 소비됨 : " + equippedKeyCode);
 
-        inv.SendMessage("ClearRightPanel");
-
-        // 아이템 사용 시 액션 실행
-        if (equipped.itemAction != null)
+        var inv = InventoryController.Instance;
+        if (inv != null && inv.EquippedItem != null)
         {
-            equipped.itemAction.OnUse(this);
+            ItemData usedItem = inv.EquippedItem;
+            inv.RemoveItem(usedItem);
+            inv.OnItemConsumed(usedItem);
         }
     }
 }

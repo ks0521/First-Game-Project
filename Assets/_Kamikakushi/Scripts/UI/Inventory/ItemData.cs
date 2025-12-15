@@ -13,6 +13,7 @@ namespace Project.Inventory
         public string explain;
 
         public GameObject prefab;
-        public ItemAction itemAction;
+
+        public string keyCode;
     }
 }
