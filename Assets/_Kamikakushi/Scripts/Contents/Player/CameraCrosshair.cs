@@ -20,6 +20,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] private RectTransform crosshair;
         [SerializeField] private PlayerEvents events;
         [SerializeField] private float maxDistance = 5f;
+        private IInteractable interactObj;
         private bool wasHit;
         private bool isHit;
         private Ray ray;
@@ -58,7 +59,7 @@ namespace _Kamikakushi.Contents.Player
                 //상호작용 오브젝트를 처음 raycast했을때
                 if (isHit == true)
                 {
-                    
+                    interactObj = hit.collider.gameObject.GetComponent<IInteractable>();
                     events.OnRaycastEnter(hit);
                 }
                 //상호작용 오브젝트에 raycast하지 못했을 때

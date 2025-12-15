@@ -16,6 +16,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
         [SerializeField] public PickUpItems handeditems;
+        [SerializeField] public GameObject flash;
         [SerializeField] public bool IsHide {  get; private set; }
         void Awake()
         {
@@ -39,6 +40,10 @@ namespace _Kamikakushi.Contents.Player
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                flash.SetActive(!flash.activeSelf);
             }
             
         }
