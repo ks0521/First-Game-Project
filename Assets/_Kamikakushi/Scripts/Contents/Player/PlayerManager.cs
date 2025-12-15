@@ -15,7 +15,7 @@ namespace _Kamikakushi.Contents.Player
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
-        [SerializeField] public PickUpItems handeditems;
+        [SerializeField] public PickUpItems handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public GameObject flash;
         private float battery;
         [SerializeField] public bool IsHide {  get; private set; }
