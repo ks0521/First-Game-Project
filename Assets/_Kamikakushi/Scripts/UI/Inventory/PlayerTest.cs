@@ -9,6 +9,20 @@ public class Player : MonoBehaviour
 
     public string equippedKeyCode;
 
+    public float maxHP = 100f;
+    public float currentHP = 100f;
+
+    public float maxMP = 100f;
+    public float currentMP = 100f;
+
+    public HUDController hud;
+
+    private void Start()
+    {
+        hud.UpdateHP(currentHP, maxHP);
+        hud.UpdateMP(currentMP, maxMP);
+    }
+
     private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -24,6 +38,26 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             UseEquippedItemTest();
+        }
+
+        // 테스트용 H 누르면 체력 감소
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            currentHP -= 10f;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+            hud.UpdateHP(currentHP, maxHP);
+
+            Debug.Log("체력이 감소합니다.");
+        }
+
+        // 테스트용 J 누르면 정신력 감소
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            currentMP -= 10f;
+            currentMP = Mathf.Clamp(currentMP, 0, maxMP);
+            hud.UpdateMP(currentMP, maxMP);
+
+            Debug.Log("정신력이 감소합니다.");
         }
     }
 
