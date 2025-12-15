@@ -37,6 +37,10 @@ namespace _Kamikakushi.Contents.Player
             Debug.Log("시선 떨어짐");
             RaycastOut?.Invoke();
         }
+        public void OnInteract()
+        {
+
+        }
     }
 }
 

@@ -16,15 +16,24 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
         [SerializeField] public PickUpItems handeditems;
+        [SerializeField] public GameObject flash;
+        private float battery;
         [SerializeField] public bool IsHide {  get; private set; }
         void Awake()
         {
+            battery = 100;
             //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
             sanity = 100;
             Debug.Log(sanity);
         }
-
+        private void FixedUpdate()
+        {
+            if (flash.activeSelf)
+            {
+                battery -= 0.02f;
+            }
+        }
         // Update is called once per frame
         void Update()
         {
@@ -40,7 +49,10 @@ namespace _Kamikakushi.Contents.Player
                     Cursor.lockState = CursorLockMode.Locked;
                 }
             }
-            
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                flash.SetActive(!flash.activeSelf);
+            }
         }
     }
 
