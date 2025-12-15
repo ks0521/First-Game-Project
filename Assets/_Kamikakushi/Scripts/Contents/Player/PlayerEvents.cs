@@ -1,10 +1,16 @@
-﻿using System;
+﻿using _Kamikakushi.Utills.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
+    public struct interactAttemptinfo
+    {
+        public InteractType type;
+        public string text;
+    }
     /// <summary>
     /// 플레이어에게서 발생하는 모든 이벤트를 발행하는 창구
     /// </summary>
@@ -19,6 +25,7 @@ namespace _Kamikakushi.Contents.Player
         /// 탐지한 오브젝트의 정보를 전달
         /// </summary>
         public event Action<RaycastHit> RaycastEnter;
+        //public event Action<interactAttemptinfo> info;
         /// <summary>
         /// InteractableObject에서 레이캐스트가 떨어졌을 시 발생
         /// </summary>
