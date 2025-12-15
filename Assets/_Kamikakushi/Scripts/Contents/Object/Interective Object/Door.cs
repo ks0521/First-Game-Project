@@ -14,6 +14,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
         protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
+            explain = "E : 사용";
             interactType = InteractType.Door;
         }
         public override bool CanInteract(PlayerManager target)

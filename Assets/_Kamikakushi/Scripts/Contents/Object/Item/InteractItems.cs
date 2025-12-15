@@ -10,7 +10,7 @@ namespace _Kamikakushi.Contents.Item
     abstract public class InteractItems : MonoBehaviour
     {
         [SerializeField]protected string itemName;
-        [SerializeField]protected string itemDescription;
+        [SerializeField] protected string explain;
         [SerializeField]public InteractType interactType;
         protected IInteractionCondition[] conditions;
 
