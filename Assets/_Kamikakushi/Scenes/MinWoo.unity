@@ -825,7 +825,7 @@ MonoBehaviour:
   itemName: 
   explain: 
   interactType: 0
-  hidePoint: {fileID: 0}
+  hidePoint: {fileID: 1550285626}
 --- !u!1001 &8372207410609629823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4472465326563340907, guid: 2dfc52d41320eab488093223d65f2743, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.67
+      value: 3.48
       objectReference: {fileID: 0}
     - target: {fileID: 4472465326563340907, guid: 2dfc52d41320eab488093223d65f2743, type: 3}
       propertyPath: m_LocalPosition.y
