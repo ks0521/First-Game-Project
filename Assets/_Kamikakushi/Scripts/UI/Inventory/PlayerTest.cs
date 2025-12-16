@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     {
         hud.UpdateHP(currentHP, maxHP);
         hud.UpdateMP(currentMP, maxMP);
+
+        InventoryController.Instance.OnItemEquipped += ReceiveKeyCode;
     }
 
     private void Update()
@@ -97,7 +99,6 @@ public class Player : MonoBehaviour
         Debug.Log("[" + equipped.itemName + "] 아이템이 사용되었습니다.");
 
         // 인벤토리에서 삭제
-        inv.RemoveItem(equipped);
         inv.OnItemConsumed(equipped);
     }
 
@@ -112,9 +113,14 @@ public class Player : MonoBehaviour
         if (inv != null && inv.EquippedItem != null)
         {
             ItemData usedItem = inv.EquippedItem;
-            inv.RemoveItem(usedItem);
             inv.OnItemConsumed(usedItem);
         }
+    }
+
+    public void ReceiveKeyCode(string keyCode)
+    {
+        equippedKeyCode = keyCode;
+        Debug.Log("플레이어가 키 코드 받음 : " + keyCode);
     }
 }
 
