@@ -1,22 +1,27 @@
 ﻿using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Kamikakushi.Contents.Item
 {
-    public class KeyScript : PickUpItems,IInteractable
+    public class KeyPickup : InteractItems, IInteractable
     {
+        protected override void Init()
+        {
+        }
+
+        public override bool CanInteract(PlayerManager target)
+        {
+            return base.CanInteract(target);
+        }
 
         public bool Interact(PlayerManager target)
         {
-            return true;
-        }
+            if (!CanInteract(target))
+                return false;
 
-        protected override void Init()
-        {
-            KeyCode = 3;
+            gameObject.SetActive(false);
+            return true;
         }
     }
 }

@@ -5,23 +5,18 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public class Wardrobe : InteractItems, IInteractable
+    public class WardrobeHide : InteractItems, IInteractable
     {
-        [Header("Hide Settings")]
         [SerializeField] private Transform hidePoint;
-        private bool isHiding = false;
+        private bool isHiding;
 
         protected override void Init()
         {
-            explain = "E : ¼û±â";
         }
 
         public override bool CanInteract(PlayerManager target)
         {
-            if (!base.CanInteract(target))
-                return false;
-
-            return true;
+            return base.CanInteract(target);
         }
 
         public bool Interact(PlayerManager target)
@@ -31,16 +26,14 @@ namespace _Kamikakushi.Contents.InteractiveObject
 
             if (!isHiding)
             {
-                // ¼û±â ÁøÀÔ
                 target.transform.position = hidePoint.position;
                 isHiding = true;
-                Debug.Log("Àå·Õ ¾ÈÀ¸·Î ¼û¾ú´Ù.");
+                Debug.Log("[Wardrobe] ¼û±â ÁøÀÔ");
             }
             else
             {
-                // ¼û±â ÇØÁ¦
                 isHiding = false;
-                Debug.Log("Àå·Õ¿¡¼­ ³ª¿Ô´Ù.");
+                Debug.Log("[Wardrobe] ¼û±â ÇØÁ¦");
             }
 
             return true;
