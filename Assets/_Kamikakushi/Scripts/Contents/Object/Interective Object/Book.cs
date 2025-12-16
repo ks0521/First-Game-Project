@@ -37,4 +37,3 @@ namespace _Kamikakushi.Contents.InteractiveObject
         }
     }
 }
-
