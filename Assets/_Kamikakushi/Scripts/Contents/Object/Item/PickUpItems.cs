@@ -19,7 +19,8 @@ namespace _Kamikakushi.Contents.Item
         public bool Interact(PlayerManager target)
         {
             target.inven.Add(data);
-            Destroy(this);
+            Debug.Log("인벤토리 추가");
+            Destroy(gameObject);
             return true;
         }
     }
