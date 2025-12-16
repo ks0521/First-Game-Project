@@ -4,10 +4,12 @@ namespace _Kamikakushi.Contents.Monster
 {
     public class Zombie : PhysicalMonster
     {
-        [Header("Zombie View Settings")]
-        [SerializeField] private float viewAngle = 30f; // 시야 각도
+        [Header("Zombie Rules")]
+        [SerializeField] private float freezeDistance = 15f; 
+        [SerializeField] private float viewAngle = 30f;
 
         private Transform playerCam;
+        private bool isFrozenByLook = false;
 
         protected override void Awake()
         {
@@ -20,45 +22,58 @@ namespace _Kamikakushi.Contents.Monster
 
         protected override void Update()
         {
-            if (isChasing && IsPlayerLookingAtZombie())
+            if (IsInFreezeRange() && IsPlayerLookingAtZombie())
             {
-                StopChase();
+                Freeze();
                 return;
             }
 
+            isFrozenByLook = false;
             base.Update();
+        }
+
+        private bool IsInFreezeRange()
+        {
+            float dist = Vector3.Distance(playerCam.position, transform.position);
+            return dist <= freezeDistance;
         }
 
         private bool IsPlayerLookingAtZombie()
         {
-            if (playerCam == null) return false;
-
             Vector3 toZombie = (transform.position - playerCam.position).normalized;
 
-            // 1️⃣ 각도 체크 (거리 무관)
             float angle = Vector3.Angle(playerCam.forward, toZombie);
             if (angle > viewAngle) return false;
 
-            // 2️⃣ Raycast (무한 거리)
             if (Physics.Raycast(
                 playerCam.position,
                 toZombie,
                 out RaycastHit hit,
-                Mathf.Infinity))
+                freezeDistance))
             {
-                if (hit.transform == transform)
-                    return true;
+                return hit.transform == transform;
             }
 
             return false;
         }
 
-        private void StopChase()
+        private void Freeze()
         {
+            if (isFrozenByLook) return;
+
+            isFrozenByLook = true;
             isChasing = false;
 
             if (agent != null)
                 agent.ResetPath();
+        }
+
+        public override void OnPlayerDetected(Vector3 targetPos)
+        {
+            if (isFrozenByLook)
+                return;
+
+            base.OnPlayerDetected(targetPos);
         }
     }
 }
