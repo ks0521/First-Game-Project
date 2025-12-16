@@ -7,7 +7,7 @@ namespace _Kamikakushi.Contents.Monster
         protected override void Awake()
         {
             movementType = MovementType.Transform;
-            speed = 2f; // 느린 몬스터
+            speed = 2f; // 느린 몬스터 //이 부분을 수정해주세요
             base.Awake();
         }
     }
