@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Project.Inventory;
+
+
+public class ItemPickup : MonoBehaviour
+{
+    public ItemData itemData; // 주울 아이템 데이터
+
+    private bool playerInRange = false;
+    private Player playerRef;
+
+    private void Reset()
+    {
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        playerRef = other.GetComponent<Player>();
+        playerInRange = true;
+
+        Debug.Log("E 키로 [" + itemData.itemName + "] 줍기");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        playerInRange = false;
+        playerRef = null;
+    }
+
+    private void Update()
+    {
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            TryPickup();
+        }
+    }
+
+    private void TryPickup()
+    {
+        if (playerRef == null || itemData == null) return;
+
+        playerRef.PickUp(itemData);
+
+        Destroy(gameObject);
+    }
+}
