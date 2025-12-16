@@ -10,9 +10,10 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] CharacterController characterController;
         [SerializeField] private float mouseSpeed = 5f;
         [SerializeField] private float gravity = -9.8f;
+        [SerializeField] PlayerEvents events;
 
-        private float mouseX = 0;
-        private float mouseY = 0;
+        float mouseX = 0;
+        float mouseY = 0;
         float yaw;
         float pitch;
 
@@ -23,8 +24,15 @@ namespace _Kamikakushi.Contents.Player
         Vector3 velocity;
         Vector3 move;
 
+        bool canControll;
+
         private void Start()
         {
+            //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
+            canControll = true;
+            events = GetComponent<PlayerEvents>();
+            events.PlayerHitEvent += CameraHolding; 
+
             characterController = GetComponent<CharacterController>();
             yaw = transform.rotation.eulerAngles.y;
             // 카메라의 현재 X각도(상하)
@@ -34,11 +42,26 @@ namespace _Kamikakushi.Contents.Player
         }
         void Update()
         {
-            Rotation();
-            Moving();
+            if (canControll)
+            {
+                Rotation();
+                Moving();
+            }
         }
 
-        private void Moving()
+        IEnumerator CameraHold(float time)
+        {
+            canControll = false;
+            yield return new WaitForSeconds(time);
+            canControll = true;
+        }
+        //카메라 잠금
+        public void CameraHolding(float time)
+        {
+            Debug.Log("카메라 잠금 시작");
+            StartCoroutine(CameraHold(time));
+        }
+        void Moving()
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
@@ -61,6 +84,8 @@ namespace _Kamikakushi.Contents.Player
             characterController.Move(move * Time.deltaTime);
 
         }
+
+
         private void Rotation()
         {
             mouseX = Input.GetAxis("Mouse X") * mouseSpeed;
