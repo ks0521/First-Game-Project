@@ -6,17 +6,8 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Item
 {
-    public class KeyScript : PickUpItems,IInteractable
+    public class KeyScript : PickUpItems
     {
 
-        public bool Interact(PlayerManager target)
-        {
-            return true;
-        }
-
-        protected override void Init()
-        {
-            KeyCode = 3;
-        }
     }
 }

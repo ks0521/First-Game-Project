@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class RequireItemKeyCode : MonoBehaviour,IInteractionCondition
 {
-    [SerializeField] private int requireKeycode;
+    [SerializeField] private string requireKeycode;
     /// <summary>
     /// 플레이어가 장착중인 아이템이 사용가능한지 여부 확인 
     /// </summary>
@@ -20,7 +20,7 @@ public class RequireItemKeyCode : MonoBehaviour,IInteractionCondition
             Debug.Log("조건 확인 : 플레이어가 장착중인 아이템 없음");
             return false;
         }
-        if (target.handeditems.KeyCode == requireKeycode)
+        if (target.handeditems == requireKeycode )
         {
             Debug.Log("조건 확인 : 플레이어가 알맞은 아이템 가지고 있음, 상호작용");
             return true;

@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills.Enums;
+using Project.Inventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace _Kamikakushi.Contents.Player
     /// </summary>
     public class PlayerEvents : MonoBehaviour
     {
+        public event Action<ItemData> ItemPickUp;
         /// <summary>
         /// 플레이어 피격 이벤트, 받은 데미지 인자로 전달
         /// </summary>
@@ -47,6 +49,10 @@ namespace _Kamikakushi.Contents.Player
         public void OnInteract()
         {
 
+        }
+        public void OnPickUp(ItemData data)
+        {
+            ItemPickUp?.Invoke(data);
         }
     }
 }

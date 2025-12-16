@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _Kamikakushi.Utills.Enums;
+using Project.Inventory;
+using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Contents.Player;
 
 namespace _Kamikakushi.Contents.Item
 {
-    abstract public class PickUpItems : MonoBehaviour
+    public class PickUpItems : MonoBehaviour, IInteractable
     {
-        public int KeyCode { get; protected set; }
-        [SerializeField]protected string itemName;
-        [SerializeField]protected string itemDescription;
-        private void Awake()
+        [SerializeField]protected ItemData data;
+
+        public bool CanInteract(PlayerManager target)
         {
-            Init();
+            return true;
         }
-        abstract protected void Init(); 
+        public bool Interact(PlayerManager target)
+        {
+            target.inven.Add(data);
+            Destroy(this);
+            return true;
+        }
     }
 
 }
