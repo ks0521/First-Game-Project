@@ -1,29 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using _Kamikakushi.Utills.Structs;
 
-namespace _Kamikakushi.Utills.Structs
+namespace _Kamikakushi.Utills.Enums
 {
     public enum PromptKey
     {
         None = 0,
 
-        //¹®°ü·Ã
-        OpenDoor, //Æ¯Á¤¾ÆÀÌÅÛÇÊ¿ä¾ø´Â ¹®¿­±â (E : ¹®¿­±â), (À§ÂÊÈ­»ìÇ¥¸ð¾ç Å©·Î½ºÇì¾î)
-        LockDoor, //Æ¯Á¤¾ÆÀÌÅÛÀÌÇÊ¿äÇÑ ¹®¿­±â (E : ¿­¼è»ç¿ë),  (¿­¼è¸ð¾ç Å©·Î½ºÇì¾î)
-        CloseDoor, //¹®´Ý±â (E : ¹®´Ý±â), (¾Æ·¡ÂÊÈ­»ìÇ¥¸ð¾ç Å©·Î½ºÇì¾î)
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        OpenDoor, //Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (E : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½), (ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
+        LockDoor, //Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (E : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½),  (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
+        CloseDoor, //ï¿½ï¿½ï¿½Ý±ï¿½ (E : ï¿½ï¿½ï¿½Ý±ï¿½), (ï¿½Æ·ï¿½ï¿½ï¿½È­ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-        //¾ÆÀÌÅÛ°ü·Ã
-        PickupItem, //¾ÆÀÌÅÛ ÁÝ±â (F : ½Àµæ), (´«¶á ¸ð¾ç Å©·Î½ºÇì¾î)
-        UseItem, //¾ÆÀÌÅÛ »ç¿ëÇÏ±â
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ï¿½ï¿½
+        PickupItem, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½ (F : ï¿½ï¿½ï¿½ï¿½), (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
+        UseItem, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 
-        //È¯°æ »óÈ£ÀÛ¿ë
-        AcivateSwitch, //½ºÀ§Ä¡(ÇÊ¿äÇÒ¼öµµÀÖÀ»°Í°°¾Æ¼­)
-        Insprct, //Á¶»ç (F : Á¶»ç), (´«¶á ¸ð¾ç Å©·Î½ºÇì¾î)
+        //È¯ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½
+        AcivateSwitch, //ï¿½ï¿½ï¿½ï¿½Ä¡(ï¿½Ê¿ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ï¿½Æ¼ï¿½)
+        Inspect, //ï¿½ï¿½ï¿½ï¿½ (F : ï¿½ï¿½ï¿½ï¿½), (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-        //¼û±â
-        Hide, //¼û±â (Ctrl : ¼û±â), (´«¹ÝÂë °¨Àº ¸ð¾ç Å©·Î½ºÇì¾î)
-        HideTransform //¼û±âÈÄ Ä«¸Þ¶ó ½ÃÁ¡ÀÌµ¿ (Àå·ÕÆ´À¸·Î ½Ã¼±ÀÌµ¿ÇÏ´Â ´À³¦)
+        //ï¿½ï¿½ï¿½ï¿½
+        Hide, //ï¿½ï¿½ï¿½ï¿½ (Ctrl : ï¿½ï¿½ï¿½ï¿½), (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½)
+        HideTransform //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ (ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½)
     }
 }

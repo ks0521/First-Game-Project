@@ -9,30 +9,31 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public class Book : InteractItems
+    public class Closet : InteractItems
     {
-        //이벤트 진행이 되었는지 판정(이미 진행됬으면 또 읽어도 이벤트 진행이 되지않음 - 중복방지)
-        bool isTriggered;
+        [SerializeField] Transform hidePoint;
         protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
             conditions = GetComponents<IInteractionCondition>();
             interactType = InteractType.Event;
+            hidePoint = GetComponentInChildren<ClosetViewPoint>()?.transform;
+            //ClosetViewPoint 위치탐색용 마커 스크립트
+            if (hidePoint == null)
+            {
+                Debug.LogWarning($"{gameObject.name} 숨기장소 지정 오류!");
+            }
 
-            context.promptKey = PromptKey.Inspect;
-            context.displayName = "책";
-            result.transform = null;
+            context.promptKey = PromptKey.Hide;
+            context.displayName = "옷장";
+
+            result.transform = hidePoint;
         }
         public override InteractResult Interact(PlayerManager target)
         {
+            Debug.Log($"{result.transform.position}위치에 숨기");
             result.success = true;
-            result.message = "내용을 확인해볼까?";
-            if (!isTriggered)
-            {
-                //여기서 책을 읽는 내용이나 스토리 진행 이벤트 실행시키기
-                isTriggered = true;
-            }
-            
+            result.message = "플레이어 숨음";
             return result;
         }
     }

@@ -1,4 +1,6 @@
 ﻿using _Kamikakushi.Utills.Enums;
+using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Structs;
 using Project.Inventory;
 using System;
 using System.Collections;
@@ -26,7 +28,9 @@ namespace _Kamikakushi.Contents.Player
         /// InteractableObject를 레이캐스트 성공시 발생, 
         /// 탐지한 오브젝트의 정보를 전달
         /// </summary>
-        public event Action<RaycastHit> RaycastEnter;
+        public event Action<InteractContext> GetInteractContext;
+        public event Action<InteractResult> GetInteractResult;
+        public event Action<IInteractable> GetInteractable;
         //public event Action<interactAttemptinfo> info;
         /// <summary>
         /// InteractableObject에서 레이캐스트가 떨어졌을 시 발생
@@ -36,19 +40,23 @@ namespace _Kamikakushi.Contents.Player
         {
             PlayerHitEvent?.Invoke(5);
         }
-        public void OnRaycastEnter(RaycastHit hit)
+        public void OnFindInteractable(IInteractable interactable)
+        {
+            GetInteractable?.Invoke(interactable);
+        }
+        public void OnRaycastEnter(InteractContext context)
         {
             Debug.Log("상호작용 탐지 성공");
-            RaycastEnter?.Invoke(hit);
+            GetInteractContext?.Invoke(context);
         }
         public void OnRaycastOut()
         {
             Debug.Log("시선 떨어짐");
             RaycastOut?.Invoke();
         }
-        public void OnInteract()
+        public void OnInteract(InteractResult result)
         {
-
+            GetInteractResult?.Invoke(result);
         }
         public void OnPickUp(ItemData data)
         {

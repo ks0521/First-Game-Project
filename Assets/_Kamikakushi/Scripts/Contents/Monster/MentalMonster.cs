@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Interfaces;
 
 namespace _Kamikakushi.Contents.Monster
 {

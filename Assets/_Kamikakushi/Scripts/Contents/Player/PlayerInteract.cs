@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Structs;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,8 +11,9 @@ namespace _Kamikakushi.Contents.Player
     {
         [SerializeField] PlayerEvents events;
         [SerializeField] PlayerManager playerManager;
-        private IInteractable obj;
+        [SerializeField] private IInteractable obj;
         //상호작용 시도가 가능한가? -> 레이캐스트가 iinteractable인가?
+        private InteractResult result;
         private bool canInteractAttempt;
         private bool canInteract;
 
@@ -19,7 +21,8 @@ namespace _Kamikakushi.Contents.Player
         {
             playerManager = GetComponent<PlayerManager>();
             events = GetComponent<PlayerEvents>();
-            events.RaycastEnter += Attemptable;
+            events.GetInteractContext += Attemptable;
+            events.GetInteractable += GetIntaractable;
             events.RaycastOut += NotAttempable;
         }
         private void Update()
@@ -28,16 +31,19 @@ namespace _Kamikakushi.Contents.Player
             {
                 if (canInteractAttempt)
                 {
-                    Debug.Log(obj.Interact(playerManager));
+                    result = obj.Interact(playerManager);
+                    events.OnInteract(result);
+                    Debug.Log(obj.GetContext().displayName);
                 }
             }
         }
-        void Attemptable(RaycastHit hit)
+        void GetIntaractable(IInteractable interactable)
         {
-            if(hit.collider.gameObject.TryGetComponent<IInteractable>(out obj))
-            {
-                canInteractAttempt = true;
-            }
+            obj = interactable;
+        }
+        void Attemptable(InteractContext context)
+        {
+            canInteractAttempt = true;
         }
         void NotAttempable()
         {
