@@ -3,20 +3,10 @@ using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
 using Project.Inventory;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
-    public struct interactAttemptinfo
-    {
-        public InteractType type;
-        public string text;
-    }
-    /// <summary>
-    /// 플레이어에게서 발생하는 모든 이벤트를 발행하는 창구
-    /// </summary>
     public class PlayerEvents : MonoBehaviour
     {
         /// <summary>
@@ -71,6 +61,7 @@ namespace _Kamikakushi.Contents.Player
             Debug.Log("상호작용 탐지 성공");
             GetInteractContext?.Invoke(context);
         }
+
         public void OnRaycastOut()
         {
             Debug.Log("시선 떨어짐");
@@ -98,4 +89,3 @@ namespace _Kamikakushi.Contents.Player
         }
     }
 }
-

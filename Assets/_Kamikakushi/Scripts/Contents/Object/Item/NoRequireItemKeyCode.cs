@@ -9,7 +9,7 @@ namespace _Kamikakushi.Utills
 {
     public class NoRequireItemKeyCode : MonoBehaviour,IInteractionCondition
     {
-        public bool CanInteract(PlayerManager target)
+        public bool CanInteract(Contents.Player.PlayerManager target)
         {
             //상호작용에 요구조건 없음
             return true;

@@ -1,4 +1,4 @@
-﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Contents.Item;
 using _Kamikakushi.Utills.Interfaces;
 using Project.Inventory;
 using System.Collections;
@@ -13,11 +13,9 @@ namespace _Kamikakushi.Contents.Player
     /// </summary>
     public class PlayerManager : MonoBehaviour, IDetectable
     {
-
-        //[SerializeField] Inventory inventory; - 인벤토리 클래스
         [SerializeField] public int sanity;
         [SerializeField] int playerCount;
-        [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
+        [SerializeField] public string handeditems;
         [SerializeField] public GameObject flash;
         [SerializeField] public PlayerInventory inven;
         [SerializeField] private PlayerEvents events;
@@ -25,9 +23,9 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public bool isHide;
 
         public HUDController hud;
+
         public float maxHP = 100f;
         public float currentHP = 100f;
-
         public float maxMP = 100f;
         public float currentMP = 100f;
 
@@ -38,49 +36,27 @@ namespace _Kamikakushi.Contents.Player
         void Awake()
         {
             battery = 100;
-            //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
             sanity = 100;
-            Debug.Log(sanity);
+            // 추가
             inven = GetComponent<PlayerInventory>();
         }
+
         private void Start()
         {
+            InventoryController.Instance.OnItemEquipped += SelectItem;
+            // 추가
+            InventoryController.Instance.GetInventoryItems = inven.GetItems;
            // hud.UpdateHP(currentHP, maxHP);
            // hud.UpdateMP(currentMP, maxMP);
            // InventoryController.Instance.OnItemEquipped+=SelectItem;
         }
-        private void FixedUpdate()
+        // 추가
+        void SelectItem(ItemData item)
         {
-            if (flash.activeSelf)
-            {
-                battery -= 0.02f;
-            }
-        }
-        // Update is called once per frame
-        void Update()
-        {
-            //테스트용 코드
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (Cursor.lockState == CursorLockMode.Locked)
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                }
-                else if (Cursor.lockState == CursorLockMode.None)
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                flash.SetActive(!flash.activeSelf);
-            }
-        }
-        void SelectItem(string keyCode)
-        {
-            handeditems = keyCode;
+            if (item == null) return;
+
+            handeditems = item.keyCode;
         }
     }
-
 }

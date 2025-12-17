@@ -32,7 +32,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
                 //여기서 책을 읽는 내용이나 스토리 진행 이벤트 실행시키기
                 isTriggered = true;
             }
-            
+            Debug.Log($"[BookInspect] : {inspectText}");
             return result;
         }
     }
