@@ -10,6 +10,6 @@ namespace _Kamikakushi.Utills.Interfaces
     {
         //상호작용 가능한 아이템에 달리는 인터페이스
         //상호작용이 가능하다면 true 반환
-        public bool Interact(PlayerManager target);
+        public bool Interact(Contents.Player.PlayerManager target);
     }
 }

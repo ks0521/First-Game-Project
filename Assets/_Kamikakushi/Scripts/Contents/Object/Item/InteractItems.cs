@@ -27,7 +27,7 @@ namespace _Kamikakushi.Contents.Item
         /// </summary>
         /// <param name="target">player</param>
         /// <returns>상호작용 가능하면 true, 제한되면 false</returns>
-        public virtual bool CanInteract(PlayerManager target)
+        public virtual bool CanInteract(Player.PlayerManager target)
         {
             foreach (IInteractionCondition condition in conditions)
             {

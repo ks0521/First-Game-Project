@@ -13,7 +13,7 @@ public class RequireItemKeyCode : MonoBehaviour,IInteractionCondition
     /// </summary>
     /// <param name="target">플레이어의 정보</param>
     /// <returns>플레이어가 장착한 장비와 상호작용 필요한 키코드 일치여부</returns>
-    public bool CanInteract(PlayerManager target)
+    public bool CanInteract(_Kamikakushi.Contents.Player.PlayerManager target)
     {
         if (target.handeditems == null)
         {

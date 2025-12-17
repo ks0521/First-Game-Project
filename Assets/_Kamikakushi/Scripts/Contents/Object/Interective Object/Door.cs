@@ -17,7 +17,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
             explain = "E : 사용";
             interactType = InteractType.Door;
         }
-        public override bool CanInteract(PlayerManager target)
+        public override bool CanInteract(Player.PlayerManager target)
         {
             if(!base.CanInteract(target))
             {
@@ -28,7 +28,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
             return true;
 
         }
-        public bool Interact(PlayerManager target)
+        public bool Interact(Player.PlayerManager target)
         {
             if (CanInteract(target))
             {

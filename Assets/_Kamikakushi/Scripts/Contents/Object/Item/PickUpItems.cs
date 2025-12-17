@@ -12,11 +12,11 @@ namespace _Kamikakushi.Contents.Item
     {
         [SerializeField]protected ItemData data;
 
-        public bool CanInteract(PlayerManager target)
+        public bool CanInteract(Player.PlayerManager target)
         {
             return true;
         }
-        public bool Interact(PlayerManager target)
+        public bool Interact(Player.PlayerManager target)
         {
             target.inven.Add(data);
             Debug.Log("인벤토리 추가");

@@ -9,7 +9,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class WaterScript : InteractItems, IInteractable
 {
-    public bool Interact(PlayerManager target)
+    public bool Interact(_Kamikakushi.Contents.Player.PlayerManager target)
     {
         //마시면 정신력을 회복시켜주는 오브젝트
         target.sanity += 20;

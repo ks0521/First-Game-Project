@@ -48,6 +48,17 @@ public class SettingController : MonoBehaviour
 
         // 게임 일시정지 / 재개
         Time.timeScale = isOpen ? 0f : 1f;
+
+        if (isOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public void CloseSetting()
@@ -55,6 +66,9 @@ public class SettingController : MonoBehaviour
         isOpen = false;
         settingPanel.SetActive(false);
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void OnClickSave()
@@ -96,5 +110,16 @@ public class SettingController : MonoBehaviour
             Screen.currentResolution.height,
             FullScreenMode.FullScreenWindow
         );
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("게임 종료");
+
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
     }
 }

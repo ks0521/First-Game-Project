@@ -15,12 +15,16 @@ namespace _Kamikakushi.Contents.Player
             datas = new List<ItemData>();
             events = GetComponent<PlayerEvents>();
         }
-
+        // 수정
         public void Add(ItemData data)
         {
             datas.Add(data);
             events.OnPickUp(data);
         }
+        // 추가
+        public List<ItemData> GetItems()
+        {
+            return datas;
+        }
     }
-
 }

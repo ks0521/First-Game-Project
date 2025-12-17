@@ -14,12 +14,12 @@ namespace _Kamikakushi.Contents.InteractiveObject
         {
         }
 
-        public override bool CanInteract(PlayerManager target)
+        public override bool CanInteract(Player.PlayerManager target)
         {
             return base.CanInteract(target);
         }
 
-        public bool Interact(PlayerManager target)
+        public bool Interact(Player.PlayerManager target)
         {
             if (!CanInteract(target))
                 return false;
