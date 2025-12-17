@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHide : MonoBehaviour
+namespace _Kamikakushi.Contents.Player
 {
     public class PlayerHide : MonoBehaviour
     {
@@ -29,15 +29,6 @@ public class PlayerHide : MonoBehaviour
         public void HideEnter(Transform point)
         {
             if (manager.isHide) return;
-
-            /*manager.isHide = true;
-            Debug.Log("숨어들어가기");
-            prevParent = cam.parent;
-            prevPosition = cam.position;
-            prevRotation = cam.rotation;
-            cam.SetParent(null, true);
-            cam.SetLocalPositionAndRotation(point.position, point.rotation);
-            controller.enabled = false;*/
             StartCoroutine(CoEnter(point));
         }
 

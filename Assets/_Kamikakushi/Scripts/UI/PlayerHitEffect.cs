@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Utills.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace _Kamikakushi.Contents.UI
     public class PlayerHitEffect : MonoBehaviour
     {
         [SerializeField] PlayerEvents events;
+        [SerializeField] PlayerHit hit;
         //카메라 흔들리는 세기
         [SerializeField][Range(0.01f, 0.1f)] float shakePower = 0.05f;
         //카메라가 한쪽으로만 흔들리는것을 보정해줌
@@ -22,13 +24,14 @@ namespace _Kamikakushi.Contents.UI
         void Start()
         {
             events = GetComponentInParent<PlayerEvents>();
-            //events.PlayerHitEvent += StartShaking;
+            hit = GetComponent<PlayerHit>();
+            events.PlayerHitEvent += StartShaking;
         }
 
-        IEnumerator CameraShake(float ShakeTime)
+        IEnumerator CameraShake(float damage, float ShakeTime, HitType type)
         {
             //카메라 흔들리는 중(==피격판정 중)에는 다른 몬스터에게 피격당하지 않음
-            //playerHit.enabled = false;
+            
             shakeCount = shakeCorrection;
             endTime = Time.time + ShakeTime;
             Debug.Log(Time.time);
@@ -52,15 +55,17 @@ namespace _Kamikakushi.Contents.UI
                     transform.position = initialPosition;
                 }
                 yield return null;
+
             }
 
             transform.position = initialPosition;
+            hit.enabled = true;
             //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음(구현필요)
         }
-        void StartShaking(float shakeTime)
+        void StartShaking(float damage, float ShakeTime, HitType type)
         {
             initialPosition = transform.position;
-            StartCoroutine(CameraShake(shakeTime));
+            StartCoroutine(CameraShake(damage, ShakeTime, type));
         }
         // Update is called once per frame
         void Update()

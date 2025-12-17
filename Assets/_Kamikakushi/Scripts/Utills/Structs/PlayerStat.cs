@@ -1,18 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStat : MonoBehaviour
+namespace _Kamikakushi.Utills.Structs
 {
-    // Start is called before the first frame update
-    void Start()
+    public struct playerStat
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public float hp;
+        public float sanity;
+        public readonly float MaxSanity => 100;
+        public readonly float MaxHp => 100;
     }
 }
+

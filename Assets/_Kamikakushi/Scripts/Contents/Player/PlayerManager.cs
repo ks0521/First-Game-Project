@@ -1,5 +1,7 @@
 ﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Structs;
 using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,24 +17,17 @@ namespace _Kamikakushi.Contents.Player
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
-        [SerializeField] public int sanity;
-        [SerializeField] int playerCount;
-        [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public GameObject flash;
         [SerializeField] public PlayerInventory inven;
         [SerializeField] private PlayerEvents events;
         [SerializeField] private PlayerHide hide;
+        [SerializeField] int playerCount;
+        [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public bool isHide;
-
+        [SerializeField] public playerStat stat;
         public HUDController hud;
-        public float maxHP = 100f;
-        public float currentHP = 100f;
-
-        public float maxMP = 100f;
-        public float currentMP = 100f;
 
         private float battery;
-
         public bool CanDetected => !isHide;
 
         void Awake()
@@ -40,15 +35,19 @@ namespace _Kamikakushi.Contents.Player
             battery = 100;
             //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
-            sanity = 100;
-            Debug.Log(sanity);
             inven = GetComponent<PlayerInventory>();
-        }
-        private void Start()
-        {
-           // hud.UpdateHP(currentHP, maxHP);
-           // hud.UpdateMP(currentMP, maxMP);
+            events = GetComponent<PlayerEvents>();
+            stat.hp = stat.MaxHp;
+            stat.sanity = stat.MaxSanity;
+            //초기값으로 hp창 변경
+
            // InventoryController.Instance.OnItemEquipped+=SelectItem;
+        }
+        void Start()
+        {
+            events.OnPlayerStatChange(stat);
+            events.PlayerHitEvent += Damaged;
+            events.PlayerStatChange += HitTest;
         }
         private void FixedUpdate()
         {
@@ -57,7 +56,6 @@ namespace _Kamikakushi.Contents.Player
                 battery -= 0.02f;
             }
         }
-        // Update is called once per frame
         void Update()
         {
             //테스트용 코드
@@ -77,9 +75,21 @@ namespace _Kamikakushi.Contents.Player
                 flash.SetActive(!flash.activeSelf);
             }
         }
-        void SelectItem(string keyCode)
+        void Damaged(float damage, float time, HitType type)
         {
-            handeditems = keyCode;
+            if(type == HitType.Physical)
+            {
+                stat.hp -= damage;
+            }
+            else
+            {
+                stat.sanity -= damage;
+            }
+            events.OnPlayerStatChange(stat);
+        }
+        void HitTest(playerStat stat)
+        {
+            Debug.Log($"{stat.hp}, {stat.sanity}");
         }
     }
 

@@ -26,8 +26,6 @@ namespace _Kamikakushi.Contents.Player
         Vector3 move;
 
         bool canControll;
-        bool canRoatet;
-        bool canMove;
         private void Start()
         {
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
