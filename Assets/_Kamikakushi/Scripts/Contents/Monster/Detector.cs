@@ -1,48 +1,42 @@
-﻿using UnityEngine;
-using _Kamikakushi.Utills.Interfaces;
+﻿using _Kamikakushi.Contents.Monster;
+using UnityEngine;
 
-namespace _Kamikakushi.Contents.Monster
+public class Detector : MonoBehaviour
 {
-    public class Detector : MonoBehaviour
+    private Monster owner;
+    private bool isEnabled = true;
+
+    public void Init(Monster owner)
     {
-        private Monster owner;
+        this.owner = owner;
+    }
 
-        public void Init(Monster owner)
-        {
-            this.owner = owner;
-        }
+    public void SetEnable(bool value)
+    {
+        isEnabled = value;
+    }
 
-        private bool CanDetect(Collider other)
-        {
-            if (!other.CompareTag("Player"))
-                return false;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isEnabled) return;
+        if (!other.CompareTag("Player")) return;
 
-            Detectorble detectorble = other.GetComponent<Detectorble>();
-            if (detectorble != null && detectorble.CanDetected == false)
-                return false;
+        owner.OnPlayerDetected(other.transform.position);
+    }
 
-            return true;
-        }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!isEnabled) return;
+        if (!other.CompareTag("Player")) return;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!CanDetect(other)) return;
+        owner.OnPlayerDetected(other.transform.position);
+    }
 
-            owner.OnPlayerDetected(other.transform.position);
-        }
+    private void OnTriggerExit(Collider other)
+    {
+        if (!isEnabled) return;
+        if (!other.CompareTag("Player")) return;
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (!CanDetect(other)) return;
-
-            owner.OnPlayerDetected(other.transform.position);
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (!other.CompareTag("Player")) return;
-
-            owner.OnPlayerLost();
-        }
+        owner.OnPlayerLost();
     }
 }

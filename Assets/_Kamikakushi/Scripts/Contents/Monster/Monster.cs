@@ -83,6 +83,24 @@ namespace _Kamikakushi.Contents.Monster
             if (agent != null)
                 agent.ResetPath();
         }
+        public virtual void OnTouchedPlayer()
+        {
+            // 기본 동작: 아무것도 안 함
+        }
+        public virtual void OnRespawned()
+        {
+            // 추적 상태 초기화
+            isChasing = false;
+            currentTargetPos = startPos;
+
+            // 이동 완전 정지
+            if (agent != null)
+            {
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+            }
+        }
+
 
     }
 }
