@@ -113,11 +113,27 @@ namespace _Kamikakushi.Contents.Monster
 
         public override void OnPlayerDetected(Vector3 targetPos)
         {
-            if (state == GhostState.SurpriseChase)
+            if (state != GhostState.Idle)
                 return;
 
             state = GhostState.Chasing;
             isChasing = true;
         }
+        public override void OnRespawned()
+        {
+            base.OnRespawned();
+
+            // 🔥 Ghost 전용 상태 초기화
+            state = GhostState.Idle;
+            stateTimer = 0f;
+
+            // NavMesh 완전 정지
+            if (agent != null)
+            {
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+            }
+        }
+
     }
 }
