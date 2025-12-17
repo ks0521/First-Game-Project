@@ -29,13 +29,15 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public GameObject flash;
         [SerializeField] public PlayerInventory inven;
         [SerializeField] private PlayerEvents events;
+        [SerializeField] private PlayerHide hide;
+        [SerializeField] public bool isHide;
+
         public HUDController hud;
         public float currentHP = 100f;
 
         public float currentMP = 100f;
 
         private float battery;
-        [SerializeField] public bool isHide;
 
         public bool CanDetected => !isHide;
 

@@ -19,17 +19,36 @@ namespace _Kamikakushi.Contents.Player
     /// </summary>
     public class PlayerEvents : MonoBehaviour
     {
+        /// <summary>
+        /// 아이템을 주웠을 때 발생, 아이템 정보를 인자로 준다
+        /// </summary>
         public event Action<ItemData> ItemPickUp;
         /// <summary>
         /// 플레이어 피격 이벤트, 받은 데미지와 피격 지속시간 인자로 전달
         /// </summary>
         public event Action<float,float,HitType> PlayerHitEvent;
+        /// <summary>
+        /// 플레이어가 숨을 수 있는 오브젝트에 들어갈 때 발생
+        /// 인자는 카메라 이동 위치
+        /// </summary>
+        public event Action<Transform> PlayerHideInEvent;
+        /// <summary>
+        /// 플레이어가 숨어있다가 밖으로 나올 때 발생
+        /// 인자는 숨기 전 위치
+        /// </summary>
+        public event Action PlayerHideOutEvent;
+        /// <summary>
+        /// 플레이어가 회복 / 피격 등으로 체력,정신력에 변화가 생길 때 발생
+        /// </summary>
         public event Action<playerStat> PlayerStatChange;
         /// <summary>
         /// InteractableObject를 레이캐스트 성공시 발생, 
         /// 탐지한 오브젝트의 정보를 전달
         /// </summary>
         public event Action<InteractContext> GetInteractContext;
+        /// <summary>
+        /// 플레이어가 상호작용 버튼을 눌렀을 때 발생, 상호작용 결과를 전달
+        /// </summary>
         public event Action<InteractResult> GetInteractResult;
         public event Action<IInteractable> GetInteractable;
         //public event Action<interactAttemptinfo> info;
@@ -37,15 +56,12 @@ namespace _Kamikakushi.Contents.Player
         /// InteractableObject에서 레이캐스트가 떨어졌을 시 발생
         /// </summary>
         public event Action RaycastOut;
-        /// <summary>
-        /// 피격당했을 시
-        /// </summary>
-        /// <param name="damage"></param>
-        /// <param name="time"></param>
+
         public void OnHit(float damage, float time, HitType type)
         {
             PlayerHitEvent?.Invoke(damage, time, type);
         }
+        
         public void OnFindInteractable(IInteractable interactable)
         {
             GetInteractable?.Invoke(interactable);
@@ -71,6 +87,14 @@ namespace _Kamikakushi.Contents.Player
         public void OnPlayerStatChange(playerStat Stat)
         {
             PlayerStatChange?.Invoke(Stat);
+        }
+        public void OnHideEnter(Transform transform)
+        {
+            PlayerHideInEvent?.Invoke(transform);
+        }
+        public void OnHideOut()
+        {
+            PlayerHideOutEvent?.Invoke();
         }
     }
 }
