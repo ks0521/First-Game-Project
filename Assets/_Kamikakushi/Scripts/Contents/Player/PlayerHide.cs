@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Kamikakushi.Contents.Player
+public class PlayerHide : MonoBehaviour
 {
     public class PlayerHide : MonoBehaviour
     {

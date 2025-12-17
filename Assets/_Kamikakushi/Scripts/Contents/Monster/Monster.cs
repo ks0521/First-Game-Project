@@ -76,5 +76,13 @@ namespace _Kamikakushi.Contents.Monster
         {
             Move(targetPos);
         }
+        public virtual void ForceStopChase()
+        {
+            isChasing = false;
+
+            if (agent != null)
+                agent.ResetPath();
+        }
+
     }
 }
