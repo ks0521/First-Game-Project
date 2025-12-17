@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Enums;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -17,11 +19,21 @@ namespace _Kamikakushi.Contents.Monster
             }
         }
 
-        public virtual bool Hit(Vector3 targetPos)
+        IHittable target;
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("트리거 충돌");
+            if (other.TryGetComponent<IHittable>(out target))
+            {
+                Debug.Log("플레이어 충돌");
+                target.Hit(transform.position,5,2,HitType.Mental);
+            }
+        }
+        /*public virtual bool Hit(Vector3 targetPos)
         {
             // 멘탈 타입 공격 처리
             Debug.Log($"{name} Mental Attack!");
             return true;
-        }
+        }*/
     }
 }

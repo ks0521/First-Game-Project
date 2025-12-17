@@ -9,17 +9,29 @@ namespace _Kamikakushi.Contents.Player
     {
         [SerializeField] List<ItemData> datas;
         [SerializeField] PlayerEvents events;
+        int maxSize;
 
         private void Awake()
         {
+            maxSize = 12;
             datas = new List<ItemData>();
             events = GetComponent<PlayerEvents>();
         }
-        // 수정
-        public void Add(ItemData data)
+
+        public bool Add(ItemData data)
         {
+            if (datas.Count >= maxSize)
+            {
+                Debug.Log("배낭 꽉참!");
+                return false;
+            }
             datas.Add(data);
             events.OnPickUp(data);
+            return true;
+        }
+        public bool Remove(ItemData data)
+        {
+            return true;
         }
         // 추가
         public List<ItemData> GetItems()

@@ -8,6 +8,7 @@ namespace _Kamikakushi.Contents.Player
     {
         [SerializeField] Transform cameraRotation;
         [SerializeField] CharacterController characterController;
+        [SerializeField] PlayerManager manager;
         [SerializeField] private float mouseSpeed = 5f;
         [SerializeField] private float gravity = -9.8f;
         [SerializeField] PlayerEvents events;
@@ -25,13 +26,14 @@ namespace _Kamikakushi.Contents.Player
         Vector3 move;
 
         bool canControll;
-
+        bool canRoatet;
+        bool canMove;
         private void Start()
         {
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
             canControll = true;
             events = GetComponent<PlayerEvents>();
-            events.PlayerHitEvent += CameraHolding; 
+            //events.PlayerHitEvent += CameraHolding; 
 
             characterController = GetComponent<CharacterController>();
             yaw = transform.rotation.eulerAngles.y;
@@ -39,6 +41,9 @@ namespace _Kamikakushi.Contents.Player
             pitch = transform.localEulerAngles.x;
             // 0~360 → -180~180 으로 보정
             if (pitch > 180f) pitch -= 360f;
+
+            //events.PlayerHideInEvent += CameraHolding;
+            manager = GetComponent<PlayerManager>();
         }
         void Update()
         {
@@ -46,6 +51,10 @@ namespace _Kamikakushi.Contents.Player
             {
                 Rotation();
                 Moving();
+            }
+            if (manager.isHide)
+            {
+                HideRotation();
             }
         }
 
@@ -61,10 +70,14 @@ namespace _Kamikakushi.Contents.Player
             Debug.Log("카메라 잠금 시작");
             StartCoroutine(CameraHold(time));
         }
+        public void CameraHolding(Transform transform)
+        {
+            canControll = false;
+        }
         void Moving()
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
+            h = Input.GetAxisRaw("Horizontal");
+            v = Input.GetAxisRaw("Vertical");
 
             // 카메라/플레이어 바라보는 방향 기준으로 입력 벡터 생성
             move = ((transform.right * h + transform.forward * v).normalized) * moveSpeed;
@@ -84,8 +97,6 @@ namespace _Kamikakushi.Contents.Player
             characterController.Move(move * Time.deltaTime);
 
         }
-
-
         private void Rotation()
         {
             mouseX = Input.GetAxis("Mouse X") * mouseSpeed;
@@ -100,6 +111,20 @@ namespace _Kamikakushi.Contents.Player
             // 실제 회전 적용
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);     // 좌우이동은 Player 몸통을 옮겨 종속된 카메라가 따라감
             cameraRotation.localRotation = Quaternion.Euler(pitch, 0f, 0f);   // 상하이동은 카메라만 옮긴다
+        }
+        private void HideRotation()
+        {
+            mouseX = Input.GetAxis("Mouse X") * mouseSpeed;
+            mouseY = Input.GetAxis("Mouse Y") * mouseSpeed;
+
+            yaw += mouseX;       // 좌우(플레이어)
+            pitch -= mouseY;       // 위아래(카메라)
+
+            // 위아래 제한
+            pitch = Mathf.Clamp(pitch, -10f, 10f);
+            yaw = Mathf.Clamp(yaw, -5f, 5f);
+            // 실제 회전 적용
+            cameraRotation.localRotation = Quaternion.Euler(pitch, yaw, 0f); 
         }
     }
 }

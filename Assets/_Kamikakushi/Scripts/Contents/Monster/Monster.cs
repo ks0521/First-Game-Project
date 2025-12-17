@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -7,7 +8,8 @@ namespace _Kamikakushi.Contents.Monster
     {
         [Header("Base Settings")]
         [SerializeField] protected Detector detector;
-        [SerializeField] protected float speed = 3.5f;
+        
+        protected float speed = 3.5f;
 
         [Header("Movement Type")]
         [SerializeField] protected MovementType movementType = MovementType.NavMesh;
@@ -20,7 +22,11 @@ namespace _Kamikakushi.Contents.Monster
         private float lostTimer = 0f;
         [SerializeField] private float lostDelay = 3f;
 
+       
+        public event Action<Monster> OnChaseStarted; //델리게이트
+
         public abstract void Move(Vector3 targetPos);
+
         protected virtual void Awake()
         {
             startPos = transform.position;
@@ -37,9 +43,14 @@ namespace _Kamikakushi.Contents.Monster
 
         public virtual void OnPlayerDetected(Vector3 targetPos)
         {
-            isChasing = true;
-            lostTimer = 0f;
             currentTargetPos = targetPos;
+            lostTimer = 0f;
+
+            if (!isChasing)
+            {
+                isChasing = true;
+                OnChaseStarted?.Invoke(this);//델리게이트 발행
+            }
         }
 
         public virtual void OnPlayerLost()
@@ -61,21 +72,35 @@ namespace _Kamikakushi.Contents.Monster
             }
         }
 
-        // 이동 방식 공통 API
         protected void MoveTo(Vector3 targetPos)
         {
-            switch (movementType)
-            {
-                case MovementType.NavMesh:
-                    Move(targetPos);
-                    break;
+            Move(targetPos);
+        }
+        public virtual void ForceStopChase()
+        {
+            isChasing = false;
 
-                case MovementType.Transform:
-                    Move(targetPos);
-                    break;
+            if (agent != null)
+                agent.ResetPath();
+        }
+        public virtual void OnTouchedPlayer()
+        {
+            // 기본 동작: 아무것도 안 함
+        }
+        public virtual void OnRespawned()
+        {
+            // 추적 상태 초기화
+            isChasing = false;
+            currentTargetPos = startPos;
+
+            // 이동 완전 정지
+            if (agent != null)
+            {
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
             }
         }
 
-        
+
     }
 }

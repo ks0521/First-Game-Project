@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using System;
 using System.Collections;
@@ -21,11 +22,11 @@ namespace _Kamikakushi.Contents.Player
         {
             events = GetComponent<PlayerEvents>();
         }
-        public void Hit(Vector3 targetPosition)
-        {
+        public void Hit(Vector3 targetPosition, float damage, float time, HitType type)
+        {   
             normalizedDirect = (targetPosition - transform.position).normalized;
             transform.rotation = Quaternion.LookRotation(normalizedDirect);
-            events.OnHit(5);
+            events.OnHit(damage, time, type);
         }
     }
 }

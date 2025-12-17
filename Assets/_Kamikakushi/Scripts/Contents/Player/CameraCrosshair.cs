@@ -19,7 +19,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] private Camera cam;
         [SerializeField] private RectTransform crosshair;
         [SerializeField] private PlayerEvents events;
-        [SerializeField] private float maxDistance = 5f;
+        [SerializeField] private float maxDistance;
         private IInteractable interactObj;
         private bool wasHit;
         private bool isHit;
@@ -32,6 +32,7 @@ namespace _Kamikakushi.Contents.Player
         // Start is called before the first frame update
         void Start()
         {
+            maxDistance = 2f;
             events = GetComponentInParent<PlayerEvents>();
             cam = GetComponent<Camera>();
         }
@@ -60,7 +61,8 @@ namespace _Kamikakushi.Contents.Player
                 if (isHit == true)
                 {
                     interactObj = hit.collider.gameObject.GetComponent<IInteractable>();
-                    events.OnRaycastEnter(hit);
+                    events.OnFindInteractable(interactObj);
+                    events.OnRaycastEnter(interactObj.GetContext());
                 }
                 //상호작용 오브젝트에 raycast하지 못했을 때
                 else events.OnRaycastOut();
