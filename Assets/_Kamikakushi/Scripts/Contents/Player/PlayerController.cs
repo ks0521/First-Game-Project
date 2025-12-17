@@ -31,7 +31,7 @@ namespace _Kamikakushi.Contents.Player
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
             canControll = true;
             events = GetComponent<PlayerEvents>();
-            events.PlayerHitEvent += CameraHolding; 
+            //events.PlayerHitEvent += CameraHolding; 
 
             characterController = GetComponent<CharacterController>();
             yaw = transform.rotation.eulerAngles.y;
