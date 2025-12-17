@@ -3,10 +3,18 @@ using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
+    public struct playerStat
+    {
+        public int hp;
+        public int sanity;
+        public int maxHp => 100;
+        public int maxSanity => 100;
+    }
     /// <summary>
     /// 커서 및 자원, 숨기상태 관리
     /// </summary>
@@ -14,34 +22,34 @@ namespace _Kamikakushi.Contents.Player
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
-        [SerializeField] public int sanity;
+        [SerializeField] public playerStat stat;
         [SerializeField] int playerCount;
         [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public GameObject flash;
         [SerializeField] public PlayerInventory inven;
+        [SerializeField] private PlayerEvents events;
         public HUDController hud;
-        public float maxHP = 100f;
         public float currentHP = 100f;
 
-        public float maxMP = 100f;
         public float currentMP = 100f;
 
         private float battery;
-        [SerializeField] public bool IsHide {  get; private set; }
+        [SerializeField] public bool IsHide { get; private set; }
         void Awake()
         {
             battery = 100;
             //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
-            sanity = 100;
-            Debug.Log(sanity);
+            stat.hp = stat.sanity = 100;
             inven = GetComponent<PlayerInventory>();
+            events = GetComponent<PlayerEvents>();
         }
         private void Start()
         {
-            hud.UpdateHP(currentHP, maxHP);
-            hud.UpdateMP(currentMP, maxMP);
-            InventoryController.Instance.OnItemEquipped+=SelectItem;
+            events.OnPlayerStatChange(stat);
+            hud.UpdateHP(stat.hp, stat.maxHp);
+            hud.UpdateMP(stat.sanity, stat.maxSanity);
+            InventoryController.Instance.OnItemEquipped += SelectItem;
         }
         private void FixedUpdate()
         {
