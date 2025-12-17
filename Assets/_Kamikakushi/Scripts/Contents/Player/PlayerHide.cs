@@ -1,23 +1,38 @@
-﻿using _Kamikakushi.Utills.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Contents.Monster;
 
-namespace _Kamikakushi.Contents.Player
+public class PlayerHide : MonoBehaviour
 {
-    public class PlayerHide : MonoBehaviour, IDetectorble
+    private Detectorble detectorble;
+
+    private void Awake()
     {
-        public bool CanDetected { get; private set; }
-        // Start is called before the first frame update
-        void Start()
+        detectorble = GetComponent<Detectorble>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H)) //Hide로 진입할 조건
         {
-            CanDetected = true;
+            detectorble.Hide();
+            StopAllMonsters();
         }
 
-        // Update is called once per frame
-        void Update()
+        if (Input.GetKeyDown(KeyCode.J)) //unHide로 진입할 조건
         {
+            {
+                detectorble.UnHide();
+            }
+        }
 
+        void StopAllMonsters()
+        {
+            Monster[] monsters = FindObjectsOfType<Monster>();
+            foreach (var m in monsters)
+            {
+                m.ForceStopChase();
+            }
         }
     }
 }
