@@ -16,13 +16,26 @@ namespace _Kamikakushi.Contents.InteractiveObject
         protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
+            explain = "E : 사용";
+            interactType = InteractType.Door;
             conditions = GetComponents<IInteractionCondition>();
+        }
+        public override bool CanInteract(PlayerManager target)
+        {
+            if(!base.CanInteract(target))
+            {
+                return false;
+            }
+
+            //오브젝트 특성별 interact 조건 추가
+            return true;
             interactType = InteractType.Event;
 
             context.promptKey = PromptKey.CloseDoor;
             context.displayName = "문";
             result.transform = null;
         }
+
         public override InteractResult Interact(PlayerManager target)
         {
             if (!CanInteract(target))

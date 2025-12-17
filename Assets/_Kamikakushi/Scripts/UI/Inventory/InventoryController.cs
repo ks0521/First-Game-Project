@@ -36,7 +36,7 @@ namespace Project.Inventory
         private List<ItemData> currentItems = new List<ItemData>();
         private ItemData currentSelected = null;
 
-        private bool isOpen = false;
+        public bool isOpen = false;
 
         public ItemData equippedItem;
         public ItemData EquippedItem
@@ -47,9 +47,7 @@ namespace Project.Inventory
 
         public HUDController hudController;
 
-        public Player player;
-
-        public Action<string> OnItemEquipped;
+        public Action<ItemData> OnItemEquipped;
 
         private void Awake()
         {
@@ -86,7 +84,6 @@ namespace Project.Inventory
 
             RefreshSlots();
             ClearRightPanel();
-
         }
 
         public bool AddItem(ItemData item)
@@ -118,7 +115,7 @@ namespace Project.Inventory
             // 게임플레이 HUD에 표시
             hudController?.SetEquippedItem(item);
 
-            OnItemEquipped?.Invoke(item.keyCode);
+            OnItemEquipped?.Invoke(item);
             Debug.Log("키 코드 장착됨 : " + item.keyCode);
         }
 
@@ -129,7 +126,7 @@ namespace Project.Inventory
             if (removed)
             {
                 RefreshSlots();
-                Debug.Log("[" +item.itemName + "] 가 인벤토리에서 제거되었습니다.");
+                Debug.Log("[" + item.itemName + "] 가 인벤토리에서 제거되었습니다.");
             }
             return removed;
         }
@@ -163,12 +160,18 @@ namespace Project.Inventory
             RefreshSlots();
             if (inventoryCanvas != null) inventoryCanvas.SetActive(true);
             isOpen = true;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         public void CloseInventory()
         {
             if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
             isOpen = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         void RefreshSlots()
@@ -231,9 +234,6 @@ namespace Project.Inventory
             {
                 EquippedItem = null;
                 hudController?.SetEquippedItem(null);
-
-                if (player != null)
-                    player.equippedKeyCode = null;
             }
 
             RemoveItem(item);

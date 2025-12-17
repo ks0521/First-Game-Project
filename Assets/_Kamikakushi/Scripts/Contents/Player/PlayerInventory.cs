@@ -33,6 +33,10 @@ namespace _Kamikakushi.Contents.Player
         {
             return true;
         }
+        // 추가
+        public List<ItemData> GetItems()
+        {
+            return datas;
+        }
     }
-
 }

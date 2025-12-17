@@ -1,4 +1,4 @@
-﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Contents.Item;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
@@ -33,7 +33,6 @@ namespace _Kamikakushi.Contents.Player
         void Awake()
         {
             battery = 100;
-            //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
             inven = GetComponent<PlayerInventory>();
             events = GetComponent<PlayerEvents>();
@@ -48,6 +47,10 @@ namespace _Kamikakushi.Contents.Player
             events.OnPlayerStatChange(stat);
             events.PlayerHitEvent += Damaged;
             events.PlayerStatChange += HitTest;
+            InventoryController.Instance.OnItemEquipped += SelectItem;
+            // 추가
+            InventoryController.Instance.GetInventoryItems = inven.GetItems;
+
         }
         private void FixedUpdate()
         {
@@ -91,6 +94,13 @@ namespace _Kamikakushi.Contents.Player
         {
             Debug.Log($"{stat.hp}, {stat.sanity}");
         }
-    }
+        // 추가
+        void SelectItem(ItemData item)
+        {
+            if (item == null) return;
 
+            handeditems = item.keyCode;
+        }
+
+    }
 }
