@@ -39,9 +39,9 @@ namespace _Kamikakushi.Contents.Player
         }
         private void Start()
         {
-            hud.UpdateHP(currentHP, maxHP);
-            hud.UpdateMP(currentMP, maxMP);
-            InventoryController.Instance.OnItemEquipped+=SelectItem;
+           // hud.UpdateHP(currentHP, maxHP);
+           // hud.UpdateMP(currentMP, maxMP);
+           // InventoryController.Instance.OnItemEquipped+=SelectItem;
         }
         private void FixedUpdate()
         {
