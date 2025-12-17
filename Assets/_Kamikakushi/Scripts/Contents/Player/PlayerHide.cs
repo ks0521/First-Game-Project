@@ -5,19 +5,20 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Player
 {
-    public class PlayerHide : MonoBehaviour, IDetectorble
+    public class PlayerHide : MonoBehaviour
     {
-        public bool CanDetected { get; private set; }
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] PlayerManager manager;
+        [SerializeField] Transform curPos;
+        [SerializeField] Transform prevPos;
+        [SerializeField] Camera cam;
+        void Awake()
         {
-            CanDetected = true;
+            manager = GetComponent<PlayerManager>();
         }
-
-        // Update is called once per frame
-        void Update()
+        public void Hide(Transform point)
         {
-
+            manager.isHide = true;
+            prevPos = transform;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Utills.Interfaces;
 using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace _Kamikakushi.Contents.Player
     /// <summary>
     /// 커서 및 자원, 숨기상태 관리
     /// </summary>
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, IDetectorble
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
@@ -34,7 +35,10 @@ namespace _Kamikakushi.Contents.Player
         public float currentMP = 100f;
 
         private float battery;
-        [SerializeField] public bool IsHide { get; private set; }
+        [SerializeField] public bool isHide;
+
+        public bool CanDetected => !isHide;
+
         void Awake()
         {
             battery = 100;
