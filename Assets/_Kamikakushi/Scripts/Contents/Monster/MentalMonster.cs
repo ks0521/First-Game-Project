@@ -17,7 +17,7 @@ namespace _Kamikakushi.Contents.Monster
                 Quaternion rot = Quaternion.LookRotation(dir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 5);
             }
-        }
+        } 
 
         IHittable target;
         private void OnTriggerEnter(Collider other)
