@@ -19,7 +19,7 @@ namespace _Kamikakushi.Contents.Player
     /// <summary>
     /// 커서 및 자원, 숨기상태 관리
     /// </summary>
-    public class PlayerManager : MonoBehaviour, IDetectorble
+    public class PlayerManager : MonoBehaviour, IDetectable
     {
 
         //[SerializeField] Inventory inventory; - 인벤토리 클래스

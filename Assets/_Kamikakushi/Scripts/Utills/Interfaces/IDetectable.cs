@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Kamikakushi.Utills.Interfaces
 {
-    public interface IDetectorble 
+    public interface IDetectable 
     {
         public bool CanDetected {  get; }
     }
