@@ -1,4 +1,4 @@
-using _Kamikakushi.Contents.Item;
+﻿using _Kamikakushi.Contents.Item;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
@@ -28,7 +28,7 @@ namespace _Kamikakushi.Contents.Player
         public HUDController hud;
 
         private float battery;
-        public bool CanDetected => !isHide;
+        [SerializeField]public bool CanDetected => !isHide;
 
         void Awake()
         {

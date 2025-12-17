@@ -64,6 +64,7 @@ namespace _Kamikakushi.Contents.Player
             cam.SetPositionAndRotation(viewPoint.position, viewPoint.rotation);
 
             manager.isHide = true;
+            Debug.Log(manager.CanDetected);
             controller.enabled = true;
 
             //isTransition = false;
@@ -103,6 +104,8 @@ namespace _Kamikakushi.Contents.Player
             cam.SetPositionAndRotation(prevPosition, prevRotation);
             Debug.Log("나옴");
             manager.isHide = false;
+            Debug.Log(manager.CanDetected);
+
             controller.enabled = true;
         }
     }
