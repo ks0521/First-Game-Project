@@ -22,7 +22,7 @@ namespace _Kamikakushi.Contents.UI
         void Start()
         {
             events = GetComponentInParent<PlayerEvents>();
-            events.PlayerHitEvent += StartShaking;
+            //events.PlayerHitEvent += StartShaking;
         }
 
         IEnumerator CameraShake(float ShakeTime)

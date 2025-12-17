@@ -60,7 +60,8 @@ namespace _Kamikakushi.Contents.Player
                 if (isHit == true)
                 {
                     interactObj = hit.collider.gameObject.GetComponent<IInteractable>();
-                    events.OnRaycastEnter(hit);
+                    events.OnFindInteractable(interactObj);
+                    events.OnRaycastEnter(interactObj.GetContext());
                 }
                 //상호작용 오브젝트에 raycast하지 못했을 때
                 else events.OnRaycastOut();
