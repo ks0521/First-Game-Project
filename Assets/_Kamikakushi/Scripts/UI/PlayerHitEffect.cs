@@ -28,9 +28,9 @@ namespace _Kamikakushi.Contents.UI
             events.PlayerHitEvent += StartShaking;
         }
 
-        IEnumerator CameraShake(float damage, float ShakeTime, HitType type)
+        IEnumerator CameraShake(Vector3 target, float damage, float ShakeTime, HitType type)
         {
-            //카메라 흔들리는 중(==피격판정 중)에는 다른 몬스터에게 피격당하지 않음
+            //카메라 흔들리는 중
             
             shakeCount = shakeCorrection;
             endTime = Time.time + ShakeTime;
@@ -59,13 +59,11 @@ namespace _Kamikakushi.Contents.UI
             }
 
             transform.position = initialPosition;
-            hit.enabled = true;
-            //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음(구현필요)
         }
-        void StartShaking(float damage, float ShakeTime, HitType type)
+        void StartShaking(Vector3 target, float damage, float ShakeTime, HitType type)
         {
             initialPosition = transform.position;
-            StartCoroutine(CameraShake(damage, ShakeTime, type));
+            StartCoroutine(CameraShake(target, damage, ShakeTime, type));
         }
         // Update is called once per frame
         void Update()
