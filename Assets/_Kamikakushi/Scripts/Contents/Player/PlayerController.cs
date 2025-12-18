@@ -7,7 +7,7 @@ namespace _Kamikakushi.Contents.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float mouseSpeed = 5f;
-        [SerializeField]Transform cameraRotation;
+        [SerializeField] Transform cameraRotation;
         CharacterController characterController;
         PlayerManager manager;
         PlayerEvents events;
