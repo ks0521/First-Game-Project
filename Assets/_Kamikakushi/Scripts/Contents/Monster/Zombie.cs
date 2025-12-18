@@ -5,7 +5,7 @@ namespace _Kamikakushi.Contents.Monster
     public class Zombie : PhysicalMonster
     {
         [Header("Zombie Rules")]
-        [SerializeField] private float freezeDistance = 15f; 
+        [SerializeField] private float freezeDistance = 15f;
         [SerializeField] private float viewAngle = 30f;
 
         private Transform playerCam;
@@ -75,5 +75,6 @@ namespace _Kamikakushi.Contents.Monster
 
             base.OnPlayerDetected(targetPos);
         }
+
     }
 }
