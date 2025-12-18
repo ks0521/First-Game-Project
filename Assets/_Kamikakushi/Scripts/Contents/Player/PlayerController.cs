@@ -12,7 +12,7 @@ namespace _Kamikakushi.Contents.Player
         PlayerManager manager;
         PlayerEvents events;
 
-        bool canControll;
+        public bool canControll;
 
         float mouseX = 0;
         float mouseY = 0;

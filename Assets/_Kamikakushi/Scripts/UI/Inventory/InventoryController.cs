@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using _Kamikakushi.Contents.Player;
 
 namespace Project.Inventory
 {
@@ -37,6 +38,7 @@ namespace Project.Inventory
         private ItemData currentSelected = null;
 
         public bool isOpen = false;
+        [SerializeField] PlayerController playerController;
 
         public ItemData equippedItem;
         public ItemData EquippedItem
@@ -132,6 +134,7 @@ namespace Project.Inventory
             if (GetInventoryItems != null)
                 currentItems = GetInventoryItems();
 
+            playerController.enabled = false;
             RefreshSlots();
             //인벤토리 열때 아이템 설명창 싹 초기화
             ClearRightPanel();
@@ -147,6 +150,7 @@ namespace Project.Inventory
             if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
             isOpen = false;
 
+            playerController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;

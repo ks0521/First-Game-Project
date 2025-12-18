@@ -52,12 +52,12 @@ namespace _Kamikakushi.Contents.Player
         private void OnEnable()
         {
             events.PlayerHitEvent += Damaged;
-            //InventoryController.Instance.OnItemEquipped += SelectItem;
+            InventoryController.Instance.OnItemEquipped += SelectItem;
         }
         private void OnDisable()
         {
             events.PlayerHitEvent -= Damaged;
-            //InventoryController.Instance.OnItemEquipped -= SelectItem;
+            InventoryController.Instance.OnItemEquipped -= SelectItem;
         }
         private void FixedUpdate()
         {
