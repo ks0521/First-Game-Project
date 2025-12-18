@@ -36,7 +36,6 @@ namespace _Kamikakushi.Contents.Player.Test
         //몬스터가 추격 시작했음 안내
         IHittable hittable;
         IDetectable detectable;
-        public event Action<IHittable> OnPlayerHit;
 
         public abstract void Move(Vector3 targetPos);
 
