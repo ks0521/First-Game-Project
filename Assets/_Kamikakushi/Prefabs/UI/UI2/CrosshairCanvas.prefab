@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBB38"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fd1108d11156d4d4494c7e3a30ab3713, type: 2}
-  m_sharedMaterial: {fileID: -4013150087954645208, guid: fd1108d11156d4d4494c7e3a30ab3713, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ea38d2c6d6b7a274b928b5e3db88d2d1, type: 2}
+  m_sharedMaterial: {fileID: -7082708011874687128, guid: ea38d2c6d6b7a274b928b5e3db88d2d1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
