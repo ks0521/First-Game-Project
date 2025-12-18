@@ -27,9 +27,7 @@ namespace _Kamikakushi.Contents.Player
         public void Hit(Vector3 targetPosition, float damage, float time, HitType type)
         {
             if (manager.isHide) return;
-            normalizedDirect = (targetPosition - transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(normalizedDirect);
-            events.OnHit(damage, time, type);
+            events.OnHit(targetPosition, damage, time, type);
         }
     }
 }
