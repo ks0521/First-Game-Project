@@ -21,6 +21,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public PlayerInventory inven;
         [SerializeField] PlayerEvents events;
         [SerializeField] PlayerHide hide;
+        [SerializeField] PlayerHit hit;
         [SerializeField] InventoryController invenController;
         [SerializeField] int playerCount;
         [SerializeField] public ItemData handeditems; //민재님이 만들어주시면 수정
@@ -37,6 +38,7 @@ namespace _Kamikakushi.Contents.Player
             handeditems = null;
             inven = GetComponent<PlayerInventory>();
             events = GetComponent<PlayerEvents>();
+            hit = GetComponent<PlayerHit>();
             stat.hp = stat.MaxHp;
             stat.sanity = stat.MaxSanity;
             //초기값으로 hp창 변경
@@ -79,7 +81,7 @@ namespace _Kamikakushi.Contents.Player
                 flash.SetActive(!flash.activeSelf);
             }
         }
-        void Damaged(float damage, float time, HitType type)
+        void Damaged(Vector3 target, float damage, float time, HitType type)
         {
             if(type == HitType.Physical)
             {
@@ -90,6 +92,13 @@ namespace _Kamikakushi.Contents.Player
                 stat.sanity -= damage;
             }
             events.OnPlayerStatChange(stat);
+            StartCoroutine(NoHit(time));
+        }
+        IEnumerator NoHit(float time)
+        {
+            hit.enabled = false;
+            yield return new WaitForSeconds(time);
+            hit.enabled = true;
         }
         void HitTest(playerStat stat)
         {
