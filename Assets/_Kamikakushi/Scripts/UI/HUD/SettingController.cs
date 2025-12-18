@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SettingController : MonoBehaviour
 {
     public GameObject settingPanel;
+    public InteractionUIController ui;
 
     private bool isOpen = false;
 
@@ -53,11 +54,16 @@ public class SettingController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            ui.SetBlocked(true);
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            ui.SetBlocked(false);
+            ui.ShowNormal();
         }
     }
 
@@ -69,6 +75,9 @@ public class SettingController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        ui.SetBlocked(false);
+        ui.ShowNormal();
     }
 
     public void OnClickSave()
