@@ -12,6 +12,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] PlayerEvents events;
         [SerializeField] PlayerManager playerManager;
         [SerializeField] PlayerHide hide;
+        [SerializeField] PlayerInventory inven;
         [SerializeField] private IInteractable obj;
         private Transform prevTransform;
         //상호작용 시도가 가능한가? -> 레이캐스트가 iinteractable인가?
@@ -24,6 +25,7 @@ namespace _Kamikakushi.Contents.Player
             hide = GetComponent<PlayerHide>();
             playerManager = GetComponent<PlayerManager>();
             events = GetComponent<PlayerEvents>();
+            inven = GetComponent<PlayerInventory>();
             events.GetInteractContext += Attemptable;
             events.GetInteractable += GetIntaractable;
             events.RaycastOut += NotAttempable;

@@ -1577,6 +1577,98 @@ MonoBehaviour:
     m_Unicode: 49688
     m_GlyphIndex: 15911
     m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 82
+    m_GlyphIndex: 51
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 100
+    m_GlyphIndex: 69
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 70
+    m_GlyphIndex: 39
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 108
+    m_GlyphIndex: 77
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 119
+    m_GlyphIndex: 88
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 48521
+    m_GlyphIndex: 14744
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 51008
+    m_GlyphIndex: 17231
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 44867
+    m_GlyphIndex: 11090
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 49353
+    m_GlyphIndex: 15576
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 47693
+    m_GlyphIndex: 13916
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 54644
+    m_GlyphIndex: 20867
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 51656
+    m_GlyphIndex: 17879
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 47196
+    m_GlyphIndex: 13419
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45804
+    m_GlyphIndex: 12027
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 53092
+    m_GlyphIndex: 19315
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 54693
+    m_GlyphIndex: 20916
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 44284
+    m_GlyphIndex: 10507
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 46041
+    m_GlyphIndex: 12264
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 50420
+    m_GlyphIndex: 16643
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45252
+    m_GlyphIndex: 11475
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 49352
+    m_GlyphIndex: 15575
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 54140
+    m_GlyphIndex: 20363
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 51652
+    m_GlyphIndex: 17875
+    m_Scale: 1
   m_AtlasTextures:
   - {fileID: 7095402675973682984}
   m_AtlasTextureIndex: 0

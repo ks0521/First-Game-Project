@@ -1,4 +1,4 @@
-using _Kamikakushi.Contents.Item;
+﻿using _Kamikakushi.Contents.Item;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
@@ -19,16 +19,17 @@ namespace _Kamikakushi.Contents.Player
         //[SerializeField] Inventory inventory; - 인벤토리 클래스
         [SerializeField] public GameObject flash;
         [SerializeField] public PlayerInventory inven;
-        [SerializeField] private PlayerEvents events;
-        [SerializeField] private PlayerHide hide;
+        [SerializeField] PlayerEvents events;
+        [SerializeField] PlayerHide hide;
+        [SerializeField] InventoryController invenController;
         [SerializeField] int playerCount;
-        [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
+        [SerializeField] public ItemData handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public bool isHide;
         [SerializeField] public playerStat stat;
         public HUDController hud;
 
         private float battery;
-        public bool CanDetected => !isHide;
+        [SerializeField]public bool CanDetected => !isHide;
 
         void Awake()
         {
@@ -99,8 +100,7 @@ namespace _Kamikakushi.Contents.Player
         {
             if (item == null) return;
 
-            handeditems = item.keyCode;
+            handeditems = item;
         }
-
     }
 }
