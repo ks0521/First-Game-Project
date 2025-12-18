@@ -14,9 +14,9 @@ namespace _Kamikakushi.Contents.Player
         /// </summary>
         public event Action<ItemData> ItemPickUp;
         /// <summary>
-        /// 플레이어 피격 이벤트, 받은 데미지와 피격 지속시간 인자로 전달
+        /// 플레이어 피격 이벤트- 공격자 위치, 받은 데미지와 피격 지속시간 인자로 전달
         /// </summary>
-        public event Action<float,float,HitType> PlayerHitEvent;
+        public event Action<Vector3, float,float,HitType> PlayerHitEvent;
         /// <summary>
         /// 플레이어가 숨을 수 있는 오브젝트에 들어갈 때 발생
         /// 인자는 카메라 이동 위치
@@ -46,10 +46,11 @@ namespace _Kamikakushi.Contents.Player
         /// InteractableObject에서 레이캐스트가 떨어졌을 시 발생
         /// </summary>
         public event Action RaycastOut;
+        public event Action<float> CameraHold;
 
-        public void OnHit(float damage, float time, HitType type)
+        public void OnHit(Vector3 pos, float damage, float time, HitType type)
         {
-            PlayerHitEvent?.Invoke(damage, time, type);
+            PlayerHitEvent?.Invoke(pos, damage, time, type);
         }
         
         public void OnFindInteractable(IInteractable interactable)
@@ -59,6 +60,7 @@ namespace _Kamikakushi.Contents.Player
         public void OnRaycastEnter(InteractContext context)
         {
             Debug.Log("상호작용 탐지 성공");
+            Debug.Log($"{context.displayName} : {context.promptKey}");
             GetInteractContext?.Invoke(context);
         }
 
@@ -86,6 +88,11 @@ namespace _Kamikakushi.Contents.Player
         public void OnHideOut()
         {
             PlayerHideOutEvent?.Invoke();
+        }
+
+        public void OnCameraHold(float time)
+        {
+            CameraHold?.Invoke(time);
         }
     }
 }

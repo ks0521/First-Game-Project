@@ -10,16 +10,15 @@ namespace _Kamikakushi.Contents.Monster
         FakeReturn,
         SurpriseChase
     }
-}
 
-
-namespace _Kamikakushi.Contents.Monster
-{
     public class Ghost : PhysicalMonster
     {
         [Header("Ghost Settings")]
         [SerializeField] private float fakeReturnTime = 2.5f;
         [SerializeField] private float surpriseChaseTime = 5f;
+
+        [Header("Chase Limit")]
+        [SerializeField] private float maxChaseDistance = 15f;
 
         private GhostState state = GhostState.Idle;
         private float stateTimer = 0f;
@@ -38,6 +37,17 @@ namespace _Kamikakushi.Contents.Monster
 
         protected override void Update()
         {
+            // 🔥 거리 초과 시 즉시 추적 중단 (모든 상태 공통)
+            if (state != GhostState.Idle)
+            {
+                float dist = Vector3.Distance(transform.position, player.position);
+                if (dist >= maxChaseDistance)
+                {
+                    ForceStopAndIdle();
+                    return;
+                }
+            }
+
             switch (state)
             {
                 case GhostState.Idle:
@@ -71,8 +81,6 @@ namespace _Kamikakushi.Contents.Monster
         private void FakeReturnUpdate()
         {
             stateTimer += Time.deltaTime;
-
-            // 돌아가는 척
             MoveTo(startPos);
 
             if (stateTimer >= fakeReturnTime)
@@ -84,13 +92,11 @@ namespace _Kamikakushi.Contents.Monster
         private void SurpriseChaseUpdate()
         {
             stateTimer += Time.deltaTime;
-
             MoveTo(player.position);
 
             if (stateTimer >= surpriseChaseTime)
             {
-                state = GhostState.Idle;
-                isChasing = false;
+                ForceStopAndIdle();
             }
         }
 
@@ -100,8 +106,7 @@ namespace _Kamikakushi.Contents.Monster
             stateTimer = 0f;
             isChasing = false;
 
-            if (agent != null)
-                agent.ResetPath();
+            agent?.ResetPath();
         }
 
         private void EnterSurpriseChase()
@@ -109,6 +114,16 @@ namespace _Kamikakushi.Contents.Monster
             state = GhostState.SurpriseChase;
             stateTimer = 0f;
             isChasing = true;
+        }
+
+        private void ForceStopAndIdle()
+        {
+            state = GhostState.Idle;
+            stateTimer = 0f;
+            isChasing = false;
+
+            agent?.ResetPath();
+            agent.velocity = Vector3.zero;
         }
 
         public override void OnPlayerDetected(Vector3 targetPos)
@@ -119,21 +134,11 @@ namespace _Kamikakushi.Contents.Monster
             state = GhostState.Chasing;
             isChasing = true;
         }
+
         public override void OnRespawned()
         {
             base.OnRespawned();
-
-            // 🔥 Ghost 전용 상태 초기화
-            state = GhostState.Idle;
-            stateTimer = 0f;
-
-            // NavMesh 완전 정지
-            if (agent != null)
-            {
-                agent.ResetPath();
-                agent.velocity = Vector3.zero;
-            }
+            ForceStopAndIdle();
         }
-
     }
 }

@@ -19,7 +19,6 @@ namespace _Kamikakushi.Contents.Item
             interactType = InteractType.Event;
             context.promptKey = PromptKey.Inspect;
             context.displayName = "물";
-            result.transform = null;
             result.success = true;
             isDrink = true;
         }

@@ -9,9 +9,9 @@ namespace _Kamikakushi.Contents.Player
 {
     public class PlayerHide : MonoBehaviour
     {
-        [SerializeField] PlayerManager manager;
-        [SerializeField] PlayerEvents events;
-        [SerializeField] PlayerController controller;
+        PlayerManager manager;
+        PlayerEvents events;
+        PlayerController controller;
         [SerializeField] Transform cam;
 
         private Transform prevParent;
@@ -23,8 +23,17 @@ namespace _Kamikakushi.Contents.Player
             manager = GetComponent<PlayerManager>();
             events = GetComponent<PlayerEvents>();
             controller = GetComponent<PlayerController>();
+            
+        }
+        private void OnEnable()
+        {
             events.PlayerHideInEvent += HideEnter;
             events.PlayerHideOutEvent += HideExit;
+        }
+        private void OnDisable()
+        {
+            events.PlayerHideInEvent -= HideEnter;
+            events.PlayerHideOutEvent -= HideExit;
         }
         public void HideEnter(Transform point)
         {

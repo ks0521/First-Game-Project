@@ -31,6 +31,10 @@ namespace _Kamikakushi.Contents.Player
         }
         public bool Remove(ItemData data)
         {
+            if(data == null)
+            {
+                Debug.Log("아이템 없음 : 제거불가");
+            }
             datas.Remove(data);
             return true;
         }

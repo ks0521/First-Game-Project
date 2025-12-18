@@ -22,7 +22,7 @@ namespace _Kamikakushi.Contents.Item
             //아래 3줄은 고정(PickupItem확정, 위치는 안씀)
             context.displayName = data.name;
             context.promptKey = PromptKey.PickupItem;
-            result.transform = null;    
+            result.actions = new List<IInteractAction>();  
             Init();
         }
         abstract protected void Init();

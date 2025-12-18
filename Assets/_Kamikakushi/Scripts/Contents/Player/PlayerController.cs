@@ -6,12 +6,13 @@ namespace _Kamikakushi.Contents.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] Transform cameraRotation;
-        [SerializeField] CharacterController characterController;
-        [SerializeField] PlayerManager manager;
         [SerializeField] private float mouseSpeed = 5f;
-        [SerializeField] private float gravity = -9.8f;
-        [SerializeField] PlayerEvents events;
+        [SerializeField] Transform cameraRotation;
+        CharacterController characterController;
+        PlayerManager manager;
+        PlayerEvents events;
+
+        public bool canControll;
 
         float mouseX = 0;
         float mouseY = 0;
@@ -22,37 +23,39 @@ namespace _Kamikakushi.Contents.Player
         float h;
         float v;
         //중력 관리용
+        private float gravity = -9.8f;
         Vector3 velocity;
         Vector3 move;
 
-        bool canControll;
         private void Start()
         {
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
             canControll = true;
             events = GetComponent<PlayerEvents>();
-            //events.PlayerHitEvent += CameraHolding; 
-
+            manager = GetComponent<PlayerManager>();
             characterController = GetComponent<CharacterController>();
+
             yaw = transform.rotation.eulerAngles.y;
             // 카메라의 현재 X각도(상하)
             pitch = transform.localEulerAngles.x;
             // 0~360 → -180~180 으로 보정
             if (pitch > 180f) pitch -= 360f;
 
-            //events.PlayerHideInEvent += CameraHolding;
-            manager = GetComponent<PlayerManager>();
+            events.CameraHold += CameraHolding;
         }
         void Update()
         {
             if (canControll)
             {
-                Rotation();
-                Moving();
-            }
-            if (manager.isHide)
-            {
-                HideRotation();
+                if (manager.isHide)
+                {
+                    HideRotation();
+                }
+                else
+                {
+                    Rotation();
+                    Moving();
+                }
             }
         }
 
@@ -122,7 +125,7 @@ namespace _Kamikakushi.Contents.Player
             pitch = Mathf.Clamp(pitch, -10f, 10f);
             yaw = Mathf.Clamp(yaw, -5f, 5f);
             // 실제 회전 적용
-            cameraRotation.localRotation = Quaternion.Euler(pitch, yaw, 0f); 
+            cameraRotation.localRotation = Quaternion.Euler(pitch, yaw, 0f);
         }
     }
 }
