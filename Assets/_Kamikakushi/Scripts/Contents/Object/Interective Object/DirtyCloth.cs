@@ -1,7 +1,8 @@
-using _Kamikakushi.Contents.Player;
+ï»¿using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Enums;
 using UnityEngine;
 using _Kamikakushi.Utills.Structs;
+using _Kamikakushi.Contents.InteractAction;
 
 namespace _Kamikakushi.Contents.Item
 {
@@ -12,26 +13,27 @@ namespace _Kamikakushi.Contents.Item
 
         protected override void Init()
         {
-            context.displayName = "´õ·¯¿î Ãµ";
+            context.displayName = "ë”ëŸ¬ìš´ ì²œ";
             context.promptKey = PromptKey.PickupItem;
         }
 
         public override InteractResult Interact(PlayerManager target)
         {
-            // ÀÎº¥Åä¸® Ãß°¡ ½Ãµµ
+            // ì¸ë²¤í† ë¦¬ ì¶”ê°€ ì‹œë„
             if (!target.inven.Add(data))
             {
                 result.success = false;
-                result.message = "°¡¹æÀÌ ²Ë Ã¡´Ù...";
+                result.message = "ê°€ë°©ì´ ê½‰ ì°¼ë‹¤...";
                 return result;
             }
 
-            // Á¶»ç ¸Ş½ÃÁö + È¹µæ
+            // ì¡°ì‚¬ ë©”ì‹œì§€ + íšë“
             result.success = true;
             result.message = inspectText;
 
-            Debug.Log("´õ·¯¿î Ãµ È¹µæ");
-            Destroy(gameObject);
+            Debug.Log("ë”ëŸ¬ìš´ ì²œ íšë“");
+            //í”½ì—… ì•¡ì…˜ ì¶”ê°€
+            result.actions.Add(new PickUpItemAction(data));
 
             return result;
         }

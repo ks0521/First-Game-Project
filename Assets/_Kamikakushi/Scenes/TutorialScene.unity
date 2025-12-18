@@ -1964,6 +1964,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 467024736997433756, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
+      propertyPath: near clip plane
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4093010128121386917, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
       propertyPath: m_Name
       value: Player5

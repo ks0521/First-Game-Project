@@ -21,7 +21,6 @@ namespace _Kamikakushi.Contents.InteractiveObject
 
             context.promptKey = PromptKey.Inspect;
             context.displayName = "책";
-            result.transform = null;
         }
         public override InteractResult Interact(PlayerManager target)
         {
