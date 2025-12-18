@@ -31,6 +31,7 @@ namespace _Kamikakushi.Contents.Player
         }
         public bool Remove(ItemData data)
         {
+            datas.Remove(data);
             return true;
         }
         // 추가
