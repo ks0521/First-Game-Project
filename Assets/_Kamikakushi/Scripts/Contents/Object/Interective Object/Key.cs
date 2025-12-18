@@ -12,8 +12,6 @@ namespace _Kamikakushi.Contents.Item
     {
         protected override void Init()
         {
-            context.displayName = "열쇠";
-            context.promptKey = PromptKey.PickupItem;
         }
 
         public override InteractResult Interact(PlayerManager target)

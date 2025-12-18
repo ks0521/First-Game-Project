@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Project.Inventory;
@@ -14,7 +14,7 @@ public class DoorTest : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = true;
-        Debug.Log("¹®À» ¿­·Á¸é E¸¦ ´©¸£¼¼¿ä.");
+        Debug.Log("ë¬¸ì„ ì—´ë ¤ë©´ Eë¥¼ ëˆ„ë¥´ì„¸ìš”.");
     }
 
     private void OnTriggerExit(Collider other)
@@ -22,7 +22,7 @@ public class DoorTest : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = false;
-        Debug.Log("¹®¿¡¼­ ¸Ö¾îÁ³´Ù.");
+        Debug.Log("ë¬¸ì—ì„œ ë©€ì–´ì¡Œë‹¤.");
     }
 
     private void Update()
@@ -40,30 +40,30 @@ public class DoorTest : MonoBehaviour
         var inv = InventoryController.Instance;
         if (inv == null)
         {
-            Debug.Log("ÀÎº¥Åä¸®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.Log("ì¸ë²¤í† ë¦¬ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         ItemData equipped = inv.EquippedItem;
 
-        // ÀåÂø ¾ÆÀÌÅÛ ¾øÀ½
+        // ì¥ì°© ì•„ì´í…œ ì—†ìŒ
         if (equipped == null)
         {
-            Debug.Log("¿­¼è¸¦ °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ì—´ì‡ ë¥¼ ê°€ì§€ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // Å° ÄÚµå ºÒÀÏÄ¡
+        // í‚¤ ì½”ë“œ ë¶ˆì¼ì¹˜
         if (equipped.keyCode != doorKeyCode)
         {
-            Debug.Log("¿­¼è°¡ ¸ÂÁö ¾Ê´Â´Ù.");
+            Debug.Log("ì—´ì‡ ê°€ ë§ì§€ ì•ŠëŠ”ë‹¤.");
             return;
         }
 
-        // ¼º°ø
-        Debug.Log("¹®ÀÌ ¿­·È´Ù!");
+        // ì„±ê³µ
+        Debug.Log("ë¬¸ì´ ì—´ë ¸ë‹¤!");
 
-        // ¿­¼è ¼Òºñ
-        inv.OnItemConsumed(equipped);
+        // ì—´ì‡  ì†Œë¹„
+        //inv.OnItemConsumed(equipped);
     }
 }
