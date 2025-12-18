@@ -6,12 +6,13 @@ namespace _Kamikakushi.Contents.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] Transform cameraRotation;
-        [SerializeField] CharacterController characterController;
-        [SerializeField] PlayerManager manager;
         [SerializeField] private float mouseSpeed = 5f;
-        [SerializeField] private float gravity = -9.8f;
-        [SerializeField] PlayerEvents events;
+        [SerializeField] Transform cameraRotation;
+        CharacterController characterController;
+        PlayerManager manager;
+        PlayerEvents events;
+
+        public bool canControll;
 
         float mouseX = 0;
         float mouseY = 0;
@@ -22,18 +23,18 @@ namespace _Kamikakushi.Contents.Player
         float h;
         float v;
         //중력 관리용
+        private float gravity = -9.8f;
         Vector3 velocity;
         Vector3 move;
 
-        bool canControll;
         private void Start()
         {
             //플레이어 피격 델리게이트를 구독해 피격시 카메라 잠금
             canControll = true;
             events = GetComponent<PlayerEvents>();
-            //events.PlayerHitEvent += CameraHolding; 
-
+            manager = GetComponent<PlayerManager>();
             characterController = GetComponent<CharacterController>();
+
             yaw = transform.rotation.eulerAngles.y;
             // 카메라의 현재 X각도(상하)
             pitch = transform.localEulerAngles.x;
@@ -41,7 +42,6 @@ namespace _Kamikakushi.Contents.Player
             if (pitch > 180f) pitch -= 360f;
 
             events.CameraHold += CameraHolding;
-            manager = GetComponent<PlayerManager>();
         }
         void Update()
         {

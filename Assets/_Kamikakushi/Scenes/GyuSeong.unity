@@ -550,6 +550,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &997360164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2274907165168613812, guid: a98f116885112c242a468dd00d39df83, type: 3}
+  m_PrefabInstance: {fileID: 4485815071131044869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &997360166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997360164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d345b21b097744787ddee66373287d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: {fileID: 0}
+  hit: {fileID: 0}
+  shakePower: 0.05
+  shakeCorrection: 5
+  initialPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1030312113 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7122307087245537605, guid: 3d355735b202c304ca6db9b1c66ba775, type: 3}
@@ -2132,7 +2154,6 @@ SceneRoots:
   - {fileID: 5435716074759052728}
   - {fileID: 5277934620594687663}
   - {fileID: 3637974225984393801}
-  - {fileID: 8719050164325111289}
   - {fileID: 2015514896}
   - {fileID: 1993806073}
   - {fileID: 316780099}

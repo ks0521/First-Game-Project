@@ -11,14 +11,19 @@ namespace _Kamikakushi.Contents.Monster
             if (agent == null) return;
             agent.SetDestination(targetPos);
         }
-        IHittable target;
+        IHittable hittable;
+        IDetectable detectable;
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("트리거 충돌");
-            if (other.TryGetComponent<IHittable>(out target))
+            //대상이 IHittable이고 
+            if (other.TryGetComponent<IHittable>(out hittable))
             {
-                Debug.Log("플레이어 충돌");
-                target.Hit(transform.position,5,2,HitType.Physical);
+                detectable = other.GetComponent<IDetectable>();
+                //플레이어가 CanDetected인 경우(숨어있지 않은 경우)
+                if (detectable != null && detectable.CanDetected)
+                    Debug.Log("플레이어 충돌");
+                hittable.Hit(transform.position, 5, 2, HitType.Physical);
             }
         }/*
         public virtual bool Hit(Vector3 targetPos)

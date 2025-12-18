@@ -1,4 +1,5 @@
-﻿using _Kamikakushi.Contents.Item;
+﻿using _Kamikakushi.Contents.InteractAction;
+using _Kamikakushi.Contents.Item;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills;
 using _Kamikakushi.Utills.Enums;
@@ -32,7 +33,6 @@ namespace _Kamikakushi.Contents.InteractiveObject
 
             context.promptKey = PromptKey.LockDoor;
             context.displayName = "문";
-            result.transform = null;
         }
         public override bool CanInteract(PlayerManager target)
         {
@@ -58,8 +58,11 @@ namespace _Kamikakushi.Contents.InteractiveObject
                 else
                 {
                     isLocked = false;
+                    isOpened = true;
                     result.success = true;
-                    result.message = "문을 열었다.";
+                    result.message = "잠긴 문을 열었다.";
+                    //장착 아이템 소비 액션
+                    result.actions.Add(new ConsumeEquippedItemAction());
                     door.Toggle();
                     context.promptKey = PromptKey.CloseDoor;
                     return result;

@@ -60,6 +60,7 @@ namespace _Kamikakushi.Contents.Player
         public void OnRaycastEnter(InteractContext context)
         {
             Debug.Log("상호작용 탐지 성공");
+            Debug.Log($"{context.displayName} : {context.promptKey}");
             GetInteractContext?.Invoke(context);
         }
 
