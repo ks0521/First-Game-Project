@@ -19,9 +19,10 @@ namespace _Kamikakushi.Contents.Item
         protected InteractResult result;
         private void Awake()
         {
-            //아래 2줄은 고정(PickupItem확정, 위치는 안씀)
+            //아래 3줄은 고정(PickupItem확정, 위치는 안씀)
+            context.displayName = data.name;
             context.promptKey = PromptKey.PickupItem;
-            result.transform = null;
+            result.transform = null;    
             Init();
         }
         abstract protected void Init();
