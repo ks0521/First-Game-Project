@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 1617400150381845807}
   - component: {fileID: 5267447742697624631}
   m_Layer: 5
-  m_Name: mpBar
+  m_Name: sanityBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4672,7 +4672,7 @@ GameObject:
   - component: {fileID: 3361815085203490107}
   - component: {fileID: 3867119226128307999}
   m_Layer: 5
-  m_Name: mpOutline
+  m_Name: sanityOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

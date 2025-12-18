@@ -924,6 +924,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1495336465}
     - target: {fileID: 3548487532764648921, guid: 4bccae735ef9f144586409fe6ccff087, type: 3}
+      propertyPath: sanityBar
+      value: 
+      objectReference: {fileID: 1870690169}
+    - target: {fileID: 3548487532764648921, guid: 4bccae735ef9f144586409fe6ccff087, type: 3}
       propertyPath: equippedItemIcon
       value: 
       objectReference: {fileID: 1870690171}
