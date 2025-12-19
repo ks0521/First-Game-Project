@@ -1,64 +1,57 @@
-﻿using System.Collections;
+﻿using _Kamikakushi.Contents.Monster;
+using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Contents.Player.Test;
+using _Kamikakushi.Utills.Enums;
+using System.Collections;
 using UnityEngine;
-using _Kamikakushi.Contents.Monster;
 
 public class MonsterDisappearHandlerTest : MonoBehaviour
 {
-    [SerializeField] private float disappearDelay = 1f;
-    [SerializeField] private float respawnDelay = 3f;
-    [SerializeField] private float detectorDelayAfterRespawn = 1.5f;
+    //원래 자리에 돌아오는 시간 
+    [SerializeField] private float returnDelay = 4f;
+    //돌아오고 디텍터가 켜지는 시간
+    [SerializeField] private float detectorDelayAfterRespawn = 2.5f;
 
-    private Monster monster;
-    private Detector detector;
+    [SerializeField]private PlayerEvents events;
+    private MonsterTest monster;
+    private DetectorTest detector;
     private Vector3 spawnPos;
     private Quaternion spawnRot;
 
     private void Awake()
     {
-        monster = GetComponentInParent<Monster>();
-        detector = monster.GetComponentInChildren<Detector>();
+        monster = GetComponentInParent<MonsterTest>();
+        detector = monster.GetComponentInChildren<DetectorTest>();
 
         spawnPos = monster.transform.position;
         spawnRot = monster.transform.rotation;
     }
-
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
 
         StartCoroutine(DisappearRoutine());
+    }*/
+    public void Disappear()
+    {
+        StartCoroutine(DisappearRoutine());
     }
-
     private IEnumerator DisappearRoutine()
     {
+        detector.SetEnable(false);
         monster.ForceStopChase();
-
-        yield return new WaitForSeconds(disappearDelay);
-
-        Invoke(nameof(Respawn), respawnDelay);
-        monster.gameObject.SetActive(false);
+        yield return new WaitForSeconds(returnDelay);
+        Respawn();
+        yield return new WaitForSeconds(detectorDelayAfterRespawn);
+        detector.SetEnable(true);
     }
-
+    //원래자리로 돌아간 후 탐색상태 변경
     private void Respawn()
     {
         monster.transform.position = spawnPos;
         monster.transform.rotation = spawnRot;
 
-        monster.gameObject.SetActive(true);
-
-        // 🔥 리스폰 초기화
-        monster.OnRespawned();
-
-        // 🔥 Detector 잠시 OFF
-        if (detector != null)
-        {
-            detector.SetEnable(false);
-            Invoke(nameof(EnableDetector), detectorDelayAfterRespawn);
-        }
-    }
-
-    private void EnableDetector()
-    {
-        detector.SetEnable(true);
+        // 리스폰 초기화
+        monster.chasing = ChasingState.Idle;
     }
 }

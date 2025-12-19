@@ -1,3 +1,4 @@
+ï»¿using _Kamikakushi.Contents.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,9 @@ public class SettingController : MonoBehaviour
     int windowWidth;
     int windowHeight;
 
+    [SerializeField] GameObject Inventory;
+    [SerializeField] PlayerController playerController;
+
     private void Start()
     {
         if (settingPanel != null)
@@ -35,8 +39,9 @@ public class SettingController : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+    {   
+        //ì¸ë²¤í† ë¦¬ ë‹«í˜€ìˆì„ë•Œë§Œ ì‹¤í–‰
+        if (Input.GetKeyDown(KeyCode.Escape) && !Inventory.activeSelf)
         {
             ToggleSetting();
         }
@@ -47,20 +52,23 @@ public class SettingController : MonoBehaviour
         isOpen = !isOpen;
         settingPanel.SetActive(isOpen);
 
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö / Àç°³
+        // ê²Œì„ ì¼ì‹œì •ì§€ / ì¬ê°œ
         Time.timeScale = isOpen ? 0f : 1f;
 
         if (isOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            playerController.enabled = false;
 
             ui.SetBlocked(true);
+
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            playerController.enabled = true;
 
             ui.SetBlocked(false);
             ui.ShowNormal();
@@ -82,7 +90,7 @@ public class SettingController : MonoBehaviour
 
     public void OnClickSave()
     {
-        Debug.Log("°ÔÀÓÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù.");
+        Debug.Log("ê²Œì„ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
 
     public void SetMasterVolume(float value)
@@ -110,7 +118,7 @@ public class SettingController : MonoBehaviour
     {
         if (!isOn) return;
 
-        // ÀüÃ¼È­¸é µé¾î°¡±â Àü¿¡ Ã¢¸ğµå ÇØ»óµµ ÀúÀå
+        // ì „ì²´í™”ë©´ ë“¤ì–´ê°€ê¸° ì „ì— ì°½ëª¨ë“œ í•´ìƒë„ ì €ì¥
         windowWidth = Screen.width;
         windowHeight = Screen.height;
 
@@ -123,7 +131,7 @@ public class SettingController : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("°ÔÀÓ Á¾·á");
+        Debug.Log("ê²Œì„ ì¢…ë£Œ");
 
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
