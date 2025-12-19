@@ -49,7 +49,7 @@ namespace _Kamikakushi.Contents.UI
         void Start()
         {
             events = GetComponentInParent<PlayerEvents>();
-            hit = GetComponent<PlayerHit>();
+            hit = GetComponentInParent<PlayerHit>();
             events.PlayerHitEvent += StartShaking;
         }
 

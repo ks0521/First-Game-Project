@@ -83,7 +83,7 @@ public class SettingController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        playerController.enabled = true;
         ui.SetBlocked(false);
         ui.ShowNormal();
     }
