@@ -3,6 +3,8 @@ using _Kamikakushi.Utills.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace _Kamikakushi.Contents.UI
 {
@@ -17,10 +19,33 @@ namespace _Kamikakushi.Contents.UI
         int shakeCount;
         [SerializeField] Vector3 initialPosition;
         Vector3 curPos;
+        [SerializeField] Volume volume;
+
         float endTime;
 
         float moveX;
         float moveY;
+
+        ColorAdjustments color;
+        Vignette vignette;
+        FilmGrain grain;
+        ChromaticAberration chromatic;
+
+        void Awake()
+        {
+            if (volume == null)
+            {
+                Debug.LogError("Volume이 연결되지 않았습니다!");
+                enabled = false;
+                return;
+            }
+
+            volume.profile.TryGet(out color);
+            volume.profile.TryGet(out vignette);
+            volume.profile.TryGet(out grain);
+            volume.profile.TryGet(out chromatic);
+        }
+
         void Start()
         {
             events = GetComponentInParent<PlayerEvents>();
@@ -30,11 +55,13 @@ namespace _Kamikakushi.Contents.UI
 
         IEnumerator CameraShake(float damage, float ShakeTime, HitType type)
         {
+            EnableHitEffect();
+
             //카메라 흔들리는 중(==피격판정 중)에는 다른 몬스터에게 피격당하지 않음
-            
             shakeCount = shakeCorrection;
             endTime = Time.time + ShakeTime;
             Debug.Log(Time.time);
+
             while (Time.time < endTime)
             {
                 --shakeCount;
@@ -54,23 +81,58 @@ namespace _Kamikakushi.Contents.UI
 
                     transform.position = initialPosition;
                 }
-                yield return null;
 
+                yield return null;
             }
 
             transform.position = initialPosition;
             hit.enabled = true;
             //피격 판정중(몬스터에게 피해 입는중)에는 피해를 입지 않음(구현필요)
+
+            DisableHitEffect();
         }
         void StartShaking(float damage, float ShakeTime, HitType type)
         {
             initialPosition = transform.position;
             StartCoroutine(CameraShake(damage, ShakeTime, type));
         }
+
         // Update is called once per frame
         void Update()
         {
+            // 피격 테스트
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                color.colorFilter.value = new Color(1f, 0.6f, 0.6f);
+                vignette.intensity.value = 0.45f;
+                grain.intensity.value = 0.35f;
+                chromatic.intensity.value = 0.25f;
+            }
 
+            // 초기화
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                color.colorFilter.value = Color.white;
+                vignette.intensity.value = 0f;
+                grain.intensity.value = 0f;
+                chromatic.intensity.value = 0f;
+            }
+        }
+
+        void EnableHitEffect()
+        {
+            color.colorFilter.value = new Color(1f, 0.6f, 0.6f);
+            vignette.intensity.value = 0.45f;
+            grain.intensity.value = 0.35f;
+            chromatic.intensity.value = 0.25f;
+        }
+
+        void DisableHitEffect()
+        {
+            color.colorFilter.value = Color.white;
+            vignette.intensity.value = 0f;
+            grain.intensity.value = 0f;
+            chromatic.intensity.value = 0f;
         }
     }
 
