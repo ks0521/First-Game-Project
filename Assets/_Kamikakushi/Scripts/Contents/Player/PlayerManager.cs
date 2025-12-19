@@ -17,12 +17,12 @@ namespace _Kamikakushi.Contents.Player
     {
 
         [SerializeField] public GameObject flash;
-        [SerializeField] InventoryController invenController;
-        [SerializeField] public ItemData handeditems; //민재님이 만들어주시면 수정
+        //[SerializeField] InventoryController invenController;
+        [SerializeField] public ItemData handeditems;
         [SerializeField] public bool isHide;
         [SerializeField] public bool CanDetected => !isHide;
         [SerializeField] public playerStat stat;
-        public HUDController hud;
+        //public HUDController hud;
         public PlayerInventory inven;
         public PlayerEvents events;
         public PlayerHide hide;
@@ -48,12 +48,10 @@ namespace _Kamikakushi.Contents.Player
         {
             events.OnPlayerStatChange(stat);
             InventoryController.Instance.GetInventoryItems = inven.GetItems;
-        }
-        private void OnEnable()
-        {
-            events.PlayerHitEvent += Damaged;
             InventoryController.Instance.OnItemEquipped += SelectItem;
+            events.PlayerHitEvent += Damaged;
         }
+
         private void OnDisable()
         {
             events.PlayerHitEvent -= Damaged;

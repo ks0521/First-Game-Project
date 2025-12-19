@@ -50,12 +50,13 @@ namespace _Kamikakushi.Contents.Player
 
             // 카메라 원래 상태 저장
             prevParent = cam.parent;
-            prevPosition = cam.position;
-            prevRotation = cam.rotation;
-            cam.SetParent(null, true);
+            prevPosition = cam.localPosition;
+            prevRotation = cam.localRotation;
 
-            Vector3 startPos = cam.position;
-            Quaternion startRot = cam.rotation;
+            cam.SetParent(viewPoint, true);
+
+            Vector3 startPos = cam.localPosition;
+            Quaternion startRot = cam.localRotation;
 
             float t = 0f;
             while (t < 1f)
@@ -65,13 +66,14 @@ namespace _Kamikakushi.Contents.Player
                 // 부드러운 가속/감속 구현용
                 float s = Mathf.SmoothStep(0f, 1f, t);
 
-                cam.position = Vector3.Lerp(startPos, viewPoint.position, s);
+                cam.localPosition = Vector3.Lerp(startPos, Vector3.zero, s);
 
-                cam.rotation = Quaternion.Slerp(startRot, viewPoint.rotation, s);
+                cam.localRotation = Quaternion.Slerp(startRot, Quaternion.identity, s);
                 yield return null;
             }
-            cam.SetPositionAndRotation(viewPoint.position, viewPoint.rotation);
-
+            //cam.SetPositionAndRotation(viewPoint.position, viewPoint.rotation);
+            cam.localPosition = Vector3.zero;
+            cam.localRotation = Quaternion.identity;
             manager.isHide = true;
             Debug.Log(manager.CanDetected);
             controller.enabled = true;
@@ -94,8 +96,8 @@ namespace _Kamikakushi.Contents.Player
 
             cam.SetParent(prevParent, true);
 
-            Vector3 startPos = cam.position;
-            Quaternion startRot = cam.rotation;
+            Vector3 startPos = cam.localPosition;
+            Quaternion startRot = cam.localRotation;
 
             float t = 0f;
             while (t < 1f)
@@ -105,12 +107,14 @@ namespace _Kamikakushi.Contents.Player
                 // 부드러운 가속/감속 구현용
                 float s = Mathf.SmoothStep(0f, 1f, t);
 
-                cam.position = Vector3.Lerp(startPos, prevPosition, s);
+                cam.localPosition = Vector3.Lerp(startPos, prevPosition, s);
 
-                cam.rotation = Quaternion.Slerp(startRot, prevRotation, s);
+                cam.localRotation = Quaternion.Slerp(startRot, prevRotation, s);
                 yield return null;
             }
-            cam.SetPositionAndRotation(prevPosition, prevRotation);
+            //cam.SetPositionAndRotation(prevPosition, prevRotation);
+            cam.localPosition = prevPosition;
+            cam.localRotation = prevRotation;
             Debug.Log("나옴");
             manager.isHide = false;
             Debug.Log(manager.CanDetected);

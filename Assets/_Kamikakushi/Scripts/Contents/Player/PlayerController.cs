@@ -107,7 +107,7 @@ namespace _Kamikakushi.Contents.Player
             pitch -= mouseY;       // 위아래(카메라)
 
             // 위아래 제한
-            pitch = Mathf.Clamp(pitch, -70f, 30f);
+            pitch = Mathf.Clamp(pitch, -90f, 50f);
 
             // 실제 회전 적용
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);     // 좌우이동은 Player 몸통을 옮겨 종속된 카메라가 따라감

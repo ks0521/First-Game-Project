@@ -8,10 +8,11 @@ using _Kamikakushi.Utills.Structs;
 
 namespace _Kamikakushi.Contents.Item
 {
-    public class Key : PickUpItems
+    public class LivingRoom_Key : PickUpItems
     {
         protected override void Init()
         {
+            context.displayName = "안방 열쇠";
         }
 
         public override InteractResult Interact(PlayerManager target)

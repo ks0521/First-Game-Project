@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4918230122333871140}
   - component: {fileID: 292725868233587572}
   - component: {fileID: 2030359982870872376}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RedFlower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2a9f3102e653e448b7c30a8429806d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 08da7b7f31c500d4aad21e8375c5ff5a, type: 2}
   inspectText: "\uBD89\uC740\uC0C9 \uAF43\uC774\uB2E4\n\uBA4D\uD574\uC9C8\uC815\uB3C4\uB85C
     \uB2EC\uCF64\uD55C\uD5A5\uACFC\n\uB3D9\uC2DC\uC5D0 \uC4F4\uB0C4\uC0C8\uAC00 \uD37C\uC9C4\uB2E4"
