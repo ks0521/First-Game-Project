@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using _Kamikakushi.Utills.Structs;
+using _Kamikakushi.Utills.Interfaces;
 
 namespace _Kamikakushi.Utills.Structs
 {
@@ -9,8 +10,8 @@ namespace _Kamikakushi.Utills.Structs
     {
         public bool success; //상호작용 성공 실패
         public string message; //결과에따른 플레이어에게 출력해줄 메시지
-        public Transform transform; //hide오브젝트 전용 카메라 이동 위치
-
+        //각 오브젝트에서 발생시켜야 할 액션 모음
+        public List<IInteractAction> actions;
         public static InteractResult Success(string message)
         {
             return new InteractResult
@@ -27,6 +28,5 @@ namespace _Kamikakushi.Utills.Structs
                 message = message
             };
         }
-
     }
 }

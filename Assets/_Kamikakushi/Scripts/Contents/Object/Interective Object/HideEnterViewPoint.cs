@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Item
 {
-    public class ClosetViewPoint : MonoBehaviour
+    public class HideEnterViewPoint : MonoBehaviour
     {
         //ClosetViewPoint의 transform을 받기위한 마커용도로 사용
     }
