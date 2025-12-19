@@ -16,20 +16,19 @@ namespace _Kamikakushi.Contents.Player
     public class PlayerManager : MonoBehaviour, IDetectable
     {
 
-        //[SerializeField] Inventory inventory; - 인벤토리 클래스
         [SerializeField] public GameObject flash;
-        [SerializeField] public PlayerInventory inven;
-        [SerializeField] PlayerEvents events;
-        [SerializeField] PlayerHide hide;
         [SerializeField] InventoryController invenController;
-        [SerializeField] int playerCount;
         [SerializeField] public ItemData handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public bool isHide;
+        [SerializeField] public bool CanDetected => !isHide;
         [SerializeField] public playerStat stat;
         public HUDController hud;
+        public PlayerInventory inven;
+        public PlayerEvents events;
+        public PlayerHide hide;
+        PlayerHit hit;
 
         private float battery;
-        [SerializeField]public bool CanDetected => !isHide;
 
         void Awake()
         {
@@ -37,21 +36,28 @@ namespace _Kamikakushi.Contents.Player
             handeditems = null;
             inven = GetComponent<PlayerInventory>();
             events = GetComponent<PlayerEvents>();
+            hit = GetComponent<PlayerHit>();
+            hide = GetComponent<PlayerHide>();
             stat.hp = stat.MaxHp;
             stat.sanity = stat.MaxSanity;
             //초기값으로 hp창 변경
 
-           // InventoryController.Instance.OnItemEquipped+=SelectItem;
+            // InventoryController.Instance.OnItemEquipped+=SelectItem;
         }
         void Start()
         {
             events.OnPlayerStatChange(stat);
-            events.PlayerHitEvent += Damaged;
-            events.PlayerStatChange += HitTest;
-            InventoryController.Instance.OnItemEquipped += SelectItem;
-            // 추가
             InventoryController.Instance.GetInventoryItems = inven.GetItems;
-
+        }
+        private void OnEnable()
+        {
+            events.PlayerHitEvent += Damaged;
+            InventoryController.Instance.OnItemEquipped += SelectItem;
+        }
+        private void OnDisable()
+        {
+            events.PlayerHitEvent -= Damaged;
+            InventoryController.Instance.OnItemEquipped -= SelectItem;
         }
         private void FixedUpdate()
         {
@@ -79,9 +85,9 @@ namespace _Kamikakushi.Contents.Player
                 flash.SetActive(!flash.activeSelf);
             }
         }
-        void Damaged(float damage, float time, HitType type)
+        void Damaged(Vector3 target, float damage, float time, HitType type)
         {
-            if(type == HitType.Physical)
+            if (type == HitType.Physical)
             {
                 stat.hp -= damage;
             }
@@ -90,17 +96,28 @@ namespace _Kamikakushi.Contents.Player
                 stat.sanity -= damage;
             }
             events.OnPlayerStatChange(stat);
+            StartCoroutine(NoHit(time));
         }
-        void HitTest(playerStat stat)
+        IEnumerator NoHit(float time)
         {
-            Debug.Log($"{stat.hp}, {stat.sanity}");
+            hit.enabled = false;
+            yield return new WaitForSeconds(time);
+            hit.enabled = true;
         }
+
         // 추가
         void SelectItem(ItemData item)
         {
             if (item == null) return;
-
             handeditems = item;
+        }
+        public void UseHandedItem()
+        {
+            if (inven.Remove(handeditems))
+            {
+                InventoryController.Instance.OnItemConsumed();
+            }
+            //inventory 인스턴트에 정보전달해주기
         }
     }
 }

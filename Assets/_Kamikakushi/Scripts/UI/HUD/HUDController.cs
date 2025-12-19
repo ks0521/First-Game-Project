@@ -1,8 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Project.Inventory;
+using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Utills.Structs;
 
 public class HUDController : MonoBehaviour
 {
@@ -11,14 +13,20 @@ public class HUDController : MonoBehaviour
 
     [Header("Status Bars")]
     public Image hpBar;
-    public Image mpBar;
+    public Image sanityBar;
 
     [Range(1f, 20f)]
     public float smoothSpeed = 8f;
 
+    [SerializeField] PlayerEvents events;
     float targetHPFill = 1f;
-    float targetMPFill = 1f;
+    float targetSanityFill = 1f;
 
+    private void Start()
+    {
+
+        events.PlayerStatChange += UpdateState;
+    }
     private void Update()
     {
         hpBar.fillAmount = Mathf.Lerp(
@@ -27,9 +35,9 @@ public class HUDController : MonoBehaviour
             Time.deltaTime * smoothSpeed
         );
 
-        mpBar.fillAmount = Mathf.Lerp(
-            mpBar.fillAmount,
-            targetMPFill,
+        sanityBar.fillAmount = Mathf.Lerp(
+            sanityBar.fillAmount,
+            targetSanityFill,
             Time.deltaTime * smoothSpeed
         );
     }
@@ -39,21 +47,17 @@ public class HUDController : MonoBehaviour
         if (item == null)
         {
             equippedItemIcon.sprite = null;
-            equippedItemIcon.color = new Color(1, 1, 1, 0); // Åõ¸í
+            equippedItemIcon.color = new Color(1, 1, 1, 0); // íˆ¬ëª…
             return;
         }
 
         equippedItemIcon.sprite = item.icon;
         equippedItemIcon.color = Color.white;
     }
-
-    public void UpdateHP(float current, float max)
+    void UpdateState(playerStat stat)
     {
-        targetHPFill = current / max;
-    }
-
-    public void UpdateMP(float current, float max)
-    {
-        targetMPFill = current / max;
+        Debug.Log($"{stat.hp},{stat.sanity}");
+        targetHPFill = stat.hp / stat.MaxHp;
+        targetSanityFill = stat.sanity / stat.MaxSanity;
     }
 }

@@ -53,7 +53,7 @@ namespace _Kamikakushi.Contents.UI
             events.PlayerHitEvent += StartShaking;
         }
 
-        IEnumerator CameraShake(float damage, float ShakeTime, HitType type)
+        IEnumerator CameraShake(Vector3 target, float damage, float ShakeTime, HitType type)
         {
             EnableHitEffect();
 
@@ -91,10 +91,10 @@ namespace _Kamikakushi.Contents.UI
 
             DisableHitEffect();
         }
-        void StartShaking(float damage, float ShakeTime, HitType type)
+        void StartShaking(Vector3 target, float damage, float ShakeTime, HitType type)
         {
             initialPosition = transform.position;
-            StartCoroutine(CameraShake(damage, ShakeTime, type));
+            StartCoroutine(CameraShake(target, damage, ShakeTime, type));
         }
 
         // Update is called once per frame

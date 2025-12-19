@@ -8,7 +8,7 @@ namespace _Kamikakushi.Contents.Monster
     {
         [Header("Base Settings")]
         [SerializeField] protected Detector detector;
-        
+
         protected float speed = 3.5f;
 
         [Header("Movement Type")]
@@ -21,14 +21,15 @@ namespace _Kamikakushi.Contents.Monster
 
         private float lostTimer = 0f;
         [SerializeField] private float lostDelay = 3f;
+        protected Animator animator;
 
-       
         public event Action<Monster> OnChaseStarted; //델리게이트
 
         public abstract void Move(Vector3 targetPos);
 
         protected virtual void Awake()
         {
+            animator = GetComponentInChildren<Animator>();
             startPos = transform.position;
 
             if (movementType == MovementType.NavMesh)
@@ -60,6 +61,15 @@ namespace _Kamikakushi.Contents.Monster
 
         protected virtual void Update()
         {
+            float moveSpeed = 0f;
+
+            if (agent != null)
+                moveSpeed = agent.velocity.magnitude;
+            else
+                moveSpeed = isChasing ? speed : 0f;
+
+            animator?.SetFloat("Speed", moveSpeed);
+
             if (isChasing)
             {
                 MoveTo(currentTargetPos);
