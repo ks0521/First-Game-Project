@@ -1,4 +1,4 @@
-using _Kamikakushi.Contents.Player;
+ï»¿using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Enums;
 using UnityEngine;
 using _Kamikakushi.Utills.Structs;
@@ -12,25 +12,24 @@ namespace _Kamikakushi.Contents.Item
 
         protected override void Init()
         {
-            context.displayName = "ºÓÀº ²É";
+            context.displayName = "ë¶‰ì€ ê½ƒ";
             context.promptKey = PromptKey.PickupItem;
         }
 
         public override InteractResult Interact(PlayerManager target)
         {
-            // ÀÎº¥Åä¸® Ãß°¡ ½Ãµµ
+            // ì¸ë²¤í† ë¦¬ ì¶”ê°€ ì‹œë„
             if (!target.inven.Add(data))
             {
                 result.success = false;
-                result.message = "°¡¹æÀÌ ²Ë Ã¡´Ù...";
+                result.message = "ê°€ë°©ì´ ê½‰ ì°¼ë‹¤...";
                 return result;
             }
 
-            // Á¶»ç ¸Ş½ÃÁö + È¹µæ
+            // ì¡°ì‚¬ ë©”ì‹œì§€ + íšë“
             result.success = true;
             result.message = inspectText;
 
-            Debug.Log("ºÓÀº ²É È¹µæ");
             Destroy(gameObject);
 
             return result;

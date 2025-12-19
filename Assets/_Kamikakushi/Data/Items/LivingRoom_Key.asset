@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e7dafb88336842419b80f22879c2799, type: 3}
-  m_Name: Key
+  m_Name: LivingRoom_Key
   m_EditorClassIdentifier: 
   itemName: "\uC5F4\uC1E0"
   icon: {fileID: 21300000, guid: cd39ddc9dc929054c9c5603abead2537, type: 3}
-  explain: "\uBB38\uC744 \uC5F4 \uC218 \uC788\uB2E4. "
+  explain: "'\uC548\uBC29' \uC774\uB77C\uACE0 \uC4F0\uC5EC\uC838 \uC788\uB2E4."
   prefab: {fileID: 0}
   keyCode: 3

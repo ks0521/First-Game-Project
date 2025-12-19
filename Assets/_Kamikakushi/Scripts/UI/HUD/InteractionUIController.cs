@@ -1,22 +1,25 @@
+ï»¿using _Kamikakushi.Utills.Enums;
+using _Kamikakushi.Utills.Structs;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using _Kamikakushi.Utills.Enums;
-using _Kamikakushi.Utills.Structs;
+using static System.Net.Mime.MediaTypeNames;
 
 [System.Serializable]
 public class PromptUIData
 {
     public PromptKey key;
-    public Sprite crosshair; // Å©·Î½ºÇì¾î ¾ÆÀÌÄÜ
+    public Sprite crosshair; // í¬ë¡œìŠ¤í—¤ì–´ ì•„ì´ì½˜
 }
 
 public class InteractionUIController : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Image crosshairImage;
+    public UnityEngine.UI.Image crosshairImage;
     public TextMeshProUGUI promptText;
+    public TextMeshProUGUI resultText;
 
     [Header("Default")]
     public Sprite defaultCrosshair;
@@ -52,23 +55,31 @@ public class InteractionUIController : MonoBehaviour
         promptText.text = "";
     }
 
-    // ½ÇÁ¦ »óÈ£ÀÛ¿ë ¸Ş½ÃÁö¸¦ UI¿¡ Ç¥½Ã
+    // ì‹¤ì œ ìƒí˜¸ì‘ìš© ë©”ì‹œì§€ë¥¼ UIì— í‘œì‹œ
     public void ShowInteractResult(InteractResult result, InteractContext context)
     {
         if (isBlocked) return;
 
         crosshairImage.enabled = true;
 
-        // UI Table¿¡¼­ crosshair °¡Á®¿À±â
+        // UI Tableì—ì„œ crosshair ê°€ì ¸ì˜¤ê¸°
         if (!table.TryGetValue(context.promptKey, out var data))
             crosshairImage.sprite = defaultCrosshair;
         else
             crosshairImage.sprite = data.crosshair;
 
-        promptText.text = result.message;
-    }
+        //promptText.text = result.message;
+        //resultText.text = result.message;
 
-    // ÀÏ¹İ »óÈ£ÀÛ¿ë ÇÁ·ÒÇÁÆ®
+        StartCoroutine(PrintResult(result.message));
+    }
+    IEnumerator PrintResult(string text)
+    {
+        resultText.text = text;
+        yield return new WaitForSeconds(2);
+        resultText.text = "";
+    }
+    // ì¼ë°˜ ìƒí˜¸ì‘ìš© í”„ë¡¬í”„íŠ¸
     public void ShowPrompt(InteractContext context)
     {
         if (isBlocked) return;
@@ -80,7 +91,7 @@ public class InteractionUIController : MonoBehaviour
         else
             crosshairImage.sprite = data.crosshair;
 
-        // displayName ±â¹İÀ¸·Î ±âº» ÇÁ·ÒÇÁÆ® Ç¥½Ã
+        // displayName ê¸°ë°˜ìœ¼ë¡œ ê¸°ë³¸ í”„ë¡¬í”„íŠ¸ í‘œì‹œ
         promptText.text = $"E : {context.displayName}";
     }
 
