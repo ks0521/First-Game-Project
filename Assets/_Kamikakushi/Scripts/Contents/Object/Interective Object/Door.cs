@@ -93,8 +93,6 @@ namespace _Kamikakushi.Contents.InteractiveObject
                     result.message = MessageChoice(
                         overrideCloseText,
                         "문을 닫았다");
-                    Open();
-
                     Close();
                     return result;
                     //문닫힘
