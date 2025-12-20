@@ -4928,9 +4928,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingPanel: {fileID: 4066275998844183179}
+  ui: {fileID: 0}
   brightnessOverlay: {fileID: 8665117178982710156}
   windowedToggle: {fileID: 2134716120011545947}
   fullscreenToggle: {fileID: 2927179886988038724}
+  Inventory: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7628112827562923105
 GameObject:
   m_ObjectHideFlags: 0

@@ -89,6 +89,10 @@ namespace _Kamikakushi.Contents.Player.Test
                 Debug.Log("플레이어 추적범위 벗어남");
             }
         }
+        public void Idle()
+        {
+            isDetectingNow = false;
+        }
     }
 
 }
