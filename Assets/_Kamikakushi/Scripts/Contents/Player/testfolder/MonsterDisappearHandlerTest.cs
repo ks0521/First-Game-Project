@@ -53,5 +53,6 @@ public class MonsterDisappearHandlerTest : MonoBehaviour
 
         // 리스폰 초기화
         monster.chasing = ChasingState.Idle;
+        detector.Idle();
     }
 }
