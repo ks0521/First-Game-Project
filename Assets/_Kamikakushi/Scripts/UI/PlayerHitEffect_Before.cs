@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace _Kamikakushi.Contents.UI
 {
-    public class PlayerHitEffect : MonoBehaviour
+    public class PlayerHitEffect_Before : MonoBehaviour
     {
         [SerializeField] PlayerEvents events;
         [SerializeField] PlayerHit hit;

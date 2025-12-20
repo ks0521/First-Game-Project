@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace _Kamikakushi.Contents.UI
+namespace _Kamikakushi.Contents.UI.ScreenFX
 {
     public class PlayerHitEffect : MonoBehaviour
     {
