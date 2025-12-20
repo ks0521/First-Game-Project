@@ -958,6 +958,8 @@ MonoBehaviour:
   brightnessOverlay: {fileID: 2324678687849771337}
   windowedToggle: {fileID: 7131073234134955058}
   fullscreenToggle: {fileID: 3004753470662975065}
+  Inventory: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &1350722984221982649
 GameObject:
   m_ObjectHideFlags: 0

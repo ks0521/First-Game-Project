@@ -568,10 +568,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events: {fileID: 0}
-  hit: {fileID: 0}
-  shakePower: 0.05
-  shakeCorrection: 5
-  initialPosition: {x: 0, y: 0, z: 0}
+  shakeMagnitude: 0.05
+  volume: {fileID: 0}
 --- !u!114 &1030312113 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7122307087245537605, guid: 3d355735b202c304ca6db9b1c66ba775, type: 3}
@@ -994,6 +992,10 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 08da7b7f31c500d4aad21e8375c5ff5a, type: 2}
+    - target: {fileID: 4918230122333871140, guid: e0898e8db6bf8f945adf1f6774b39f52, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 5281634178230667971, guid: e0898e8db6bf8f945adf1f6774b39f52, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.92
@@ -1468,7 +1470,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c46565603739896438da0ff2e0a9d234, type: 2}
   m_BuildHeightMesh: 0
@@ -1617,6 +1619,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 2764150158570271533, guid: 974669bf177190441b2d038401226b04, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 6485659316344991236, guid: 974669bf177190441b2d038401226b04, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.029082
@@ -1686,6 +1692,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactType: 0
+  obstacle: {fileID: 0}
+  overrideOpenText: 
+  overrideCloseText: 
+  overrideLockedText: 
 --- !u!114 &3435341023080718348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,6 +1862,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5144346722922390750, guid: a98f116885112c242a468dd00d39df83, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 7206851370332642024, guid: a98f116885112c242a468dd00d39df83, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
@@ -1891,9 +1905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf0cf544f50824408551c3e12ac4088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  events: {fileID: 0}
-  controller: {fileID: 0}
   cam: {fileID: 1036593184}
 --- !u!1001 &4575055987804563299
 PrefabInstance:
