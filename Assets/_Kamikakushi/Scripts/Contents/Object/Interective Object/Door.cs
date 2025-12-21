@@ -16,13 +16,21 @@ namespace _Kamikakushi.Contents.InteractiveObject
 {
     public class Door : InteractItems
     {
-        [SerializeField] NavMeshObstacle obstacle;
+        [SerializeField]
+        [Tooltip("특정 상황에서만 몬스터가 움직이게 하게 만들기 위한 장애물. " +
+            "자세한 예시는 D_bedroom프리팹 참고")]NavMeshObstacle obstacle;
         ToggleDoor door;
         bool isLocked;
         bool isOpened;
-        [SerializeField] string overrideOpenText;
-        [SerializeField] string overrideCloseText;
-        [SerializeField] string overrideLockedText;
+        [SerializeField]
+        [Tooltip("열릴때 기본 문구와 다른 문구 출력 필요시 입력")]
+        string overrideOpenText;
+        [SerializeField]
+        [Tooltip("닫힐때 기본 문구와 다른 문구 출력 필요시 입력")]
+        string overrideCloseText;
+        [SerializeField]
+        [Tooltip("잠겨있을 때 기본 문구와 다른 문구 출력 필요시 입력")]
+        string overrideLockedText;
         protected override void Init()
         {
             door = GetComponent<ToggleDoor>();
