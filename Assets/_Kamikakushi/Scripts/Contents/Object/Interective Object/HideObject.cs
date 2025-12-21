@@ -10,9 +10,15 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public class Closet : InteractItems
+    public class HideObject : InteractItems
     {
-        [SerializeField] Transform hidePoint;
+        [SerializeField]
+        [Tooltip("숨을 때 플레이어의 시점")]
+        Transform hidePoint;
+        [SerializeField]
+        [Tooltip("해당 오브젝트의 이름 입력. \n 미입력시 숨는공간으로 이름정해짐")]
+        string overrideObjectName;
+
         protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
@@ -25,13 +31,15 @@ namespace _Kamikakushi.Contents.InteractiveObject
                 Debug.LogWarning($"{gameObject.name} 숨기장소 지정 오류!");
             }
             context.promptKey = PromptKey.Hide;
-            context.displayName = "옷장";
+            context.displayName = string.IsNullOrEmpty(overrideObjectName)
+                                  ? "숨는 공간"
+                                  : overrideObjectName;
 
             result.actions.Add(new HideEnterAction(hidePoint));
         }
         public override InteractResult Interact(PlayerManager target)
         {
-            Debug.Log($"{hidePoint.position}위치에 숨기");
+            Debug.Log($"{context.displayName}오브젝트 {hidePoint.position}위치에 숨기");
             result.success = true;
             result.message = "플레이어 숨음";
             Debug.Log(result.actions.Count);

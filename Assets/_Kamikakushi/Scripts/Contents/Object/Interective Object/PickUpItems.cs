@@ -7,9 +7,9 @@ using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
 
-namespace _Kamikakushi.Contents.Item
+namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public abstract class PickUpItems : MonoBehaviour, IInteractable
+    public class PickUpItems : MonoBehaviour, IInteractable
     {
         //실제 인벤토리에 저장될 아이템 정보
         [SerializeField] protected ItemData data;
@@ -19,13 +19,26 @@ namespace _Kamikakushi.Contents.Item
         protected InteractResult result;
         private void Awake()
         {
-            //아래 3줄은 고정(PickupItem확정, 위치는 안씀)
-            context.displayName = data.name;
+            //이름은 os에서 따옴
+            context.displayName = data.itemName ?? "사용아이템";
             context.promptKey = PromptKey.PickupItem;
             result.actions = new List<IInteractAction>();  
-            Init();
         }
-        abstract protected void Init();
+        public InteractResult Interact(PlayerManager target)
+        {
+            if (!target.inven.Add(data))
+            {
+                result.success = false;
+                result.message = "가방이 꽉 찼다...";
+                Debug.Log("아이템 획득 실패");
+                return result;
+            }
+            Debug.Log("인벤토리 추가");
+            Destroy(gameObject);
+            result.success = true;
+            result.message = context.displayName + " 획득";
+            return result;
+        }
 
         /// <summary>
         /// 상호작용 조건들을 모두 만족하는지 확인
@@ -36,8 +49,6 @@ namespace _Kamikakushi.Contents.Item
         {
             return true;
         }
-        //상호작용 결과 구현
-        abstract public InteractResult Interact(PlayerManager target);
 
         //InteractContext 구조체 반환하여 UI부에서 크로스헤어 및 텍스트 출력
         public InteractContext GetContext()
