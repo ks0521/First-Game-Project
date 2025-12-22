@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ public class PlayerHitTest : MonoBehaviour
         if(other.TryGetComponent<IHittable>(out target))
         {
             Debug.Log("플레이어 충돌");
-            target.Hit(transform.position);
+            target.Hit(transform.position, 5, 2, HitType.Mental);
         }
     }
 }

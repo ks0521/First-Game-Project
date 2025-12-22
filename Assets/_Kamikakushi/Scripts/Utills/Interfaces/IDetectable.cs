@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace _Kamikakushi.Utills.Interfaces
 {
-    public class IDetectorble : MonoBehaviour
+    public interface IDetectable 
     {
-        public bool CanDetected {  get; private set; }
+        public bool CanDetected {  get; }
     }
 }
 

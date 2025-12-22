@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detector: {fileID: 9116493221050627661}
-  speed: 4.5
   movementType: 0
   lostDelay: 4
 --- !u!23 &3650986641853972566

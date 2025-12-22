@@ -19,7 +19,6 @@ namespace _Kamikakushi.Contents.Item
             interactType = InteractType.Event;
             context.promptKey = PromptKey.Inspect;
             context.displayName = "물";
-            result.transform = null;
             result.success = true;
             isDrink = true;
         }
@@ -37,7 +36,7 @@ namespace _Kamikakushi.Contents.Item
             else
             {
                 //마시면 정신력을 회복시켜주는 오브젝트
-                target.sanity += 20;
+                target.stat.sanity += 20;
                 isDrink = false;
                 result.success = true;
                 result.message = "정신이 살짝 맑아진다.... 정신력 20 회복!";

@@ -24,6 +24,7 @@ namespace _Kamikakushi.Contents.Item
         {
             //인스펙터에 부착된 조건들을 모음
             conditions = GetComponents<IInteractionCondition>();
+            result.actions = new List<IInteractAction>();
             Init();
         }
 

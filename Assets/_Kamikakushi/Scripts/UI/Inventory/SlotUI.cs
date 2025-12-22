@@ -15,7 +15,6 @@ namespace Project.Inventory
 
         private void Awake()
         {
-            // 버튼이 할당되어 있지 않다면 같은 오브젝트의 Button 시도
             if (slotButton == null)
                 slotButton = GetComponent<Button>();
 
@@ -34,7 +33,7 @@ namespace Project.Inventory
             else
             {
                 itemImage.sprite = null;
-                itemImage.color = new Color(1, 1, 1, 0); // 투명
+                itemImage.color = new Color(1, 1, 1, 0);
             }
         }
 
@@ -47,11 +46,9 @@ namespace Project.Inventory
 
         void OnClickSlot()
         {
-            // 클릭 시 InventoryController에게 알리기
             InventoryController.Instance?.OnSlotClicked(this, myItem);
         }
 
-        // 외부에서 현재 아이템을 가져올 수 있게
         public ItemData GetItem() => myItem;
     }
 }
