@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using System;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -8,137 +7,218 @@ namespace _Kamikakushi.Contents.Monster
     {
         [Header("Base Settings")]
         [SerializeField] protected Detector detector;
-
         [SerializeField] protected float speed = 3.5f;
 
-        [Header("Movement Type")]
-        [SerializeField] protected MovementType movementType = MovementType.NavMesh;
+        [Header("Chase / Return")]
+        [SerializeField] protected float giveUpPlayerDistance = 15f; // 플레이어와 거리
+        [SerializeField] protected float waitBeforeReturnTime = 3f;  // ⭐ 멈추는 시간
+        [SerializeField] protected float returnStopDistance = 0.5f;
 
         protected NavMeshAgent agent;
         protected Animator animator;
 
         protected Vector3 startPos;
         protected Vector3 currentTargetPos;
+        protected Transform player;
+
         protected bool isChasing = false;
+        protected bool isWaitingToReturn = false; // ⭐ 추가
+        protected bool isReturning = false;
+        protected bool isTouchingPlayer = false;
 
-        private float lostTimer = 0f;
-        [SerializeField] private float lostDelay = 3f;
+        private float waitTimer = 0f;
 
-        public event Action<Monster> OnChaseStarted;
+        public bool IsTouchingPlayer => isTouchingPlayer;
 
         protected virtual void Awake()
         {
             animator = GetComponentInChildren<Animator>();
             startPos = transform.position;
 
-            if (movementType == MovementType.NavMesh)
+            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+            agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
             {
-                agent = GetComponent<NavMeshAgent>();
-                if (agent != null)
-                {
-                    agent.speed = speed;
-                    agent.updateRotation = true;
-                    agent.isStopped = true; // ⭐ 시작은 멈춘 상태
-                }
+                agent.speed = speed;
+                agent.isStopped = true;
             }
 
             detector?.Init(this);
         }
 
-        protected virtual void Update()
+        // Update 봉인
+        private void Update()
         {
-            UpdateAnimator();
+            if (isTouchingPlayer)
+                return;
 
+            OnMonsterUpdate();
+            UpdateAnimator();
+        }
+
+        // =========================
+        // 공통 상태 로직
+        // =========================
+        protected virtual void OnMonsterUpdate()
+        {
+            // 🔴 추적 중
             if (isChasing)
             {
+                if (player != null)
+                {
+                    float dist = Vector3.Distance(transform.position, player.position);
+
+                    if (dist >= giveUpPlayerDistance)
+                    {
+                        StartWaitBeforeReturn();
+                        return;
+                    }
+                }
+
                 MoveTo(currentTargetPos);
+                return;
             }
-            else
+
+            // 🟡 멈춰서 대기 중
+            if (isWaitingToReturn)
             {
-                lostTimer += Time.deltaTime;
-                if (lostTimer >= lostDelay)
-                    MoveTo(startPos);
+                waitTimer += Time.deltaTime;
+
+                if (waitTimer >= waitBeforeReturnTime)
+                {
+                    StartReturn();
+                }
+                return;
+            }
+
+            // 🔵 복귀 중
+            if (isReturning)
+            {
+                MoveTo(startPos);
+
+                if (Vector3.Distance(transform.position, startPos)
+                    <= returnStopDistance)
+                {
+                    StopAll();
+                }
             }
         }
 
         // =========================
-        // Animator 제어 (핵심)
+        // 이동
         // =========================
-        protected virtual void UpdateAnimator()
-        {
-            float animSpeed = 0f;
-
-            if (agent != null)
-            {
-                if (!agent.isStopped && agent.hasPath)
-                    animSpeed = agent.speed;
-            }
-            else
-            {
-                animSpeed = isChasing ? speed : 0f;
-            }
-
-            animator?.SetFloat("Speed", animSpeed);
-        }
-
-        // =========================
-        // Chase
-        // =========================
-        public virtual void OnPlayerDetected(Vector3 targetPos)
-        {
-            currentTargetPos = targetPos;
-            lostTimer = 0f;
-
-            if (!isChasing)
-            {
-                isChasing = true;
-                agent?.SetDestination(targetPos);
-                agent.isStopped = false;
-
-                OnChaseStarted?.Invoke(this);
-            }
-        }
-
-        public virtual void OnPlayerLost()
-        {
-            isChasing = false;
-        }
+        protected abstract void Move(Vector3 targetPos);
 
         protected void MoveTo(Vector3 targetPos)
         {
             Move(targetPos);
         }
 
-        public abstract void Move(Vector3 targetPos);
+        // =========================
+        // 감지
+        // =========================
+        public virtual void OnPlayerDetected(Vector3 targetPos)
+        {
+            if (isTouchingPlayer) return;
+
+            currentTargetPos = targetPos;
+
+            isChasing = true;
+            isWaitingToReturn = false;
+            isReturning = false;
+
+            waitTimer = 0f;
+
+            if (agent != null)
+                agent.isStopped = false;
+        }
 
         // =========================
-        // 강제 정지 (Freeze / Respawn용)
+        // 상태 전환
         // =========================
-        public virtual void ForceStopChase()
+        protected void StartWaitBeforeReturn()
         {
             isChasing = false;
+            isWaitingToReturn = true;
+            isReturning = false;
+
+            waitTimer = 0f;
 
             if (agent != null)
             {
-                agent.isStopped = true;
+                agent.ResetPath();
+                agent.isStopped = true; // ⭐ 완전 정지
+            }
+        }
+
+        protected void StartReturn()
+        {
+            isWaitingToReturn = false;
+            isReturning = true;
+
+            if (agent != null)
+            {
+                agent.isStopped = false;
                 agent.ResetPath();
             }
+        }
 
+        protected void StopAll()
+        {
+            isChasing = false;
+            isWaitingToReturn = false;
+            isReturning = false;
+
+            waitTimer = 0f;
+
+            if (agent != null)
+            {
+                agent.ResetPath();
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+            }
+        }
+
+        // =========================
+        // 접촉 / 리스폰
+        // =========================
+        public virtual void OnTouchedPlayer()
+        {
+            isTouchingPlayer = true;
+            StopAll();
+
+            detector?.SetEnable(false);
             animator?.SetFloat("Speed", 0f);
         }
 
         public virtual void OnRespawned()
         {
-            isChasing = false;
-            currentTargetPos = startPos;
+            isTouchingPlayer = false;
+            StopAll();
 
             if (agent != null)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-            }
+                agent.Warp(startPos);
+            else
+                transform.position = startPos;
 
+            detector?.SetEnable(true);
             animator?.SetFloat("Speed", 0f);
+        }
+
+        // =========================
+        // Animator (논리 기준)
+        // =========================
+        protected virtual void UpdateAnimator()
+        {
+            if (animator == null) return;
+
+            float animSpeed = 0f;
+
+            if (isChasing || isReturning)
+                animSpeed = speed;
+
+            animator.SetFloat("Speed", animSpeed);
         }
     }
 }

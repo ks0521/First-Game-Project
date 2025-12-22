@@ -13,30 +13,33 @@ public class MonsterDisappearHandler : MonoBehaviour
     private Vector3 spawnPos;
     private Quaternion spawnRot;
 
-    private void Awake()
+    // 🔹 외부에서 몬스터 지정
+    public void Init(Monster target)
     {
-        monster = GetComponentInParent<Monster>();
+        monster = target;
         detector = monster.GetComponentInChildren<Detector>();
 
         spawnPos = monster.transform.position;
         spawnRot = monster.transform.rotation;
     }
 
-    private void OnTriggerEnter(Collider other)
+    // 🔹 몬스터가 닿았을 때 호출
+    public void StartDisappear()
     {
-        if (!other.CompareTag("Player")) return;
-
         StartCoroutine(DisappearRoutine());
     }
 
     private IEnumerator DisappearRoutine()
     {
-        monster.ForceStopChase();
+        monster.OnTouchedPlayer();
 
         yield return new WaitForSeconds(disappearDelay);
 
-        Invoke(nameof(Respawn), respawnDelay);
         monster.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(respawnDelay);
+
+        Respawn();
     }
 
     private void Respawn()
@@ -46,10 +49,8 @@ public class MonsterDisappearHandler : MonoBehaviour
 
         monster.gameObject.SetActive(true);
 
-        // 🔥 리스폰 초기화
         monster.OnRespawned();
 
-        // 🔥 Detector 잠시 OFF
         if (detector != null)
         {
             detector.SetEnable(false);
