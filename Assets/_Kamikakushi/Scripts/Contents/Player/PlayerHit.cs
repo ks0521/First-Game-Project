@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Utills;
+using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using System;
 using System.Collections;
@@ -12,20 +13,18 @@ namespace _Kamikakushi.Contents.Player
     /// </summary>
     public class PlayerHit : MonoBehaviour, IHittable
     {
-        [SerializeField] private PlayerEvents events;
-        //플레이어가 피격받을 때 invoke(변수는 피격판정 지속시간)
-        Vector3 targetPos;
-        // targetPosition 방향(정규화됨)
-        Vector3 normalizedDirect;
+        private PlayerEvents events;
+        private PlayerManager manager;
         public void Start()
         {
             events = GetComponent<PlayerEvents>();
+            manager = GetComponent<PlayerManager>();
         }
-        public void Hit(Vector3 targetPosition)
+        public void Hit(Vector3 targetPosition, float damage, float time, HitType type)
         {
-            normalizedDirect = (targetPosition - transform.position).normalized;
-            transform.rotation = Quaternion.LookRotation(normalizedDirect);
-            events.OnHit(5);
+            //숨은 상태에서 충돌시 피격당하지 않음
+            if (manager.isHide) return;
+            events.OnHit(targetPosition, damage, time, type);
         }
     }
 }

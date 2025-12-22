@@ -1,15 +1,15 @@
+using _Kamikakushi.Contents.Player;
+using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Project.Inventory;
-
 
 public class ItemPickup : MonoBehaviour
 {
     public ItemData itemData; // 주울 아이템 데이터
 
     private bool playerInRange = false;
-    private Player playerRef;
+    private PlayerInventory inventoryRef;
 
     private void Reset()
     {
@@ -21,7 +21,7 @@ public class ItemPickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        playerRef = other.GetComponent<Player>();
+        inventoryRef = other.GetComponent<PlayerInventory>();
         playerInRange = true;
 
         Debug.Log("E 키로 [" + itemData.itemName + "] 줍기");
@@ -32,7 +32,7 @@ public class ItemPickup : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         playerInRange = false;
-        playerRef = null;
+        inventoryRef = null;
     }
 
     private void Update()
@@ -45,9 +45,9 @@ public class ItemPickup : MonoBehaviour
 
     private void TryPickup()
     {
-        if (playerRef == null || itemData == null) return;
+        if (inventoryRef == null || itemData == null) return;
 
-        playerRef.PickUp(itemData);
+        inventoryRef.Add(itemData);
 
         Destroy(gameObject);
     }

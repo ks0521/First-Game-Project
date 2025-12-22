@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7dafb88336842419b80f22879c2799, type: 3}
   m_Name: RedFlower
   m_EditorClassIdentifier: 
-  itemName: RedFlower
-  icon: {fileID: 21300000, guid: a61eda7776ba9f24daff8b9e24c3719b, type: 3}
-  explain: 
+  itemName: "\uBD89\uC740 \uAF43"
+  icon: {fileID: 21300000, guid: 42b42f39a2c3ae249aae74e3fa144275, type: 3}
+  explain: "\uBD89\uC740\uC0C9 \uAF43\uC774\uB2E4\n\uBA4D\uD574\uC9C8\uC815\uB3C4\uB85C
+    \uB2EC\uCF64\uD55C\uD5A5\uACFC\n\uB3D9\uC2DC\uC5D0 \uC4F4\uB0C4\uC0C8\uAC00 \uD37C\uC9C4\uB2E4"
   prefab: {fileID: 0}
   keyCode: 

@@ -1,15 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using _Kamikakushi.Contents.Player;
 
 namespace Project.Inventory
 {
     public class InventoryController : MonoBehaviour
     {
-        public static InventoryController Instance; // ½Ì±ÛÅÏ
+        public static InventoryController Instance; // ì‹±ê¸€í„´
 
         [Header("Panel")]
         public GameObject inventoryCanvas;
@@ -28,15 +29,16 @@ namespace Project.Inventory
         [Header("Initial items")]
         public List<ItemData> initialItems = new List<ItemData>();
 
-        // µ¨¸®°ÔÀÌÆ® Å¸ÀÔ
+        // ë¸ë¦¬ê²Œì´íŠ¸ íƒ€ì…
         public delegate List<ItemData> InventoryDelegate();
-        public InventoryDelegate GetInventoryItems; // ¿ÜºÎ¿¡¼­ ÇÒ´ç °¡´É
+        public InventoryDelegate GetInventoryItems; // ì™¸ë¶€ì—ì„œ í• ë‹¹ ê°€ëŠ¥
 
         private List<SlotUI> slotUIs = new List<SlotUI>();
-        private List<ItemData> currentItems = new List<ItemData>();
+        [SerializeField] private List<ItemData> currentItems = new List<ItemData>();
         private ItemData currentSelected = null;
 
-        private bool isOpen = false;
+        public bool isOpen = false;
+        [SerializeField] PlayerController playerController;
 
         public ItemData equippedItem;
         public ItemData EquippedItem
@@ -47,9 +49,7 @@ namespace Project.Inventory
 
         public HUDController hudController;
 
-        public Player player;
-
-        public Action<string> OnItemEquipped;
+        public event Action<ItemData> OnItemEquipped;
 
         private void Awake()
         {
@@ -59,10 +59,10 @@ namespace Project.Inventory
 
         private void Start()
         {
-            // ÀÎº¥Åä¸® ÆĞ³ÎÀº ½ÃÀÛ ½Ã ºñÈ°¼ºÈ­
+            // ì¸ë²¤í† ë¦¬ íŒ¨ë„ì€ ì‹œì‘ ì‹œ ë¹„í™œì„±í™”
             if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
 
-            // leftAreaÀÇ SlotUI¸¦ ÀÚµ¿ ¼öÁı
+            // leftAreaì˜ SlotUIë¥¼ ìë™ ìˆ˜ì§‘
             slotUIs.Clear();
             if (leftArea != null)
             {
@@ -74,11 +74,11 @@ namespace Project.Inventory
                 }
             }
 
-            // select, exit ¹öÆ° ¿¬°á
+            // select, exit ë²„íŠ¼ ì—°ê²°
             if (selectButton != null) selectButton.onClick.AddListener(OnSelectButton);
             if (exitButton != null) exitButton.onClick.AddListener(CloseInventory);
 
-            // ÃÊ±â ¾ÆÀÌÅÛ ºÒ·¯¿À±â (µ¨¸®°ÔÀÌÆ®°¡ ÀÖÀ¸¸é µ¨¸®°ÔÀÌÆ®, ¾øÀ¸¸é inspector¿¡ ³ÖÀº initialItems)
+            // ì´ˆê¸° ì•„ì´í…œ ë¶ˆëŸ¬ì˜¤ê¸° (ë¸ë¦¬ê²Œì´íŠ¸ê°€ ìˆìœ¼ë©´ ë¸ë¦¬ê²Œì´íŠ¸, ì—†ìœ¼ë©´ inspectorì— ë„£ì€ initialItems)
             if (GetInventoryItems != null)
                 currentItems = GetInventoryItems();
             else
@@ -86,60 +86,7 @@ namespace Project.Inventory
 
             RefreshSlots();
             ClearRightPanel();
-
         }
-
-        public bool AddItem(ItemData item)
-        {
-            if (item == null)
-            {
-                return false;
-            }
-
-            if (currentItems.Count >= slotUIs.Count)
-            {
-                Debug.Log("ÀÎº¥Åä¸®°¡ °¡µæ Ã¡½À´Ï´Ù.");
-                return false;
-            }
-
-            currentItems.Add(item);
-            RefreshSlots();
-
-            Debug.Log("[" + item.itemName + "] °¡ ÀÎº¥Åä¸®¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù.");
-            return true;
-        }
-
-        public void EquipItem(ItemData item)
-        {
-            if (item == null) return;
-
-            EquippedItem = item;
-
-            // °ÔÀÓÇÃ·¹ÀÌ HUD¿¡ Ç¥½Ã
-            hudController?.SetEquippedItem(item);
-
-            OnItemEquipped?.Invoke(item.keyCode);
-            Debug.Log("Å° ÄÚµå ÀåÂøµÊ : " + item.keyCode);
-        }
-
-        public bool RemoveItem(ItemData item)
-        {
-            if (item == null) return false;
-            bool removed = currentItems.Remove(item);
-            if (removed)
-            {
-                RefreshSlots();
-                Debug.Log("[" +item.itemName + "] °¡ ÀÎº¥Åä¸®¿¡¼­ Á¦°ÅµÇ¾ú½À´Ï´Ù.");
-            }
-            return removed;
-        }
-
-        // ÇÊ¿äÇÏ¸é ÀÎº¥Åä¸® ÀüÃ¼ °¡Á®¿À±â
-        public List<ItemData> GetCurrentItems()
-        {
-            return new List<ItemData>(currentItems);
-        }
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.I))
@@ -147,51 +94,70 @@ namespace Project.Inventory
                 ToggleInventory();
             }
         }
+        //itemì¥ì°©
+        public void EquipItem(ItemData item)
+        {
+            if (item == null) return;
 
+            EquippedItem = item;
+
+            // ê²Œì„í”Œë ˆì´ HUDì— í‘œì‹œ
+            hudController?.SetEquippedItem(item);
+
+            OnItemEquipped?.Invoke(item);
+            Debug.Log("í‚¤ ì½”ë“œ ì¥ì°©ë¨ : " + item.keyCode);
+        }
+
+        //ì¥ì°©ì¤‘ì¸ ì•„ì´í…œ ì‚¬ìš©ì‹œ HUDì°½ ì´ˆê¸°í™”
+        public void OnItemConsumed()
+        {
+            EquippedItem = null;
+            hudController?.SetEquippedItem(null);
+        }
+
+        // ì¸ë²¤í† ë¦¬ ì „ì²´ ê°€ì ¸ì˜¤ê¸°
+        public List<ItemData> GetCurrentItems()
+        {
+            return new List<ItemData>(currentItems);
+        }
+
+
+        //ì¸ë²¤í† ë¦¬ ì—¬ë‹«ê¸°
         public void ToggleInventory()
         {
             if (!isOpen) OpenInventory();
             else CloseInventory();
         }
-
         public void OpenInventory()
         {
-            // µ¨¸®°ÔÀÌÆ®°¡ ÀÖÀ¸¸é ÃÖ½Å µ¥ÀÌÅÍ ¹Ş±â
+            // ë¸ë¦¬ê²Œì´íŠ¸ê°€ ìˆìœ¼ë©´ ìµœì‹  ë°ì´í„° ë°›ê¸°
             if (GetInventoryItems != null)
                 currentItems = GetInventoryItems();
 
+            playerController.enabled = false;
             RefreshSlots();
+            //ì¸ë²¤í† ë¦¬ ì—´ë•Œ ì•„ì´í…œ ì„¤ëª…ì°½ ì‹¹ ì´ˆê¸°í™”
+            ClearRightPanel();
             if (inventoryCanvas != null) inventoryCanvas.SetActive(true);
             isOpen = true;
-        }
 
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
         public void CloseInventory()
         {
             if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
             isOpen = false;
+
+            playerController.enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
         }
 
-        void RefreshSlots()
-        {
-            // ½½·Ô ¼ö ¸¸Å­ Ã¤¿ò, ¾øÀ¸¸é Clear
-            for (int i = 0; i < slotUIs.Count; i++)
-            {
-                if (i < currentItems.Count)
-                    slotUIs[i].SetItem(currentItems[i]);
-                else
-                    slotUIs[i].Clear();
-            }
-        }
 
-        void ClearRightPanel()
-        {
-            currentSelected = null;
-            if (selectedItemIcon != null) { selectedItemIcon.sprite = null; selectedItemIcon.color = new Color(1, 1, 1, 0); }
-            if (selectedItemName != null) selectedItemName.text = "";
-            if (selectedItemEx != null) selectedItemEx.text = "";
-        }
-
-        // SlotUI¿¡¼­ Å¬¸¯ ½Ã È£ÃâµÊ
+        // SlotUIì—ì„œ í´ë¦­ ì‹œ í˜¸ì¶œë¨
         public void OnSlotClicked(SlotUI slot, ItemData item)
         {
             if (item == null)
@@ -199,7 +165,7 @@ namespace Project.Inventory
                 ClearRightPanel();
                 return;
             }
-
+            Debug.Log($"{item.icon}");
             currentSelected = item;
 
             selectedItemIcon.sprite = item.icon;
@@ -208,36 +174,37 @@ namespace Project.Inventory
             selectedItemEx.text = item.explain;
         }
 
-        // Select ¹öÆ° ´­·¶À» ¶§
+        // Select ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
         private void OnSelectButton()
         {
             if (currentSelected != null)
             {
                 EquipItem(currentSelected);
-                Debug.Log("[" + currentSelected.itemName + "] °¡ ÀåÂøµÇ¾ú½À´Ï´Ù.");
+                Debug.Log("[" + currentSelected.itemName + "] ê°€ ì¥ì°©ë˜ì—ˆìŠµë‹ˆë‹¤.");
             }
             else
             {
-                Debug.Log("ÀåÂøÇÒ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+                Debug.Log("ì¥ì°©í•  ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
+            }
+
+        }
+        void RefreshSlots()
+        {
+            // ìŠ¬ë¡¯ ìˆ˜ ë§Œí¼ ì±„ì›€, ì—†ìœ¼ë©´ Clear
+            for (int i = 0; i < slotUIs.Count; i++)
+            {
+                if (i < currentItems.Count)
+                    slotUIs[i].SetItem(currentItems[i]);
+                else
+                    slotUIs[i].Clear();
             }
         }
-
-        public void OnItemConsumed(ItemData item)
+        void ClearRightPanel()
         {
-            if (item == null) return;
-
-            // ÀåÂø ÇØÁ¦
-            if (EquippedItem == item)
-            {
-                EquippedItem = null;
-                hudController?.SetEquippedItem(null);
-
-                if (player != null)
-                    player.equippedKeyCode = null;
-            }
-
-            RemoveItem(item);
-            ClearRightPanel();
+            currentSelected = null;
+            if (selectedItemIcon != null) { selectedItemIcon.sprite = null; selectedItemIcon.color = new Color(1, 1, 1, 0); }
+            if (selectedItemName != null) selectedItemName.text = "";
+            if (selectedItemEx != null) selectedItemEx.text = "";
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Utills.Enums;
+using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Structs;
 using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,38 +13,49 @@ namespace _Kamikakushi.Contents.Player
     /// <summary>
     /// 커서 및 자원, 숨기상태 관리
     /// </summary>
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, IDetectable
     {
 
-        //[SerializeField] Inventory inventory; - 인벤토리 클래스
-        [SerializeField] public int sanity;
-        [SerializeField] int playerCount;
-        [SerializeField] public string handeditems; //민재님이 만들어주시면 수정
         [SerializeField] public GameObject flash;
-        [SerializeField] public PlayerInventory inven;
-        public HUDController hud;
-        public float maxHP = 100f;
-        public float currentHP = 100f;
-
-        public float maxMP = 100f;
-        public float currentMP = 100f;
+        //[SerializeField] InventoryController invenController;
+        [SerializeField] public ItemData handeditems;
+        [SerializeField] public bool isHide;
+        [SerializeField] public bool CanDetected => !isHide;
+        [SerializeField] public playerStat stat;
+        //public HUDController hud;
+        public PlayerInventory inven;
+        public PlayerEvents events;
+        public PlayerHide hide;
+        PlayerHit hit;
 
         private float battery;
-        [SerializeField] public bool IsHide {  get; private set; }
+
         void Awake()
         {
             battery = 100;
-            //Cursor.lockState = CursorLockMode.Locked;
             handeditems = null;
-            sanity = 100;
-            Debug.Log(sanity);
             inven = GetComponent<PlayerInventory>();
+            events = GetComponent<PlayerEvents>();
+            hit = GetComponent<PlayerHit>();
+            hide = GetComponent<PlayerHide>();
+            stat.hp = stat.MaxHp;
+            stat.sanity = stat.MaxSanity;
+            //초기값으로 hp창 변경
+
+            // InventoryController.Instance.OnItemEquipped+=SelectItem;
         }
-        private void Start()
+        void Start()
         {
-            hud.UpdateHP(currentHP, maxHP);
-            hud.UpdateMP(currentMP, maxMP);
-            InventoryController.Instance.OnItemEquipped+=SelectItem;
+            events.OnPlayerStatChange(stat);
+            InventoryController.Instance.GetInventoryItems = inven.GetItems;
+            InventoryController.Instance.OnItemEquipped += SelectItem;
+            events.PlayerHitEvent += Damaged;
+        }
+
+        private void OnDisable()
+        {
+            events.PlayerHitEvent -= Damaged;
+            InventoryController.Instance.OnItemEquipped -= SelectItem;
         }
         private void FixedUpdate()
         {
@@ -50,7 +64,6 @@ namespace _Kamikakushi.Contents.Player
                 battery -= 0.02f;
             }
         }
-        // Update is called once per frame
         void Update()
         {
             //테스트용 코드
@@ -70,10 +83,39 @@ namespace _Kamikakushi.Contents.Player
                 flash.SetActive(!flash.activeSelf);
             }
         }
-        void SelectItem(string keyCode)
+        void Damaged(Vector3 target, float damage, float time, HitType type)
         {
-            handeditems = keyCode;
+            if (type == HitType.Physical)
+            {
+                stat.hp -= damage;
+            }
+            else
+            {
+                stat.sanity -= damage;
+            }
+            events.OnPlayerStatChange(stat);
+            StartCoroutine(NoHit(time));
+        }
+        IEnumerator NoHit(float time)
+        {
+            hit.enabled = false;
+            yield return new WaitForSeconds(time);
+            hit.enabled = true;
+        }
+
+        // 추가
+        void SelectItem(ItemData item)
+        {
+            if (item == null) return;
+            handeditems = item;
+        }
+        public void UseHandedItem()
+        {
+            if (inven.Remove(handeditems))
+            {
+                InventoryController.Instance.OnItemConsumed();
+            }
+            //inventory 인스턴트에 정보전달해주기
         }
     }
-
 }

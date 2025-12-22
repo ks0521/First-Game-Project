@@ -19,7 +19,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] private Camera cam;
         [SerializeField] private RectTransform crosshair;
         [SerializeField] private PlayerEvents events;
-        [SerializeField] private float maxDistance = 5f;
+        [SerializeField] private float maxDistance;
         private IInteractable interactObj;
         private bool wasHit;
         private bool isHit;
@@ -32,6 +32,7 @@ namespace _Kamikakushi.Contents.Player
         // Start is called before the first frame update
         void Start()
         {
+            maxDistance = 2f;
             events = GetComponentInParent<PlayerEvents>();
             cam = GetComponent<Camera>();
         }

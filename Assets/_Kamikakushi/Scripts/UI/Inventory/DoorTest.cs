@@ -1,62 +1,69 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Inventory;
 
 public class DoorTest : MonoBehaviour
 {
     public string doorKeyCode;
 
-    private Player currentPlayer;
+    private bool playerInRange = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        Player player = other.GetComponent<Player>();
-        if (player != null)
-        {
-            currentPlayer = player;
-            Debug.Log("¹®À» ¿­·Á¸é E¸¦ ´©¸£¼¼¿ä.");
-        }
+        if (!other.CompareTag("Player")) return;
+
+        playerInRange = true;
+        Debug.Log("ë¬¸ì„ ì—´ë ¤ë©´ Eë¥¼ ëˆ„ë¥´ì„¸ìš”.");
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Player player = other.GetComponent<Player>();
-        if (player != null)
-        {
-            currentPlayer = null;
-            Debug.Log("¹®¿¡¼­ ¸Ö¾îÁ³´Ù.");
-        }
+        if (!other.CompareTag("Player")) return;
+
+        playerInRange = false;
+        Debug.Log("ë¬¸ì—ì„œ ë©€ì–´ì¡Œë‹¤.");
     }
 
     private void Update()
     {
-        if (currentPlayer == null) return;
+        if (!playerInRange) return;
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryOpen(currentPlayer);
+            TryOpen();
         }
     }
 
-    public void TryOpen(Player player)
+    private void TryOpen()
     {
-        // ¿­¼è°¡ ¾øÀ» ¶§
-        if (string.IsNullOrEmpty(player.equippedKeyCode))
+        var inv = InventoryController.Instance;
+        if (inv == null)
         {
-            Debug.Log("¿­¼è¸¦ °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ì¸ë²¤í† ë¦¬ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ¿­¼è´Â ÀÖÁö¸¸ ÄÚµå°¡ ´Ù¸¦ ¶§
-        if (player.equippedKeyCode != doorKeyCode)
+        ItemData equipped = inv.EquippedItem;
+
+        // ì¥ì°© ì•„ì´í…œ ì—†ìŒ
+        if (equipped == null)
         {
-            Debug.Log("¿­¼è°¡ ¸ÂÁö ¾Ê´Â´Ù.");
+            Debug.Log("ì—´ì‡ ë¥¼ ê°€ì§€ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ÄÚµå°¡ ÀÏÄ¡ÇÒ ¶§
-        Debug.Log("¹®ÀÌ ¿­·È´Ù!");
+        // í‚¤ ì½”ë“œ ë¶ˆì¼ì¹˜
+        if (equipped.keyCode != doorKeyCode)
+        {
+            Debug.Log("ì—´ì‡ ê°€ ë§ì§€ ì•ŠëŠ”ë‹¤.");
+            return;
+        }
 
-        player.ConsumeEquippedKey();
+        // ì„±ê³µ
+        Debug.Log("ë¬¸ì´ ì—´ë ¸ë‹¤!");
+
+        // ì—´ì‡  ì†Œë¹„
+        //inv.OnItemConsumed(equipped);
     }
 }
