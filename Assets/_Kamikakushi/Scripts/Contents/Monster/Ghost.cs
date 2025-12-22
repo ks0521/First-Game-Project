@@ -1,6 +1,5 @@
 ﻿using _Kamikakushi.Utills.Interfaces;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -17,8 +16,6 @@ namespace _Kamikakushi.Contents.Monster
         [Header("Ghost Settings")]
         [SerializeField] private float fakeReturnTime = 2.5f;
         [SerializeField] private float surpriseChaseTime = 5f;
-
-        [Header("Chase Limit")]
         [SerializeField] private float maxChaseDistance = 15f;
 
         private GhostState state = GhostState.Idle;
@@ -36,19 +33,20 @@ namespace _Kamikakushi.Contents.Monster
             player = GameObject.FindGameObjectWithTag("Player").transform;
             playerDetectorble = player.GetComponent<Detectorble>();
 
-            ForceStopAndIdle(); // ⭐ 시작 상태 완전 초기화
+            ForceStopAndIdle();
         }
 
-        protected override void Update()
+        // ❌ Update() 제거
+        // ✅ 이 함수만 오버라이드
+        protected override void OnMonsterUpdate()
         {
-            // 🔴 최대 추적 거리 초과 시 즉시 Idle
+            // 🔴 최대 추적 거리 제한
             if (state != GhostState.Idle)
             {
                 float dist = Vector3.Distance(transform.position, player.position);
                 if (dist >= maxChaseDistance)
                 {
                     ForceStopAndIdle();
-                    UpdateAnimatorSpeed();
                     return;
                 }
             }
@@ -56,7 +54,7 @@ namespace _Kamikakushi.Contents.Monster
             switch (state)
             {
                 case GhostState.Idle:
-                    base.Update(); // Monster.Update 실행
+                    // 아무 것도 안 함
                     break;
 
                 case GhostState.Chasing:
@@ -71,9 +69,6 @@ namespace _Kamikakushi.Contents.Monster
                     SurpriseChaseUpdate();
                     break;
             }
-
-            // ⭐⭐⭐ 애니메이션 Speed는 항상 직접 갱신
-            UpdateAnimatorSpeed();
         }
 
         // =========================
@@ -84,7 +79,6 @@ namespace _Kamikakushi.Contents.Monster
         {
             EnsureAgentMove();
             isChasing = true;
-
             MoveTo(player.position);
 
             if (playerDetectorble != null && !playerDetectorble.CanDetected)
@@ -125,7 +119,7 @@ namespace _Kamikakushi.Contents.Monster
                 return;
 
             ResetAgentCompletely();
-            WakeUpAnimator();   // ⭐ 핵심
+            WakeUpAnimator();
 
             state = GhostState.Chasing;
             isChasing = true;
@@ -136,7 +130,6 @@ namespace _Kamikakushi.Contents.Monster
             state = GhostState.FakeReturn;
             stateTimer = 0f;
             isChasing = false;
-
             agent?.ResetPath();
         }
 
@@ -161,23 +154,13 @@ namespace _Kamikakushi.Contents.Monster
                 agent.velocity = Vector3.zero;
             }
 
-            UpdateAnimatorSpeed();
+            animator?.SetFloat("Speed", 0f);
         }
 
         // =========================
-        // Animator & NavMesh 안정화
+        // NavMesh 안정화
         // =========================
 
-        private void UpdateAnimatorSpeed()
-        {
-            if (animator == null || agent == null) return;
-
-            float moveSpeed = 0f;
-            if (agent.remainingDistance > agent.stoppingDistance)
-                moveSpeed = speed;
-
-            animator.SetFloat("Speed", moveSpeed);
-        }
         private void EnsureAgentMove()
         {
             if (agent != null && agent.isStopped)
@@ -190,20 +173,18 @@ namespace _Kamikakushi.Contents.Monster
 
             agent.isStopped = false;
             agent.ResetPath();
-            agent.Warp(transform.position); // ⭐ 내부 상태 완전 리셋
+            agent.Warp(transform.position);
+        }
+
+        private void WakeUpAnimator()
+        {
+            animator?.SetFloat("Speed", 0.2f);
         }
 
         public override void OnRespawned()
         {
             base.OnRespawned();
             ForceStopAndIdle();
-        }
-        private void WakeUpAnimator()
-        {
-            if (animator == null) return;
-
-            // Idle → Move 전이 강제
-            animator.SetFloat("Speed", 0.2f);
         }
     }
 }

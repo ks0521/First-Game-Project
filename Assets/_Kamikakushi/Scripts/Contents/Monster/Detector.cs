@@ -1,42 +1,38 @@
-﻿using _Kamikakushi.Contents.Monster;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Detector : MonoBehaviour
+namespace _Kamikakushi.Contents.Monster
 {
-    private Monster owner;
-    private bool isEnabled = true;
-
-    public void Init(Monster owner)
+    public class Detector : MonoBehaviour
     {
-        this.owner = owner;
-    }
+        private Monster owner;
+        private bool isEnabled = true;
 
-    public void SetEnable(bool value)
-    {
-        isEnabled = value;
-    }
+        public void Init(Monster monster)
+        {
+            owner = monster;
+        }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!isEnabled) return;
-        if (!other.CompareTag("Player")) return;
+        public void SetEnable(bool enable)
+        {
+            isEnabled = enable;
+        }
 
-        owner.OnPlayerDetected(other.transform.position);
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isEnabled) return;
+            if (!other.CompareTag("Player")) return;
+            if (owner.IsTouchingPlayer) return;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (!isEnabled) return;
-        if (!other.CompareTag("Player")) return;
+            owner.OnPlayerDetected(other.transform.position);
+        }
 
-        owner.OnPlayerDetected(other.transform.position);
-    }
+        private void OnTriggerStay(Collider other)
+        {
+            if (!isEnabled) return;
+            if (!other.CompareTag("Player")) return;
+            if (owner.IsTouchingPlayer) return;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!isEnabled) return;
-        if (!other.CompareTag("Player")) return;
-
-        owner.OnPlayerLost();
+            owner.OnPlayerDetected(other.transform.position);
+        }
     }
 }

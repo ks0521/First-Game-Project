@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using System;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -8,10 +7,7 @@ namespace _Kamikakushi.Contents.Monster
     {
         [Header("Base Settings")]
         [SerializeField] protected Detector detector;
-
         [SerializeField] protected float speed = 3.5f;
-
-        [Header("Movement Type")]
         [SerializeField] protected MovementType movementType = MovementType.NavMesh;
 
         protected NavMeshAgent agent;
@@ -19,12 +15,12 @@ namespace _Kamikakushi.Contents.Monster
 
         protected Vector3 startPos;
         protected Vector3 currentTargetPos;
+
         protected bool isChasing = false;
 
-        private float lostTimer = 0f;
-        [SerializeField] private float lostDelay = 3f;
-
-        public event Action<Monster> OnChaseStarted;
+        // 🔒 AI 완전 잠금 플래그
+        protected bool isTouchingPlayer = false;
+        public bool IsTouchingPlayer => isTouchingPlayer;
 
         protected virtual void Awake()
         {
@@ -37,108 +33,110 @@ namespace _Kamikakushi.Contents.Monster
                 if (agent != null)
                 {
                     agent.speed = speed;
-                    agent.updateRotation = true;
-                    agent.isStopped = true; // ⭐ 시작은 멈춘 상태
+                    agent.isStopped = true;
                 }
             }
 
             detector?.Init(this);
         }
 
-        protected virtual void Update()
+        // 🔥 절대 자식이 Override 하면 안 되는 Update
+        private void Update()
         {
-            UpdateAnimator();
+            // 플레이어와 닿은 이후엔 AI 완전 정지
+            if (isTouchingPlayer)
+                return;
 
+            OnMonsterUpdate();
+            UpdateAnimator();
+        }
+
+        // =========================
+        // 자식 전용 Update
+        // =========================
+        protected virtual void OnMonsterUpdate()
+        {
             if (isChasing)
             {
                 MoveTo(currentTargetPos);
             }
-            else
-            {
-                lostTimer += Time.deltaTime;
-                if (lostTimer >= lostDelay)
-                    MoveTo(startPos);
-            }
         }
 
-        // =========================
-        // Animator 제어 (핵심)
-        // =========================
-        protected virtual void UpdateAnimator()
-        {
-            float animSpeed = 0f;
-
-            if (agent != null)
-            {
-                if (!agent.isStopped && agent.hasPath)
-                    animSpeed = agent.speed;
-            }
-            else
-            {
-                animSpeed = isChasing ? speed : 0f;
-            }
-
-            animator?.SetFloat("Speed", animSpeed);
-        }
-
-        // =========================
-        // Chase
-        // =========================
-        public virtual void OnPlayerDetected(Vector3 targetPos)
-        {
-            currentTargetPos = targetPos;
-            lostTimer = 0f;
-
-            if (!isChasing)
-            {
-                isChasing = true;
-                agent?.SetDestination(targetPos);
-                agent.isStopped = false;
-
-                OnChaseStarted?.Invoke(this);
-            }
-        }
-
-        public virtual void OnPlayerLost()
-        {
-            isChasing = false;
-        }
+        protected abstract void Move(Vector3 targetPos);
 
         protected void MoveTo(Vector3 targetPos)
         {
             Move(targetPos);
         }
 
-        public abstract void Move(Vector3 targetPos);
+        // =========================
+        // 감지
+        // =========================
+        public virtual void OnPlayerDetected(Vector3 targetPos)
+        {
+            if (isTouchingPlayer) return;
+
+            currentTargetPos = targetPos;
+
+            if (!isChasing)
+            {
+                isChasing = true;
+                if (agent != null)
+                    agent.isStopped = false;
+            }
+        }
 
         // =========================
-        // 강제 정지 (Freeze / Respawn용)
+        // 접촉 시 (모든 몬스터 공통)
         // =========================
-        public virtual void ForceStopChase()
+        public virtual void OnTouchedPlayer()
         {
+            isTouchingPlayer = true;
             isChasing = false;
+
+            detector?.SetEnable(false);
 
             if (agent != null)
             {
                 agent.isStopped = true;
                 agent.ResetPath();
+                agent.velocity = Vector3.zero;
             }
 
             animator?.SetFloat("Speed", 0f);
         }
 
+        // =========================
+        // 리스폰
+        // =========================
         public virtual void OnRespawned()
         {
+            isTouchingPlayer = false;
             isChasing = false;
-            currentTargetPos = startPos;
+
+            detector?.SetEnable(true);
 
             if (agent != null)
             {
                 agent.isStopped = true;
                 agent.ResetPath();
+                agent.Warp(startPos);
             }
 
             animator?.SetFloat("Speed", 0f);
+        }
+
+        // =========================
+        // Animator
+        // =========================
+        protected virtual void UpdateAnimator()
+        {
+            if (animator == null || agent == null) return;
+
+            float animSpeed =
+                (!agent.isStopped && agent.hasPath) ? speed : 0f;
+
+            animator.SetFloat("Speed", animSpeed);
         }
     }
 }

@@ -20,7 +20,9 @@ namespace _Kamikakushi.Contents.Monster
             playerCam = Camera.main.transform;
         }
 
-        protected override void Update()
+        // ❌ Update() 제거
+        // ✅ 이 함수만 오버라이드
+        protected override void OnMonsterUpdate()
         {
             if (IsInFreezeRange() && IsPlayerLookingAtZombie())
             {
@@ -33,7 +35,8 @@ namespace _Kamikakushi.Contents.Monster
                 UnFreeze();
             }
 
-            base.Update();
+            // 🔥 기본 추적 로직 실행
+            base.OnMonsterUpdate();
         }
 
         // =========================
@@ -52,7 +55,7 @@ namespace _Kamikakushi.Contents.Monster
                 agent.ResetPath();
             }
 
-            animator?.SetFloat("Speed", 0f); // ⭐ 확정 Idle
+            animator?.SetFloat("Speed", 0f);
         }
 
         private void UnFreeze()
