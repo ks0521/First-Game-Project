@@ -36,6 +36,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
                                   : overrideObjectName;
 
             result.actions.Add(new HideEnterAction(hidePoint));
+            result.actions.Add(new PlaySFXAction(Utills.Audio.SFXType.HideEnter));
         }
         public override InteractResult Interact(PlayerManager target)
         {

@@ -11,6 +11,7 @@ namespace _Kamikakushi.Contents.Player
     {
         PlayerEvents events;
         PlayerManager playerManager;
+        PlayerAudio playerAudio;
         private IInteractable obj;
         //상호작용 시도가 가능한가? -> 레이캐스트가 iinteractable인가?
         private InteractResult result;
@@ -20,6 +21,7 @@ namespace _Kamikakushi.Contents.Player
         {
             playerManager = GetComponent<PlayerManager>();
             events = GetComponent<PlayerEvents>();
+            playerAudio = GetComponent<PlayerAudio>();
         }
         private void OnEnable()
         {
@@ -58,6 +60,8 @@ namespace _Kamikakushi.Contents.Player
             //숨은상태에서 E 입력시 빠져나오기
             else if(Input.GetKeyDown(KeyCode.E) && playerManager.isHide)
             {
+                //나올때는 playerinteract에서 소리 발생시키기
+                playerAudio.PlaySFX(Utills.Audio.SFXType.HideEnter);
                 events.OnHideOut();
             }
         }

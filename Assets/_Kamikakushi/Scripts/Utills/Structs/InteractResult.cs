@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using _Kamikakushi.Utills.Interfaces;
+using _Kamikakushi.Utills.Structs;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using _Kamikakushi.Utills.Structs;
-using _Kamikakushi.Utills.Interfaces;
 
 namespace _Kamikakushi.Utills.Structs
 {
+    [Serializable]
     public struct InteractResult
     {
         public bool success; //상호작용 성공 실패

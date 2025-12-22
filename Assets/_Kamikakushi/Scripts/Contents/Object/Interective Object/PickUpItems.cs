@@ -6,6 +6,9 @@ using Project.Inventory;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
+using System;
+using _Kamikakushi.Contents.InteractAction;
+using _Kamikakushi.Utills.Audio;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
@@ -16,7 +19,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
         //UI나 크로스헤어 정보전달용
         protected InteractContext context;
         //상호작용 결과 반환
-        protected InteractResult result;
+        [SerializeField] protected InteractResult result;
         private void Awake()
         {
             //이름은 os에서 따옴
@@ -37,6 +40,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
             Destroy(gameObject);
             result.success = true;
             result.message = context.displayName + " 획득";
+            result.actions.Add(new PlaySFXAction(SFXType.PickupItem)); //픽업사운드 추가
             return result;
         }
 

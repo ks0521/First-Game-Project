@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using _Kamikakushi.Audio;
 using _Kamikakushi.Utills.Audio;
 
@@ -17,6 +17,10 @@ public class AudioTest : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            AudioManager.Instance.PlayLoop(SFXType.HideBreath);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             AudioManager.Instance.StopLoop();
         }
