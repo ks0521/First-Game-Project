@@ -16,7 +16,7 @@ namespace _Kamikakushi.Contents.Player.Test
         }
         protected override void Hit(IHittable hit)
         {
-            hit.Hit(transform.position, 5, 2, HitType.Physical);
+            hit.Hit(transform.position, 30, 2, HitType.Physical);
         }
     }
 }

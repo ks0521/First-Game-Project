@@ -23,7 +23,7 @@ namespace _Kamikakushi.Contents.Monster
                 //플레이어가 CanDetected인 경우(숨어있지 않은 경우)
                 if (detectable != null && detectable.CanDetected)
                     Debug.Log("플레이어 충돌");
-                hittable.Hit(transform.position, 5, 2, HitType.Physical);
+                hittable.Hit(transform.position, 30, 2, HitType.Physical);
             }
         }/*
         public virtual bool Hit(Vector3 targetPos)

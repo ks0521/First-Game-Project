@@ -548,6 +548,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2764150158570271533, guid: 974669bf177190441b2d038401226b04, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 6485659316344991236, guid: 974669bf177190441b2d038401226b04, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.056908
@@ -630,6 +634,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactType: 0
+  obstacle: {fileID: 0}
+  overrideOpenText: 
+  overrideCloseText: 
+  overrideLockedText: 
 --- !u!1001 &1209406667603191680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -646,6 +654,10 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 08da7b7f31c500d4aad21e8375c5ff5a, type: 2}
+    - target: {fileID: 4918230122333871140, guid: e0898e8db6bf8f945adf1f6774b39f52, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 5281634178230667971, guid: e0898e8db6bf8f945adf1f6774b39f52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.45
