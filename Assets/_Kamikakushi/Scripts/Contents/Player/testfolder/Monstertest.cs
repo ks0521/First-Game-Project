@@ -22,7 +22,6 @@ namespace _Kamikakushi.Contents.Player.Test
         protected float speed = 3.5f;
 
         [Header("Movement Type")]
-        [SerializeField] protected MovementType movementType = MovementType.NavMesh;
         [SerializeField] private float lostDelay = 3f;
 
         protected NavMeshAgent agent;
@@ -43,7 +42,7 @@ namespace _Kamikakushi.Contents.Player.Test
         {
             startPos = transform.position;
             chasing = ChasingState.Idle;
-            if (movementType == MovementType.NavMesh)
+            if (true)
             {
                 agent = GetComponent<NavMeshAgent>();
                 if (agent != null)

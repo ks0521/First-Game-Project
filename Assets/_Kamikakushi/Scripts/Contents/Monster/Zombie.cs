@@ -13,7 +13,7 @@ namespace _Kamikakushi.Contents.Monster
 
         protected override void Awake()
         {
-            movementType = MovementType.NavMesh;
+            
             speed = 2.5f;
             base.Awake();
 

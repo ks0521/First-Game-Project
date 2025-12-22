@@ -1680,7 +1680,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detector: {fileID: 5124329292580844004}
   speed: 3.5
-  movementType: 0
+  giveUpPlayerDistance: 15
+  waitBeforeReturnTime: 3
+  returnStopDistance: 0.5
   freezeDistance: 15
   viewAngle: 30
 --- !u!114 &4180546246615105855
