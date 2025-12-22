@@ -1,6 +1,7 @@
 ﻿using _Kamikakushi.Utills.Audio;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace _Kamikakushi.Audio
 {
@@ -10,7 +11,12 @@ namespace _Kamikakushi.Audio
 
         [Header("Audio Sources")]
         [SerializeField] private AudioSource sfxSource; //비루프용
-        [SerializeField] private AudioSource loopSource; // 루프용(심장박동)
+        //playeraudio에서 사용할 루프사운드 저장
+        [SerializeField] private AudioSource loopSource; 
+        [SerializeField] private AudioSource bgmSource; // bgm용
+        // 노이즈발생용 -> 체력 및 정신력비례지만 해당 노이즈가 전역에 영향을 미치므로 오디오매니저에서 관리
+        [SerializeField] private AudioSource noiseSource; 
+
 
         //SFX 효과음들을 모아놓는 리스트
         [SerializeField] private List<SFXClipData> SFX_Clips;
@@ -19,6 +25,9 @@ namespace _Kamikakushi.Audio
 
 
         private Dictionary<SFXType, AudioClip> SFXClipDict;
+        //현재로서는 4개의 LoopClip(BGM, Noise, Threat, Breath)를 각각의 오디오 소스에 넣어관리, 
+        //+ 여러개의 루프클립을 동시에 재생하기(BGM + Noise / Threat + Breath 등...)
+        //때문에 백업 및 playerAudio 초기화용으로만 사용
         private Dictionary<SFXType, AudioClip> LoopClipDict;
 
 
@@ -93,6 +102,10 @@ namespace _Kamikakushi.Audio
         public void StopLoop()
         {
             loopSource.Stop();
+        }
+        public void setNoise(float _volume)
+        {
+            noiseSource.volume = _volume;
         }
     }
     [System.Serializable]

@@ -184,6 +184,8 @@ namespace _Kamikakushi.Contents.Player.Test
         {
             //일정시간 이후 원래 자리로 복귀, 일정시간 후 디텍터 켜짐
             disappear.Disappear();
+            //ChaseEnd안하면 오디오시스템에서 오류가 발생합니다!!!
+            OnChaseEnd?.Invoke(this);
             //gameObject.SetActive(false);
         }
 
