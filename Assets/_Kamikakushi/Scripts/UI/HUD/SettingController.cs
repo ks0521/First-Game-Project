@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Contents.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,7 @@ using UnityEngine.UI;
 public class SettingController : MonoBehaviour
 {
     public GameObject settingPanel;
-    public InteractionUIController ui;
-
-    private bool isOpen = false;
+    public CrosshairController ui;
 
     public Image brightnessOverlay;
 
@@ -21,12 +20,12 @@ public class SettingController : MonoBehaviour
 
     [SerializeField] GameObject Inventory;
     [SerializeField] PlayerController playerController;
-
+    [SerializeField] UIManager uIManager;
     private void Start()
     {
         if (settingPanel != null)
             settingPanel.SetActive(false);
-
+        uIManager = GetComponentInParent<UIManager>();
         SetBrightness(1f);
 
         windowWidth = Screen.width;
@@ -38,54 +37,9 @@ public class SettingController : MonoBehaviour
             windowedToggle.isOn = true;
     }
 
-    private void Update()
-    {   
-        //인벤토리 닫혀있을때만 실행
-        if (Input.GetKeyDown(KeyCode.Escape) && !Inventory.activeSelf)
-        {
-            ToggleSetting();
-        }
-    }
-
-    public void ToggleSetting()
-    {
-        isOpen = !isOpen;
-        settingPanel.SetActive(isOpen);
-
-        // 게임 일시정지 / 재개
-        Time.timeScale = isOpen ? 0f : 1f;
-
-        if (isOpen)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            playerController.enabled = false;
-
-            ui.SetBlocked(true);
-
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            playerController.enabled = true;
-
-            ui.SetBlocked(false);
-            ui.ShowNormal();
-        }
-    }
-
     public void CloseSetting()
     {
-        isOpen = false;
-        settingPanel.SetActive(false);
-        Time.timeScale = 1f;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        playerController.enabled = true;
-        ui.SetBlocked(false);
-        ui.ShowNormal();
+        uIManager.CloseCurrent();
     }
 
     public void OnClickSave()

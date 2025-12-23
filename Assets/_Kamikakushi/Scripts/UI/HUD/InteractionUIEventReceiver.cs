@@ -1,11 +1,11 @@
-using _Kamikakushi.Contents.Player;
+﻿using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
 using UnityEngine;
 
 public class InteractionUIEventReceiver : MonoBehaviour
 {
     public PlayerEvents playerEvents;
-    public InteractionUIController ui;
+    public CrosshairController interactionUIController;
 
     private InteractContext currentContext;
 
@@ -28,19 +28,19 @@ public class InteractionUIEventReceiver : MonoBehaviour
     private void OnFound(InteractContext context)
     {
         currentContext = context;
-        ui.ShowPrompt(context);
+        interactionUIController.ShowPrompt(context);
     }
 
     private void OnLost()
     {
         currentContext = default;
-        ui.ShowNormal();
+        interactionUIController.SetDefault();
     }
 
     private void OnInteractResult(InteractResult result)
     {
         if (currentContext.displayName == null) return;
 
-        ui.ShowInteractResult(result, currentContext);
+        interactionUIController.ShowInteractResult(result, currentContext);
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using _Kamikakushi.Utills.Structs;
@@ -16,7 +16,7 @@ namespace _Kamikakushi.Utills.Enums
 
         
         PickupItem, // (E : 줍기) "??"를 주웠다 (돋보기 + 모양 크로스헤어)
-        UseItem, // (아이템사용) 물같은 경우에는 사용시 ui 사용했다정도만 알수있게 출력해주세요 ex:물을 마셨다 이외에 사용되는 아이템은 창고,호수에
+        UseItem, // (아이템사용) 물같은 경우에는 사용시 crosshairController 사용했다정도만 알수있게 출력해주세요 ex:물을 마셨다 이외에 사용되는 아이템은 창고,호수에
         //열쇠, 장난감 아이템 사용되는데 이건 사용시 이벤트발생해서 텍스트출력되게해주세요
 
        

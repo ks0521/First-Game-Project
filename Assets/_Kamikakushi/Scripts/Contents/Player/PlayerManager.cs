@@ -20,7 +20,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public GameObject flash;
         //[SerializeField] InventoryController invenController;
         [SerializeField] public ItemData handeditems;
-        [SerializeField] public ReadingController reader;
+        [SerializeField] public UIManager reader;
         [SerializeField] public bool isHide;
         [SerializeField] public bool CanDetected => !isHide;
         [SerializeField] public playerStat stat;

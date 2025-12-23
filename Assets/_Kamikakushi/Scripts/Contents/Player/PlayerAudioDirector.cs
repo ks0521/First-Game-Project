@@ -90,8 +90,6 @@ namespace _Kamikakushi.Contents.Player
         private void UpdateBreath()
         {
             isHide = (playerManager != null) && (playerManager.isHide);
-
-            Debug.Log("숨소리 조절");
             playerAudio.SetBreath(
                 isHide, 
                 UnityEngine.Random.Range(breathMinVolume,breathMaxVolume));
@@ -103,7 +101,6 @@ namespace _Kamikakushi.Contents.Player
             || !monster.gameObject.activeInHierarchy);
             if(chaser.Count == 0)
             {
-                Debug.Log("몬스터 없음");
                 playerAudio.SetHeartbeat(_volume: 0f, _pitch: 1f);
                 return;
             }
