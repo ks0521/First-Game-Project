@@ -288,6 +288,11 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 1036760766220765207, guid: 2954cf69cbacacb49a5752b4e12b75c9, type: 2}
+    - target: {fileID: 4015105003642276395, guid: a54030408b3e873448db5eadc5290eeb, type: 3}
+      propertyPath: overrideOpenText
+      value: "\uC5B4\uB450\uC704\uC11C \uC798 \uBCF4\uC774\uC9C0 \uC54A\uB294\uB2E4...
+        \n\uC190\uC804\uB4F1\uC744 \uCF1C\uC790(Press F)"
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5567603314379045118, guid: a54030408b3e873448db5eadc5290eeb, type: 3}
     m_RemovedGameObjects: []
@@ -5059,7 +5064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880124347260536451, guid: a2ea0afdb43e9ca49b7e333243d792ba, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 260.75003
+      value: 285.25
       objectReference: {fileID: 0}
     - target: {fileID: 2880124347260536451, guid: a2ea0afdb43e9ca49b7e333243d792ba, type: 3}
       propertyPath: m_AnchoredPosition.y
