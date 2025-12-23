@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Contents.UI;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
@@ -19,6 +20,7 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public GameObject flash;
         //[SerializeField] InventoryController invenController;
         [SerializeField] public ItemData handeditems;
+        [SerializeField] public ReadingController reader;
         [SerializeField] public bool isHide;
         [SerializeField] public bool CanDetected => !isHide;
         [SerializeField] public playerStat stat;
@@ -116,6 +118,11 @@ namespace _Kamikakushi.Contents.Player
                 InventoryController.Instance.OnItemConsumed();
             }
             //inventory 인스턴트에 정보전달해주기
+        }
+
+        public void Read(ReadableData data)
+        {
+
         }
     }
 }
