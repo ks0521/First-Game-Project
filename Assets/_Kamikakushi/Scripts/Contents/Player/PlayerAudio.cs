@@ -59,7 +59,7 @@ namespace _Kamikakushi.Contents.Player
         //심장박동의 소리와 속도 조절(가까우면 크고 빨라짐)
         public void SetHeartbeat(float _volume, float _pitch)
         {
-            Debug.Log($"[SetHeartbeat] in pitch={_pitch}, vol={_volume}");            if (heartbeat == null)
+            if (heartbeat == null)
             {
                 Debug.LogWarning("AudioManager에 심장소리 없음!");
                 return;

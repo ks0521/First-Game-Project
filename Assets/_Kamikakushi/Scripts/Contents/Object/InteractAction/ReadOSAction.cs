@@ -16,7 +16,7 @@ namespace _Kamikakushi.Contents.InteractAction
         }
         public void Execute(PlayerManager player, IInteractable source)
         {
-            player.reader.Open(data);
+            player.reader.OpenReading(data);
         }
     }
 }

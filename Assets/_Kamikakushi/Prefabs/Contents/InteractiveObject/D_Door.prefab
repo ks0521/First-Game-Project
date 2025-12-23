@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1831504449878450, guid: b5a5a17dc3a6d9e47bd468828a2dec34, type: 3}
       propertyPath: m_Name
-      value: Door_1 Variant
+      value: D_Door
       objectReference: {fileID: 0}
     - target: {fileID: 1831504449878450, guid: b5a5a17dc3a6d9e47bd468828a2dec34, type: 3}
       propertyPath: m_Layer
@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82379819288447364, guid: b5a5a17dc3a6d9e47bd468828a2dec34, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 1036760766220765207, guid: 2954cf69cbacacb49a5752b4e12b75c9, type: 2}
     - target: {fileID: 114024263972142150, guid: b5a5a17dc3a6d9e47bd468828a2dec34, type: 3}
       propertyPath: open
       value: 0
@@ -109,6 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactType: 0
+  result:
+    success: 0
+    message: 
   obstacle: {fileID: 0}
   overrideOpenText: 
   overrideCloseText: 
