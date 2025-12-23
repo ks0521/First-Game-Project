@@ -19,7 +19,6 @@ namespace _Kamikakushi.Contents.InteractiveObject
         protected override void Init()
         {
             //인터페이스의 배열이기때문에 GetComponents 사용
-            conditions = GetComponents<IInteractionCondition>();
             interactType = InteractType.Event;
             
             context.promptKey = PromptKey.Inspect;
