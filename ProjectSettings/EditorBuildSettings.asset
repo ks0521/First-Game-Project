@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Kamikakushi/Scenes/ForestScene.unity
     guid: ea96489eab860db4695b2b7654cf1c02
+  - enabled: 1
+    path: Assets/_Kamikakushi/Scenes/Ending.unity
+    guid: beb1644cf79f4fa46985ed47419c09d9
   m_configObjects: {}
