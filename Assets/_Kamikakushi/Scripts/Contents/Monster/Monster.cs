@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.ScrollRect;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -209,16 +210,25 @@ namespace _Kamikakushi.Contents.Monster
         // =========================
         // Animator (논리 기준)
         // =========================
+        private Vector3 lastPosition;
+
         protected virtual void UpdateAnimator()
         {
-            if (animator == null) return;
+            if (animator == null)
+                return;
 
-            float animSpeed = 0f;
+            // 🔥 실제 이동 거리 기반 속도 계산 (NavMesh / Transform 공통)
+            float moveSpeed =
+                (transform.position - lastPosition).magnitude
+                / Mathf.Max(Time.deltaTime, 0.0001f);
 
-            if (isChasing || isReturning)
-                animSpeed = speed;
+            // 미세한 떨림 제거
+            if (moveSpeed < 0.05f)
+                moveSpeed = 0f;
 
-            animator.SetFloat("Speed", animSpeed);
+            animator.SetFloat("Speed", moveSpeed);
+
+            lastPosition = transform.position;
         }
     }
 }
