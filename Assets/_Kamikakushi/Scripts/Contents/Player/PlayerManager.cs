@@ -40,8 +40,8 @@ namespace _Kamikakushi.Contents.Player
             events = GetComponent<PlayerEvents>();
             hit = GetComponent<PlayerHit>();
             hide = GetComponent<PlayerHide>();
-            stat.hp = stat.MaxHp;
-            stat.sanity = stat.MaxSanity;
+            stat.Hp = stat.MaxHp;
+            stat.Sanity = stat.MaxSanity;
             //초기값으로 hp창 변경
 
             // InventoryController.Instance.OnItemEquipped+=SelectItem;
@@ -89,11 +89,11 @@ namespace _Kamikakushi.Contents.Player
         {
             if (type == HitType.Physical)
             {
-                stat.hp -= damage;
+                stat.Hp -= damage;
             }
             else
             {
-                stat.sanity -= damage;
+                stat.Sanity -= damage;
             }
             events.OnPlayerStatChange(stat);
             StartCoroutine(NoHit(time));
@@ -119,7 +119,16 @@ namespace _Kamikakushi.Contents.Player
             }
             //inventory 인스턴트에 정보전달해주기
         }
-
+        public void HpRecovery(float recovery)
+        {
+            stat.Hp+= recovery;
+            events.OnPlayerStatChange(stat);
+        }
+        public void SanityRecovery(float recovery)
+        {
+            stat.Sanity += recovery;
+            events.OnPlayerStatChange(stat);
+        }
         public void Read(ReadableData data)
         {
 
