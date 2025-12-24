@@ -130,10 +130,12 @@ namespace _Kamikakushi.Contents.Player.Test
             isArrive = isArrival();
             if (isArrive)
             {
-                chasing = ChasingState.Idle;
-                //복귀한 후 다시 탐지기능 켜기
-                detector.SetEnable(true);
-                OnChaseEnd?.Invoke(this);
+                //chasing = ChasingState.Idle;
+                ////복귀한 후 다시 탐지기능 켜기
+                //detector.SetEnable(true);
+                //OnChaseEnd?.Invoke(this);
+                //튜토리얼 맵에서는 한번 숨는데 성공하면 사라짐
+                Destroy(gameObject);
             }
         }
         public virtual void OnPlayerDetected()
