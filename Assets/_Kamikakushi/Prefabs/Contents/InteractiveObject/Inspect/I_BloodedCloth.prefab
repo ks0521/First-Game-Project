@@ -72,6 +72,9 @@ MonoBehaviour:
   result:
     success: 0
     message: 
+  endingMap: 5
+  delayTime: 3
+  overrideResultText: 
 --- !u!1 &3841914243113532013
 GameObject:
   m_ObjectHideFlags: 0
