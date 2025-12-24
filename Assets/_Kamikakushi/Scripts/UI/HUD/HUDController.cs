@@ -56,8 +56,8 @@ public class HUDController : MonoBehaviour
     }
     void UpdateState(playerStat stat)
     {
-        Debug.Log($"{stat.hp},{stat.sanity}");
-        targetHPFill = stat.hp / stat.MaxHp;
-        targetSanityFill = stat.sanity / stat.MaxSanity;
+        Debug.Log($"{stat.Hp},{stat.Sanity}");
+        targetHPFill = stat.Hp / stat.MaxHp;
+        targetSanityFill = stat.Sanity / stat.MaxSanity;
     }
 }

@@ -3,7 +3,8 @@ using UnityEngine.AI;
 
 namespace _Kamikakushi.Contents.Monster
 {
-    public class Skeleton : PhysicalMonster
+    //일정지역을 순찰하는 멘탈몬스터
+    public class Skeleton : MentalMonster
     {
         [Header("Waypoint Patrol")]
         [SerializeField] private Transform[] waypoints;

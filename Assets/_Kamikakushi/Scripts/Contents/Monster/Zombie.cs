@@ -2,6 +2,7 @@
 
 namespace _Kamikakushi.Contents.Monster
 {
+    //일정 시야각으로 바라보면 행동을 멈추는 피지컬몬스터
     public class Zombie : PhysicalMonster
     {
         [Header("Zombie Rules")]

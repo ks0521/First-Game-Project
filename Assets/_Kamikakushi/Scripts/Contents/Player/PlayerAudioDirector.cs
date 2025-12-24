@@ -128,7 +128,7 @@ namespace _Kamikakushi.Contents.Player
         }
         private void UpdateNoiseByStatus()
         {
-            mentalRatio = playerManager.stat.sanity / playerManager.stat.MaxSanity;
+            mentalRatio = playerManager.stat.Sanity / playerManager.stat.MaxSanity;
             //정신력이 60%이상일 시 이상효과 없음
             if (mentalRatio > 0.6)
             {

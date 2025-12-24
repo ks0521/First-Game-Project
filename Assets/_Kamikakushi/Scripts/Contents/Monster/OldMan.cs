@@ -2,6 +2,7 @@
 
 namespace _Kamikakushi.Contents.Monster
 {
+    //느린속도로 벽을 뚫는 멘탈몬스터
     public class OldMan : MentalMonster
     {
         protected override void Awake()

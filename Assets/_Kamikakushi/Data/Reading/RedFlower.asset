@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RedFlower
   m_EditorClassIdentifier: 
   title: "\uBD89\uC740 \uAF43"
-  body: 
-  images: {fileID: 21300000, guid: 42b42f39a2c3ae249aae74e3fa144275, type: 3}
+  body: "\uBA4D\uD574\uC9C8\uC815\uB3C4\uC758 \uB2EC\uCF64\uD55C\uD5A5\uAE30\uC640\uB3D9\uC2DC\uC5D0
+    \n\uAC15\uD55C \uC4F4\uB0C4\uC0C8\uAC00 \uB290\uAEF4\uC9C4\uB2E4. "
+  images: {fileID: 21300000, guid: ac49b37b1a62a1f4fbd59aba0a43bd35, type: 3}

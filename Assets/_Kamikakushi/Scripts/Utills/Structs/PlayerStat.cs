@@ -6,8 +6,26 @@ namespace _Kamikakushi.Utills.Structs
 {
     public struct playerStat
     {
-        public float hp;
-        public float sanity;
+        private float hp;
+        private float sanity;
+        public float Hp
+        {
+            get {  return hp; } 
+            set
+            {
+                hp = value;
+                if(hp>MaxHp) hp = MaxHp;
+            }
+        }
+        public float Sanity
+        {
+            get { return sanity; }
+            set
+            {
+                sanity = value;
+                if(sanity > MaxSanity) sanity = MaxSanity;
+            }
+        }
         public readonly float MaxSanity => 100;
         public readonly float MaxHp => 100;
     }
