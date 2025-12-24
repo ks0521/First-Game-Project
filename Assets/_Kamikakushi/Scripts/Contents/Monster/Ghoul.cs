@@ -2,6 +2,7 @@
 
 namespace _Kamikakushi.Contents.Monster
 {
+    //한 번 발견하면 끝까지 추적하는 피지컬몬스터
     public class Ghoul : PhysicalMonster
     {
         [Header("Ghoul Rule")]
