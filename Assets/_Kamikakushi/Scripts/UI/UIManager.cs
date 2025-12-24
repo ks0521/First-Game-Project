@@ -23,10 +23,10 @@ namespace _Kamikakushi.Contents.UI
     {
         static UIManager instance;
 
-        ReadingController readingController;
-        CrosshairController crosshairController;
-        SettingController settingController;
-        InventoryController inventoryController;
+        [SerializeField]ReadingController readingController;
+        [SerializeField] CrosshairController crosshairController;
+        [SerializeField] SettingController settingController;
+        [SerializeField] InventoryController inventoryController;
         //현재 어떤창이 열려있는 창의 상태 확인(없음/인벤/설정/리딩)
         [SerializeField] PlayerController playerController;
         [SerializeField] PlayerEvents playerEvents;
@@ -40,11 +40,6 @@ namespace _Kamikakushi.Contents.UI
         ReadableData data;
         void Awake()
         {
-            readingController = GetComponentInChildren<ReadingController>();
-            crosshairController = GetComponentInChildren<CrosshairController>();
-            settingController = GetComponentInChildren<SettingController>();
-            inventoryController = GetComponentInChildren<InventoryController>();
-
             inventoryCanvas?.SetActive(false);
             settingCanvas?.SetActive(false);
             readingCanvas?.SetActive(false);

@@ -44,6 +44,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
                         overrideMessage,
                         "책을 읽었다...");
             //여기에 특정 이벤트 추가 가능
+
             return result;
         }
 
@@ -52,5 +53,4 @@ namespace _Kamikakushi.Contents.InteractiveObject
             return string.IsNullOrEmpty(overrideText) ? defaultText : overrideText;
         }
     }
-
 }
