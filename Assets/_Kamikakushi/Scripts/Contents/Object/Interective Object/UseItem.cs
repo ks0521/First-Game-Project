@@ -30,7 +30,8 @@ namespace _Kamikakushi.Contents.InteractiveObject
             context.promptKey = PromptKey.UseItem;
             result.actions = new List<IInteractAction>();
             result.actions.Add(new PlayerHpRecovery(increseHp));
-            result.actions.Add(new PlayerSanityRecovery(increseSanity)); 
+            result.actions.Add(new PlayerSanityRecovery(increseSanity));
+            result.actions.Add(new PlaySFXAction(SFXType.UseItem));
         }
         public InteractResult Interact(PlayerManager target)
         {

@@ -37,6 +37,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
                         "책");
 
             //책 읽는 연산 추가
+            result.actions.Add(new PlaySFXAction(Utills.Audio.SFXType.Reading));
             result.actions.Add(new ReadOSAction(data));
         }
         public override InteractResult Interact(PlayerManager target)
