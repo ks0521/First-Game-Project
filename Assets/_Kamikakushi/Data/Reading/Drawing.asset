@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 
   body: 
-  images: {fileID: 0}
+  images: {fileID: 21300000, guid: c620d1d5446b4e24d94881fc349335a1, type: 3}

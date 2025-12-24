@@ -29,7 +29,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
 
             if (!isTriggered)
             {
-                //특정 액션
+                //특정 액션하고 trigger = true;
             }
             //아니면 result.actions.add(여기에 특정 트리거 추가)
             return result;
