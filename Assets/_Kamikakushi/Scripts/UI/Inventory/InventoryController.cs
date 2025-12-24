@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Contents.UI;
 
 namespace Project.Inventory
 {
@@ -37,9 +38,8 @@ namespace Project.Inventory
         [SerializeField] private List<ItemData> currentItems = new List<ItemData>();
         private ItemData currentSelected = null;
 
-        public bool isOpen = false;
         [SerializeField] PlayerController playerController;
-
+        [SerializeField] UIManager uiManager;
         public ItemData equippedItem;
         public ItemData EquippedItem
         {
@@ -59,9 +59,7 @@ namespace Project.Inventory
 
         private void Start()
         {
-            // 인벤토리 패널은 시작 시 비활성화
-            if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
-
+            uiManager = GetComponentInParent<UIManager>();
             // leftArea의 SlotUI를 자동 수집
             slotUIs.Clear();
             if (leftArea != null)
@@ -76,7 +74,7 @@ namespace Project.Inventory
 
             // select, exit 버튼 연결
             if (selectButton != null) selectButton.onClick.AddListener(OnSelectButton);
-            if (exitButton != null) exitButton.onClick.AddListener(CloseInventory);
+            if (exitButton != null) exitButton.onClick.AddListener(uiManager.CloseCurrent);
 
             // 초기 아이템 불러오기 (델리게이트가 있으면 델리게이트, 없으면 inspector에 넣은 initialItems)
             if (GetInventoryItems != null)
@@ -87,12 +85,14 @@ namespace Project.Inventory
             RefreshSlots();
             ClearRightPanel();
         }
-        private void Update()
+        public void SyncInventory()
         {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                ToggleInventory();
-            }
+            // 델리게이트가 있으면 최신 데이터 받기
+            if (GetInventoryItems != null)
+            currentItems = GetInventoryItems();
+            RefreshSlots();
+            //인벤토리 열때 아이템 설명창 싹 초기화
+            ClearRightPanel();
         }
         //item장착
         public void EquipItem(ItemData item)
@@ -114,48 +114,11 @@ namespace Project.Inventory
             EquippedItem = null;
             hudController?.SetEquippedItem(null);
         }
-
         // 인벤토리 전체 가져오기
         public List<ItemData> GetCurrentItems()
         {
             return new List<ItemData>(currentItems);
         }
-
-
-        //인벤토리 여닫기
-        public void ToggleInventory()
-        {
-            if (!isOpen) OpenInventory();
-            else CloseInventory();
-        }
-        public void OpenInventory()
-        {
-            // 델리게이트가 있으면 최신 데이터 받기
-            if (GetInventoryItems != null)
-                currentItems = GetInventoryItems();
-
-            playerController.enabled = false;
-            RefreshSlots();
-            //인벤토리 열때 아이템 설명창 싹 초기화
-            ClearRightPanel();
-            if (inventoryCanvas != null) inventoryCanvas.SetActive(true);
-            isOpen = true;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0;
-        }
-        public void CloseInventory()
-        {
-            if (inventoryCanvas != null) inventoryCanvas.SetActive(false);
-            isOpen = false;
-
-            playerController.enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1;
-        }
-
 
         // SlotUI에서 클릭 시 호출됨
         public void OnSlotClicked(SlotUI slot, ItemData item)
@@ -173,7 +136,6 @@ namespace Project.Inventory
             selectedItemName.text = item.itemName;
             selectedItemEx.text = item.explain;
         }
-
         // Select 버튼 눌렀을 때
         private void OnSelectButton()
         {
@@ -186,7 +148,6 @@ namespace Project.Inventory
             {
                 Debug.Log("장착할 아이템이 없습니다.");
             }
-
         }
         void RefreshSlots()
         {

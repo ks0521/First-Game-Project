@@ -23,12 +23,15 @@ namespace _Kamikakushi.Contents.InteractiveObject
         bool isLocked;
         bool isOpened;
         [SerializeField]
+        [TextArea(2, 4)]
         [Tooltip("열릴때 기본 문구와 다른 문구 출력 필요시 입력")]
         string overrideOpenText;
         [SerializeField]
+        [TextArea(2, 4)]
         [Tooltip("닫힐때 기본 문구와 다른 문구 출력 필요시 입력")]
         string overrideCloseText;
         [SerializeField]
+        [TextArea(2, 4)]
         [Tooltip("잠겨있을 때 기본 문구와 다른 문구 출력 필요시 입력")]
         string overrideLockedText;
         protected override void Init()
