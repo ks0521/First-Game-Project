@@ -3,6 +3,7 @@ using _Kamikakushi.Contents.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingController : MonoBehaviour
@@ -21,6 +22,14 @@ public class SettingController : MonoBehaviour
     [SerializeField] GameObject Inventory;
     [SerializeField] PlayerController playerController;
     [SerializeField] UIManager uIManager;
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Slider bgmSlider;
+    [SerializeField] Slider sfxSlider;
+
+    private const string Master = "MasterVol";
+    private const string BGM = "BGMVol";
+    private const string SFX = "SFXVol";
+
     private void Start()
     {
         if (settingPanel != null)
