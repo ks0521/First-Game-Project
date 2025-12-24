@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace _Kamikakushi.Contents.Monster
 {
+    //보통의 속도로 추적하는 멘탈몬스터
     public class Ghost : MentalMonster
     {
         [Header("Ghost Extra Rule")]
