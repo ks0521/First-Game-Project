@@ -32,7 +32,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
             }
             context.promptKey = PromptKey.Hide;
             context.displayName = string.IsNullOrEmpty(overrideObjectName)
-                                  ? "숨는 공간"
+                                  ? "바구니"
                                   : overrideObjectName;
 
             result.actions.Add(new HideEnterAction(hidePoint));

@@ -12,6 +12,7 @@ public class PromptUIData
 {
     public PromptKey key;
     public Sprite crosshair; // 크로스헤어 아이콘
+    public string context;
 }
 
 public class CrosshairController : MonoBehaviour
@@ -27,7 +28,9 @@ public class CrosshairController : MonoBehaviour
     [Header("UI Table")]
     public List<PromptUIData> uiTable;
 
+
     private Dictionary<PromptKey, PromptUIData> table;
+    private string crosshairContext;
     private bool isBlocked;
 
     private void Awake()
@@ -61,7 +64,9 @@ public class CrosshairController : MonoBehaviour
         if (!table.TryGetValue(context.promptKey, out var data))
             crosshairImage.sprite = defaultCrosshair;
         else
+        {
             crosshairImage.sprite = data.crosshair;
+        }
 
         StartCoroutine(PrintResult(result.message));
     }
@@ -82,9 +87,13 @@ public class CrosshairController : MonoBehaviour
         if (!table.TryGetValue(context.promptKey, out var data))
             crosshairImage.sprite = defaultCrosshair;
         else
+        {
             crosshairImage.sprite = data.crosshair;
+            crosshairContext = data.context;
+        }
+
 
         // displayName 기반으로 기본 프롬프트 표시
-        promptText.text = $"E : {context.displayName}";
+        promptText.text = $"E : {context.displayName} {crosshairContext}";
     }
 }

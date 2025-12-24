@@ -27,7 +27,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
         {
             interactType = InteractType.Event;
             //아이템 타입 설정(읽는 아이템은 inspect 고정)
-            context.promptKey = PromptKey.Inspect;
+            context.promptKey = PromptKey.Read;
             //아이템 이름 설정
             context.displayName = MessageChoice(
                         overrideDisplayName,
