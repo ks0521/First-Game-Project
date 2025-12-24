@@ -32,7 +32,7 @@ namespace _Kamikakushi.Contents.Player
         // Start is called before the first frame update
         void Start()
         {
-            maxDistance = 2f;
+            maxDistance = 3.5f;
             events = GetComponentInParent<PlayerEvents>();
             cam = GetComponent<Camera>();
         }

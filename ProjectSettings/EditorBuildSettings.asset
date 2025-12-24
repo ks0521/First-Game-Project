@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Kamikakushi/Scenes/TutorialScene.unity
     guid: 5d9f825278390bc4ba8f7d4d7203334e
+  - enabled: 1
+    path: Assets/_Kamikakushi/Scenes/Village.unity
+    guid: 943ff1926088a994f99633efd4298bd7
+  - enabled: 1
+    path: Assets/_Kamikakushi/Scenes/ForestScene.unity
+    guid: ea96489eab860db4695b2b7654cf1c02
   m_configObjects: {}
