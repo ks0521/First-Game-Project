@@ -53,7 +53,6 @@ namespace _Kamikakushi.Contents.Player
         public void PlayHeartbeat()
         {
             heartbeat.loop = true;
-            Debug.Log("심장박동 시작");
             if (!heartbeat.isPlaying) heartbeat.Play();
         }
         //심장박동의 소리와 속도 조절(가까우면 크고 빨라짐)

@@ -8,13 +8,9 @@ using UnityEditor;
 using UnityEngine;
 namespace _Kamikakushi.Contents.InteractAction
 {
-    public class PlayerSanityRecovery : IInteractAction
+    public class PlayerSanityRecovery : MonoBehaviour, IInteractAction
     {
-        private readonly float recovery;
-        public PlayerSanityRecovery(float num)
-        {
-            recovery = num;
-        }
+        [SerializeField] float recovery;
         public void Execute(PlayerManager player, IInteractable source)
         {
             player.SanityRecovery(recovery);

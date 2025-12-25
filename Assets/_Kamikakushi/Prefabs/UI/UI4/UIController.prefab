@@ -50,6 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a865bb74c6224cb515854c279ddd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingController: {fileID: 0}
+  crosshairController: {fileID: 0}
+  settingController: {fileID: 0}
+  inventoryController: {fileID: 0}
   playerController: {fileID: 0}
   playerEvents: {fileID: 0}
   inventoryCanvas: {fileID: 6839383010624480452}
@@ -1257,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4945010264640233761, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 121.249985
+      value: 911.5
       objectReference: {fileID: 0}
     - target: {fileID: 4945010264640233761, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchoredPosition.y

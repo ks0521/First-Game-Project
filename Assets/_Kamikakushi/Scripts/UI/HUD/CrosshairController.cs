@@ -72,8 +72,11 @@ public class CrosshairController : MonoBehaviour
     }
     IEnumerator PrintResult(string text)
     {
+
+        Debug.Log(text);
         resultText.text = text;
         yield return new WaitForSeconds(2);
+
         resultText.text = "";
     }
     // 일반 상호작용 프롬프트

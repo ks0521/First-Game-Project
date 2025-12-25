@@ -129,9 +129,6 @@ namespace _Kamikakushi.Contents.Player
             stat.Sanity += recovery;
             events.OnPlayerStatChange(stat);
         }
-        public void Read(ReadableData data)
-        {
 
-        }
     }
 }

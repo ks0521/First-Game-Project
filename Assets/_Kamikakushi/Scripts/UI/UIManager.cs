@@ -38,6 +38,8 @@ namespace _Kamikakushi.Contents.UI
         [SerializeField] InteractContext currentContext;
 
         ReadableData data;
+
+        bool isClosing;
         void Awake()
         {
             inventoryCanvas?.SetActive(false);
@@ -162,6 +164,9 @@ namespace _Kamikakushi.Contents.UI
         }
         public void CloseCurrent()
         {
+            if (curStatus == UIStatus.GamePlay) return;
+            if (isClosing) return;
+            isClosing = true;
             switch (curStatus)
             {
                 case UIStatus.Inventory:
@@ -176,6 +181,7 @@ namespace _Kamikakushi.Contents.UI
             }
             ExitUIMode();
             curStatus = UIStatus.GamePlay;
+            isClosing = false;
             Debug.Log($"창 종료, 현재 {curStatus}상태");
         }
 
@@ -191,6 +197,7 @@ namespace _Kamikakushi.Contents.UI
         }
         private void OnInteractResult(InteractResult result)
         {
+            Debug.Log(currentContext.displayName);
             if (currentContext.displayName == null) return;
             crosshairController.ShowInteractResult(result, currentContext);
         }

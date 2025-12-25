@@ -7,9 +7,9 @@ using UnityEditor;
 using UnityEngine;
 namespace _Kamikakushi.Contents.InteractAction
 {
-    public class ReadOSAction : IInteractAction
+    public class ReadOSAction : MonoBehaviour, IInteractAction
     {
-        private readonly ReadableData data;
+        [SerializeField] ReadableData data;
         public ReadOSAction(ReadableData _date)
         {
             data = _date;

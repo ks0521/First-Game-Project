@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Project.Inventory;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
+using TMPro;
 
 public class HUDController : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class HUDController : MonoBehaviour
     float targetHPFill = 1f;
     float targetSanityFill = 1f;
 
+    [SerializeField] TextMeshProUGUI objective;
     private void Start()
     {
 
@@ -59,5 +61,10 @@ public class HUDController : MonoBehaviour
         Debug.Log($"{stat.Hp},{stat.Sanity}");
         targetHPFill = stat.Hp / stat.MaxHp;
         targetSanityFill = stat.Sanity / stat.MaxSanity;
+    }
+
+    public void ChangeObjective(string text)
+    {
+        objective.text = text;
     }
 }

@@ -5,14 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace _Kamikakushi.Contents.InteractAction
 {
-    public class HideExitAction : IInteractAction
+    public class HideExitAction : MonoBehaviour, IInteractAction
     {
-        private readonly Transform hidePoint;
-
-        public HideExitAction(Transform _hidePoint)
-        {
-            hidePoint = _hidePoint;
-        }
         public void Execute(PlayerManager player, IInteractable source)
         {
             player.hide.HideExit();

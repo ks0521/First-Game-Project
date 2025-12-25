@@ -7,9 +7,9 @@ using UnityEditor;
 using UnityEngine;
 namespace _Kamikakushi.Contents.InteractAction
 {
-    public class PickUpItemAction : IInteractAction
+    public class PickUpItemAction : MonoBehaviour, IInteractAction
     {
-        private readonly ItemData data;
+        [SerializeField] ItemData data;
         public PickUpItemAction(ItemData _date)
         {
             data = _date;
@@ -20,11 +20,9 @@ namespace _Kamikakushi.Contents.InteractAction
             if (player.inven.Add(data))
             {
                 //IInteractable은 gameObject가 아니니까 destroy불가, 그래서 Monobehavior인지 확인 
-                if (source is MonoBehaviour)
+                if (source is MonoBehaviour mb)
                 {
-                    //맞으면 MonoBehavior타입으로 형변환 후 오브젝트 삭제
-                    MonoBehaviour mb = (MonoBehaviour)source;
-                    if (mb != null) Object.Destroy(mb.gameObject);
+                    Destroy(mb.gameObject);
                 }
             }
         }

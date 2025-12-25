@@ -47,6 +47,7 @@ namespace _Kamikakushi.Contents.Player
         /// </summary>
         public event Action RaycastOut;
         public event Action<float> CameraHold;
+        public event Action<string> ChangeObjective;
 
         public void OnHit(Vector3 pos, float damage, float time, HitType type)
         {
@@ -63,7 +64,10 @@ namespace _Kamikakushi.Contents.Player
             Debug.Log($"{context.displayName} : {context.promptKey}");
             GetInteractContext?.Invoke(context);
         }
-
+        public void OnChangeObjective(string text)
+        {
+            ChangeObjective?.Invoke(text);
+        }
         public void OnRaycastOut()
         {
             Debug.Log("시선 떨어짐");

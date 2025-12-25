@@ -37,7 +37,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
             if (CanInteract(target))
             {
                 //이동하려는 씬 입력
-                result.actions.Add(new SceneChangeAction((int)maps));
+                //result.actions.Add(new SceneChangeAction((int)maps));
                 result.success = true;
                 result.message = MessageChoice(
                         overrideResultText,

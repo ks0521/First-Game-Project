@@ -27,7 +27,7 @@ namespace _Kamikakushi.Contents.Monster
         protected bool isReturning = false;
         protected bool isTouchingPlayer = false;
 
-        private float waitTimer = 0f;
+        protected float waitTimer = 0f;
 
         public bool IsTouchingPlayer => isTouchingPlayer;
 
