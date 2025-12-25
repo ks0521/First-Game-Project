@@ -6833,7 +6833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4647090981194467417, guid: 55df470df3d85db40b4312002859cd9e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5419545645158814435, guid: 55df470df3d85db40b4312002859cd9e, type: 3}
       propertyPath: m_LocalScale.x
@@ -10788,6 +10788,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4389518880073005176, guid: eb5291b75ee743345a7519d11c18b1f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 858280143203659395}
+    - targetCorrespondingSourceObject: {fileID: 4389518880073005176, guid: eb5291b75ee743345a7519d11c18b1f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 858280143203659400}
   m_SourcePrefab: {fileID: 100100000, guid: eb5291b75ee743345a7519d11c18b1f8, type: 3}
 --- !u!1 &858280143203659389 stripped
 GameObject:
@@ -10813,6 +10816,22 @@ MonoBehaviour:
   overrideMessage: "\uC7A5\uB09C\uAC10\uC774\uB2E4"
   defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
   displayName: "\uC7A5\uB09C\uAC10"
+--- !u!114 &858280143203659400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858280143203659389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f9c58d1bc0fd4cb7b86a47a3720c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 687064958}
+  wasActived: 0
+  isOnce: 0
+  canActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
