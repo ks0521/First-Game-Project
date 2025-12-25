@@ -42,23 +42,30 @@ namespace _Kamikakushi.Contents.Player
             {
                 if (canInteractAttempt)
                 {
+                    if (obj == null)
+                    {
+                        Debug.LogWarning("상호작용 대상 오브젝트 없음");
+                        return;
+                    }
                     //obj: 현재 관측중인 IInteractable 오브젝트
                     result = obj.Interact(playerManager);
                     //결과를 이벤트로 출력(UI에서 결과 텍스트로 출력하기 위함)
                     events.OnInteract(result);
                     //상호작용 실패 시 복귀
                     if (!result.success) return;
-                    //실행해야 하는 액션이 없으면 복귀
-                    if (result.actions == null) return;
-                    //모든 조건 실행
-                    foreach(IInteractAction action in result.actions)
+                    //실행해야 하는 액션이 없으면 execute 스킵
+                    if (result.actions != null)
                     {
-                        action.Execute(playerManager, obj);
+                        //모든 조건 실행
+                        foreach (IInteractAction action in result.actions)
+                        {
+                            action.Execute(playerManager, obj);
+                        }
                     }
                 }
             }
             //숨은상태에서 E 입력시 빠져나오기
-            else if(Input.GetKeyDown(KeyCode.E) && playerManager.isHide)
+            else if (Input.GetKeyDown(KeyCode.E) && playerManager.isHide)
             {
                 //나올때는 playerinteract에서 소리 발생시키기
                 playerAudio.PlaySFX(Utills.Audio.SFXType.HideEnter);

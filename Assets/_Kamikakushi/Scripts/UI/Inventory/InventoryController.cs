@@ -38,7 +38,6 @@ namespace Project.Inventory
         [SerializeField] private List<ItemData> currentItems = new List<ItemData>();
         private ItemData currentSelected = null;
 
-        [SerializeField] PlayerController playerController;
         [SerializeField] UIManager uiManager;
         public ItemData equippedItem;
         public ItemData EquippedItem

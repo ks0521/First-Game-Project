@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using _Kamikakushi.Contents.Player;
+using _Kamikakushi.Contents.UI;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
 using UnityEngine;
@@ -20,23 +21,43 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] private RectTransform crosshair;
         [SerializeField] private PlayerEvents events;
         [SerializeField] private float maxDistance;
+        
         private IInteractable interactObj;
         private bool wasHit;
         private bool isHit;
         private Ray ray;
         private RaycastHit hit;
         private LayerMask mask = (int)AdaptedLayerMask.InteractionObject;
-        private Vector3 defaultScreen = new Vector3(
-            Screen.width / 2f, Screen.height / 2f, 0
-            );
+        private Vector3 defaultScreen; 
         // Start is called before the first frame update
         void Start()
         {
+            defaultScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
             maxDistance = 3.5f;
             events = GetComponentInParent<PlayerEvents>();
             cam = GetComponent<Camera>();
+            var ui = FindObjectOfType<UIManager>(true);
+            if (ui != null)
+            {
+                crosshair = ui.CrosshairTransform;
+            }
+            //StartCoroutine(Start1Frame());
         }
+        IEnumerator Start1Frame()
+        {
+            defaultScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+            maxDistance = 3.5f;
+            events = GetComponentInParent<PlayerEvents>();
+            cam = GetComponent<Camera>();
 
+            yield return null; // UIRoot 준비 대기
+
+            var ui = FindObjectOfType<UIManager>(true);
+            if (ui != null)
+            {
+                crosshair = ui.CrosshairTransform;
+            }
+        }
         // Update is called once per frame
         void Update()
         {

@@ -18,9 +18,15 @@ namespace _Kamikakushi.Contents.Player
             events = GetComponentInParent<PlayerEvents>();
             controller = GetComponentInParent<PlayerController>();
         }
-        void Start()
+
+        private void OnEnable()
         {
-            events.PlayerHitEvent += CameraHold;
+            if(events == null) events = GetComponentInParent<PlayerEvents>();
+            if(events != null) events.PlayerHitEvent += CameraHold;
+        }
+        private void OnDisable()
+        {
+            if(events != null) events.PlayerHitEvent -= CameraHold;
         }
         void CameraHold(Vector3 target, float damage, float time, HitType type)
         {

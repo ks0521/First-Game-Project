@@ -20,8 +20,8 @@ namespace _Kamikakushi.Contents.InteractiveObject
         {
             //이름은 os에서 따옴
             context.promptKey = PromptKey.UseItem;
-            //result.actions.Add(new PlayerHpRecovery(increseHp));
-            //result.actions.Add(new PlayerSanityRecovery(increseSanity));
+            //result.actions.Add(new PlayerHpRecoveryAction(increseHp));
+            //result.actions.Add(new PlayerSanityRecoveryAction(increseSanity));
             //result.actions.Add(new PlaySFXAction(SFXType.UseItem));
         }
 

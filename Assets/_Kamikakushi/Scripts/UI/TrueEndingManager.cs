@@ -28,6 +28,7 @@ public class TrueEndingManager : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 1;
         // 초기화: 텍스트는 비우고 화면은 검게 시작
         endingText.text = "";
         fadeImage.gameObject.SetActive(true);

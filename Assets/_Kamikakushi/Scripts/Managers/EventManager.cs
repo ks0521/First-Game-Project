@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour
             if (!target.activeSelf)
             {
                 playerEvents.OnChangeObjective("휴식 취하기");
+                isEnable = false;
             }
         }
     }

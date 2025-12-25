@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Kamikakushi.Contents.Manager;
 using _Kamikakushi.Utills.Enums;
+using UnityEngine.SocialPlatforms;
 
 public class EndingManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class EndingManager : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 1;
         // 초기화: 텍스트는 비우고 화면은 검게 시작
         endingText.text = "";
         fadeImage.gameObject.SetActive(true);
