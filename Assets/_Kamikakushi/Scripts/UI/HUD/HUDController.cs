@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Project.Inventory;
 using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
+using TMPro;
 
 public class HUDController : MonoBehaviour
 {
@@ -18,10 +19,12 @@ public class HUDController : MonoBehaviour
     [Range(1f, 20f)]
     public float smoothSpeed = 8f;
 
+    string curtext;
     [SerializeField] PlayerEvents events;
     float targetHPFill = 1f;
     float targetSanityFill = 1f;
 
+    [SerializeField] TextMeshProUGUI objective;
     private void Start()
     {
 
@@ -59,5 +62,14 @@ public class HUDController : MonoBehaviour
         Debug.Log($"{stat.Hp},{stat.Sanity}");
         targetHPFill = stat.Hp / stat.MaxHp;
         targetSanityFill = stat.Sanity / stat.MaxSanity;
+    }
+
+    public void ChangeObjective(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+        //중복방지
+        if (curtext == text) return;
+        curtext = text;
+        objective.text = text;
     }
 }

@@ -23,10 +23,10 @@ namespace _Kamikakushi.Contents.UI
     {
         static UIManager instance;
 
-        ReadingController readingController;
-        CrosshairController crosshairController;
-        SettingController settingController;
-        InventoryController inventoryController;
+        [SerializeField]ReadingController readingController;
+        [SerializeField] CrosshairController crosshairController;
+        [SerializeField] SettingController settingController;
+        [SerializeField] InventoryController inventoryController;
         //현재 어떤창이 열려있는 창의 상태 확인(없음/인벤/설정/리딩)
         [SerializeField] PlayerController playerController;
         [SerializeField] PlayerEvents playerEvents;
@@ -38,13 +38,10 @@ namespace _Kamikakushi.Contents.UI
         [SerializeField] InteractContext currentContext;
 
         ReadableData data;
+
+        bool isClosing;
         void Awake()
         {
-            readingController = GetComponentInChildren<ReadingController>();
-            crosshairController = GetComponentInChildren<CrosshairController>();
-            settingController = GetComponentInChildren<SettingController>();
-            inventoryController = GetComponentInChildren<InventoryController>();
-
             inventoryCanvas?.SetActive(false);
             settingCanvas?.SetActive(false);
             readingCanvas?.SetActive(false);
@@ -167,6 +164,9 @@ namespace _Kamikakushi.Contents.UI
         }
         public void CloseCurrent()
         {
+            if (curStatus == UIStatus.GamePlay) return;
+            if (isClosing) return;
+            isClosing = true;
             switch (curStatus)
             {
                 case UIStatus.Inventory:
@@ -181,6 +181,7 @@ namespace _Kamikakushi.Contents.UI
             }
             ExitUIMode();
             curStatus = UIStatus.GamePlay;
+            isClosing = false;
             Debug.Log($"창 종료, 현재 {curStatus}상태");
         }
 
@@ -196,6 +197,7 @@ namespace _Kamikakushi.Contents.UI
         }
         private void OnInteractResult(InteractResult result)
         {
+            Debug.Log(currentContext.displayName);
             if (currentContext.displayName == null) return;
             crosshairController.ShowInteractResult(result, currentContext);
         }

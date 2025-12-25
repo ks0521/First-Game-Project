@@ -54,7 +54,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 105870, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
       propertyPath: m_Name
-      value: H_Basket Variant
+      value: H_Basket
       objectReference: {fileID: 0}
     - target: {fileID: 105870, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
       propertyPath: m_Layer
@@ -128,6 +128,12 @@ PrefabInstance:
       addedObject: {fileID: 1787280476042067457}
     - targetCorrespondingSourceObject: {fileID: 105870, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8143099267023227760}
+    - targetCorrespondingSourceObject: {fileID: 105870, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2623399308979872408}
+    - targetCorrespondingSourceObject: {fileID: 105870, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5984985769155857190}
   m_SourcePrefab: {fileID: 100100000, guid: 940bad1b128c3674fa1a8f3e1ee11c2c, type: 3}
 --- !u!4 &4144475005804154457 stripped
@@ -152,9 +158,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcc7336f83e42946b9483e85ceebbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactType: 0
-  hidePoint: {fileID: 3871559643251889989}
-  overrideObjectName: 
+  interactType: 3
+  result:
+    success: 0
+    message: 
+  overrideMessage: "\uBC14\uAD6C\uB2C8\uC5D0 \uC228\uC5C8\uB2E4"
+  defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
+  displayName: "\uBC14\uAD6C\uB2C8"
+--- !u!114 &8143099267023227760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144475005804587403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277b0864149f3bb4a8b56a7315090b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hidePoint: {fileID: 0}
+--- !u!114 &2623399308979872408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144475005804587403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210c5eb35fbcf994fa18bc51177f6ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAudio: {fileID: 0}
+  type: 0
 --- !u!65 &5984985769155857190
 BoxCollider:
   m_ObjectHideFlags: 0

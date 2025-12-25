@@ -6,18 +6,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using _Kamikakushi.Utills.Enums;
 namespace _Kamikakushi.Contents.InteractAction
 {
-    public class SceneChangeAction : IInteractAction
+    public class SceneChangeAction : MonoBehaviour, IInteractAction
     {
-        private readonly int sceneNum;
-        public SceneChangeAction(int num)
-        {
-            sceneNum = num;
-        }
+        [SerializeField] Map maps;
         public void Execute(PlayerManager player, IInteractable source)
         {
-            GameManagers.instance.LoadScene(sceneNum);
+            GameManagers.instance.LoadScene((int)maps);
         }
     }
 }

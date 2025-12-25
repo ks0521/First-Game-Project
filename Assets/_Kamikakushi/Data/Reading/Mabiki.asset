@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5b5cdca608de34dacb632620e4bd35, type: 3}
   m_Name: Mabiki
   m_EditorClassIdentifier: 
-  title: "\uACFC\uAC70\uC758 \uC545\uC2B5"
+  title: "\uB9C8\uBE44\uD0A4(\u9593\u5F15\u304D): \uC0DD\uC874\uC744 \uC704\uD55C
+    \uC120\uD0DD"
   body: "\uB9C8\uBE44\uD0A4\uB294 \uC5D0\uB3C4 \uC2DC\uB300 \uC77C\uBCF8\uC5D0\uC11C
     \uADF9\uC2EC\uD55C \uC0DD\uD65C\uACE0 \uC18D\uC5D0 \uD589\uD574\uC9C0\uB358\n
     \uC544\uC774\uB97C \uC18E\uC544\uB0B4\uB294 \uC545\uC2B5\uC774\uC5C8\uB2E4.\n\uB2F9\uC2DC

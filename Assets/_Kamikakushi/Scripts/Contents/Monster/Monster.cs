@@ -15,6 +15,9 @@ namespace _Kamikakushi.Contents.Monster
         [SerializeField] protected float waitBeforeReturnTime = 3f;  // ⭐ 멈추는 시간
         [SerializeField] protected float returnStopDistance = 0.5f;
 
+        [SerializeField] protected Transform hitpos;
+        [SerializeField] protected float damage = 10;
+
         protected NavMeshAgent agent;
         protected Animator animator;
 
@@ -27,7 +30,7 @@ namespace _Kamikakushi.Contents.Monster
         protected bool isReturning = false;
         protected bool isTouchingPlayer = false;
 
-        private float waitTimer = 0f;
+        protected float waitTimer = 0f;
 
         public bool IsTouchingPlayer => isTouchingPlayer;
 

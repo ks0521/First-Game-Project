@@ -125,7 +125,7 @@ namespace _Kamikakushi.Contents.InteractiveObject
         {
             door.Toggle();
             isOpened = false;
-            context.promptKey = PromptKey.CloseDoor;
+            context.promptKey = PromptKey.OpenDoor;
             ObstacleChange(true);
         }
         void ObstacleChange(bool value)

@@ -9,9 +9,11 @@ public class MonsterRespawnManager : MonoBehaviour
     [SerializeField] private float disappearDelay = 0.5f;   // 👈 충돌 후 사라지기까지
     [SerializeField] private float respawnDelay = 3f;        // 👈 사라진 뒤 리스폰까지
     [SerializeField] private float detectorDelay = 1.5f;     // 👈 리스폰 후 감지 재개
+    [SerializeField] bool canRespawn;
     private void Awake()
     {
         Instance = this;
+
     }
 
     public void StartDisappear(Monster monster)
@@ -32,17 +34,20 @@ public class MonsterRespawnManager : MonoBehaviour
         monster.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(respawnDelay);
-
-        // 3️⃣ 리스폰
-        monster.gameObject.SetActive(true);
-        monster.OnRespawned();
-
-        // 4️⃣ Detector 딜레이
-        if (detector != null)
+        if (canRespawn)
         {
-            detector.SetEnable(false);
-            yield return new WaitForSeconds(detectorDelay);
-            detector.SetEnable(true);
+            // 3️⃣ 리스폰
+            monster.gameObject.SetActive(true);
+            monster.OnRespawned();
+
+            // 4️⃣ Detector 딜레이
+            if (detector != null)
+            {
+                detector.SetEnable(false);
+                yield return new WaitForSeconds(detectorDelay);
+                detector.SetEnable(true);
+            }
+
         }
     }
 }

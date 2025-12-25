@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 0.1, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5929089616414300644}
@@ -50,6 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0a865bb74c6224cb515854c279ddd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readingController: {fileID: 0}
+  crosshairController: {fileID: 0}
+  settingController: {fileID: 0}
+  inventoryController: {fileID: 0}
   playerController: {fileID: 0}
   playerEvents: {fileID: 0}
   inventoryCanvas: {fileID: 6839383010624480452}
@@ -1077,7 +1081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 104060270885656983, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0010070801
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1203310057180042318, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_ChildScaleWidth
@@ -1257,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4945010264640233761, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 285.25
+      value: 911.5
       objectReference: {fileID: 0}
     - target: {fileID: 4945010264640233761, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1273,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6588005649492350744, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6788273981989002037, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_text
@@ -1317,7 +1321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8260262659146172067, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9034368623337907658, guid: 20d0373534c663d4a92c9d647034982f, type: 3}
       propertyPath: m_AnchorMax.y

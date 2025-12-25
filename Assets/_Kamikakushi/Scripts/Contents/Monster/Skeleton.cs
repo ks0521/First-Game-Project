@@ -12,7 +12,6 @@ namespace _Kamikakushi.Contents.Monster
         [SerializeField] private bool randomOrder = false;
 
         private int currentIndex = 0;
-        private float waitTimer = 0f;
 
         protected override void Awake()
         {

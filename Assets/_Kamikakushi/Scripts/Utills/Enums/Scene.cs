@@ -11,6 +11,8 @@ namespace _Kamikakushi.Utills.Enums
         House = 1,
         Village = 2,
         Forest = 3,
-        length = 4
+        Ending = 4,
+        BadEnding = 5,
+        length = 6
     }
 }

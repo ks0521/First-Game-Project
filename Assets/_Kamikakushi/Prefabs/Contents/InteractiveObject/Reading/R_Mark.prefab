@@ -101,7 +101,8 @@ MonoBehaviour:
     success: 0
     message: 
   data: {fileID: 11400000, guid: 8c2adabb73a1d994dbc59e1a72a94f69, type: 2}
-  overrideMessage: "\uC5B4\uB518\uAC00 \uBD88\uAE38\uD55C \uB290\uB08C\uC774 \uB4E0\uB2E4"
+  overrideMessage: "\uC5B4\uB518\uAC00 \uBD88\uAE38\uD55C \uB290\uB08C\uC774 \uB4E0\uB2E4
+    \uBB34\uC5B8\uAC00\uAC00 \uC544\uC774\uB97C \uC7A1\uC544\uBA39\uB294 \uBB38\uC591\uC774\uB2E4"
   overrideDisplayName: "\uBD88\uAE38\uD55C \uBB38\uC591"
 --- !u!65 &2316006344228832712
 BoxCollider:

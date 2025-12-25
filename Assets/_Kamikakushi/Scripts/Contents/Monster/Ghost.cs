@@ -12,7 +12,7 @@ namespace _Kamikakushi.Contents.Monster
         private float pauseTimer = 0f;
         private bool isPausedByHide = false;
 
-        private Transform player;
+        //private Transform player;
         private Detectorble playerDetectorble;
 
         protected override void Awake()

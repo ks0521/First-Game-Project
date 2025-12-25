@@ -6,7 +6,7 @@ public class InteractionUIEventReceiver : MonoBehaviour
 {
     public PlayerEvents playerEvents;
     public CrosshairController interactionUIController;
-
+    public HUDController HUDController;
     private InteractContext currentContext;
 
     private void OnEnable()
@@ -14,6 +14,7 @@ public class InteractionUIEventReceiver : MonoBehaviour
         playerEvents.GetInteractContext += OnFound;
         playerEvents.RaycastOut += OnLost;
         playerEvents.GetInteractResult += OnInteractResult;
+        playerEvents.ChangeObjective += OnChangeObjective;
     }
 
     private void OnDisable()
@@ -23,8 +24,13 @@ public class InteractionUIEventReceiver : MonoBehaviour
         playerEvents.GetInteractContext -= OnFound;
         playerEvents.RaycastOut -= OnLost;
         playerEvents.GetInteractResult -= OnInteractResult;
-    }
+        playerEvents.ChangeObjective -= OnChangeObjective;
 
+    }
+    private void OnChangeObjective(string text)
+    {
+        HUDController.ChangeObjective(text);
+     }
     private void OnFound(InteractContext context)
     {
         currentContext = context;

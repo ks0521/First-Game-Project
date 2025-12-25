@@ -7,7 +7,8 @@ public class MonsterDisappearHandler : MonoBehaviour
     [SerializeField] private float disappearDelay = 1f;
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private float detectorDelayAfterRespawn = 1.5f;
-
+    [SerializeField] private bool canRespawn;
+    
     private Monster monster;
     private Detector detector;
     private Vector3 spawnPos;

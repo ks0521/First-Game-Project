@@ -7,6 +7,7 @@ namespace _Kamikakushi.Contents.Player.Test
 {
     public class BansheeTest : PhysicalMonsterTest
     {
+        [SerializeField] Transform hitpos;
         protected override void Awake()
         {
            

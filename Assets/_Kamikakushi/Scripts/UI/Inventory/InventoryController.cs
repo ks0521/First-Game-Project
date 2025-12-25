@@ -59,7 +59,6 @@ namespace Project.Inventory
 
         private void Start()
         {
-            uiManager = GetComponentInParent<UIManager>();
             // leftArea의 SlotUI를 자동 수집
             slotUIs.Clear();
             if (leftArea != null)

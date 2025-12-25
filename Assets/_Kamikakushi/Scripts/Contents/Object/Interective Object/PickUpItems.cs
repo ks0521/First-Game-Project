@@ -9,25 +9,22 @@ using _Kamikakushi.Utills.Structs;
 using System;
 using _Kamikakushi.Contents.InteractAction;
 using _Kamikakushi.Utills.Audio;
+using _Kamikakushi.Contents.Item;
 
 namespace _Kamikakushi.Contents.InteractiveObject
 {
-    public class PickUpItems : MonoBehaviour, IInteractable
+    public class PickUpItems : InteractItems
     {
         //실제 인벤토리에 저장될 아이템 정보
         [SerializeField] protected ItemData data;
-        //UI나 크로스헤어 정보전달용
-        protected InteractContext context;
-        //상호작용 결과 반환
-        [SerializeField] protected InteractResult result;
-        private void Awake()
+
+        protected override void Init()
         {
-            //이름은 os에서 따옴
             context.displayName = data.itemName ?? "사용아이템";
             context.promptKey = PromptKey.PickupItem;
-            result.actions = new List<IInteractAction>();  
         }
-        public InteractResult Interact(PlayerManager target)
+
+        public override InteractResult Interact(PlayerManager target)
         {
             if (!target.inven.Add(data))
             {
@@ -40,24 +37,8 @@ namespace _Kamikakushi.Contents.InteractiveObject
             Destroy(gameObject);
             result.success = true;
             result.message = context.displayName + " 획득";
-            result.actions.Add(new PlaySFXAction(SFXType.PickupItem)); //픽업사운드 추가
+            //result.actions.Add(new PlaySFXAction(SFXType.PickupItem)); 컴포넌트에 붙이기
             return result;
-        }
-
-        /// <summary>
-        /// 상호작용 조건들을 모두 만족하는지 확인
-        /// </summary>
-        /// <param name="target">플레이어의 정보</param>
-        /// <returns>모든 조건을 만족 시 True, 아니면 False 반환</returns>
-        public bool CanInteract(PlayerManager target)
-        {
-            return true;
-        }
-
-        //InteractContext 구조체 반환하여 UI부에서 크로스헤어 및 텍스트 출력
-        public InteractContext GetContext()
-        {
-            return context;
         }
     }
 

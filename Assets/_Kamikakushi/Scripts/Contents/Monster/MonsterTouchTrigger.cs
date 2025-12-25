@@ -17,8 +17,7 @@ namespace _Kamikakushi.Contents.Monster
 
             Debug.Log("몬스터 충돌 → 사라짐 시작");
 
-            MonsterRespawnManager.Instance
-                .StartDisappear(owner);
+            MonsterRespawnManager.Instance.StartDisappear(owner);
         }
     }
 }

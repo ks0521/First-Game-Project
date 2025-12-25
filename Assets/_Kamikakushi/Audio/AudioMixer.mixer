@@ -95,7 +95,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: e296b4345cbb7fa47befc05fa8bad32a
+    name: BGMVol
+  - guid: 4d789937d757b2340b310632fc0143fb
+    name: MasterVol
+  - guid: a9cee478d46c3944c8ef94d0a97d53f8
+    name: SFXVol
   m_AudioMixerGroupViews:
   - guids:
     - b5fff421bcbfe0d458033f637e214850
@@ -117,10 +123,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: b5fff421bcbfe0d458033f637e214850
   m_Children:
-  - {fileID: 7473073479502878148}
   - {fileID: 6672270024981284670}
-  - {fileID: -204773278483485557}
-  - {fileID: -4151830344665521104}
   - {fileID: 1036760766220765207}
   m_Volume: 4d789937d757b2340b310632fc0143fb
   m_Pitch: c9dbb83c2f94a474790f19a94396cdc5
@@ -154,7 +157,9 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: aab93f57e87e12045995839708ea8544
-  m_FloatValues: {}
+  m_FloatValues:
+    4d789937d757b2340b310632fc0143fb: -0.48210695
+    a9cee478d46c3944c8ef94d0a97d53f8: 0.092742294
   m_TransitionOverrides: {}
 --- !u!243 &1036760766220765207
 AudioMixerGroupController:
@@ -165,7 +170,10 @@ AudioMixerGroupController:
   m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: b41ee596fe6ebe44a9262207de363db5
-  m_Children: []
+  m_Children:
+  - {fileID: 7473073479502878148}
+  - {fileID: -204773278483485557}
+  - {fileID: -4151830344665521104}
   m_Volume: a9cee478d46c3944c8ef94d0a97d53f8
   m_Pitch: 8d5056c7c4a354446a06a9449aa17de5
   m_Send: 00000000000000000000000000000000

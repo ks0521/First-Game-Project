@@ -12,7 +12,6 @@ public class MonsterDisappearHandlerTest : MonoBehaviour
     //돌아오고 디텍터가 켜지는 시간
     [SerializeField] private float detectorDelayAfterRespawn = 2.5f;
 
-    [SerializeField]private PlayerEvents events;
     private MonsterTest monster;
     private DetectorTest detector;
     private Vector3 spawnPos;
@@ -26,12 +25,7 @@ public class MonsterDisappearHandlerTest : MonoBehaviour
         spawnPos = monster.transform.position;
         spawnRot = monster.transform.rotation;
     }
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
 
-        StartCoroutine(DisappearRoutine());
-    }*/
     public void Disappear()
     {
         StartCoroutine(DisappearRoutine());

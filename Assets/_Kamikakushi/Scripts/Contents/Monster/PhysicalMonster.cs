@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Enums;
+using UnityEngine.UIElements;
 
 namespace _Kamikakushi.Contents.Monster
 {
     public class PhysicalMonster : Monster
     {
+
         // 🔥 public → protected
         protected override void Move(Vector3 targetPos)
         {
@@ -26,7 +28,7 @@ namespace _Kamikakushi.Contents.Monster
             if (other.TryGetComponent<IHittable>(out var hittable))
             {
                 Debug.Log("플레이어 충돌");
-                hittable.Hit(transform.position, 30, 2, HitType.Physical);
+                hittable.Hit(hitpos.position, damage, 2, HitType.Physical);
             }
         }
     }
