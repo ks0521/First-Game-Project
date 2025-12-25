@@ -21,14 +21,13 @@ public class EndingManager : MonoBehaviour
     // --- 스크립트에서 직접 텍스트 정의 ---
     private List<string> endingMessages = new List<string>()
     {
-       "지금까지의 수집한 증거들은, 이 괴이들이 인간이 묻어두었던 죄책감의 잔재임을 드러내고 있었다",
-       "'신에게 돌려보낸다' 라는 말로 스스로를 속였던 선택은 끝내 기록과 피로 남아 이 땅에 스며들었다",
-       "이 증거들을 경찰에게 신고했다. 인간의 죄는 신의 이름 뒤에 숨을 수 없다. 인간의 죄는 인간이 심판해야 할 것이다",
-       "떠나기 전, 추악한 악습으로 희생된 이들을 위해 마지막 기도를 올린다.",
+       "괴이가 왜 나타났는지 끝내 깨닫지 못한 채",
+       "나는 마을을 떠났다",
     };
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         // 초기화: 텍스트는 비우고 화면은 검게 시작
         endingText.text = "";
         fadeImage.gameObject.SetActive(true);

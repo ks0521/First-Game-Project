@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace _Kamikakushi.Contents.Monster
 {
@@ -33,6 +34,15 @@ namespace _Kamikakushi.Contents.Monster
             if (owner.IsTouchingPlayer) return;
 
             owner.OnPlayerDetected(other.transform.position);
+        }
+        private void OnDrawGizmos()
+        {
+            var col = GetComponent<SphereCollider>();
+            if (col == null) return;
+
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireSphere(col.center, col.radius);
+
         }
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5b5cdca608de34dacb632620e4bd35, type: 3}
+  m_Name: BloodedCloth
+  m_EditorClassIdentifier: 
+  title: "\uD53C\uBB3B\uC740 \uCC9C\uC637"
+  body: "\uBC84\uB824\uC9C4\uC9C0 \uC5BC\uB9C8 \uB418\uC9C0\uC54A\uC740 \uC544\uC774\uC758
+    \uC637\uC774\uB2E4\n\uC774\uACF3\uC740 '\uB3CC\uB824\uBCF4\uB0B4\uB294 \uC7A5\uC18C'\uC778
+    \uB4EF \uD558\uB2E4..."
+  images: {fileID: 0}

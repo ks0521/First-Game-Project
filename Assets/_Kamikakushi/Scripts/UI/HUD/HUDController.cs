@@ -19,6 +19,7 @@ public class HUDController : MonoBehaviour
     [Range(1f, 20f)]
     public float smoothSpeed = 8f;
 
+    string curtext;
     [SerializeField] PlayerEvents events;
     float targetHPFill = 1f;
     float targetSanityFill = 1f;
@@ -65,6 +66,10 @@ public class HUDController : MonoBehaviour
 
     public void ChangeObjective(string text)
     {
+        if (string.IsNullOrEmpty(text)) return;
+        //중복방지
+        if (curtext == text) return;
+        curtext = text;
         objective.text = text;
     }
 }

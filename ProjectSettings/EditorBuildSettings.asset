@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/_Kamikakushi/Scenes/TutorialScene.unity
     guid: 5d9f825278390bc4ba8f7d4d7203334e
   - enabled: 1
-    path: Assets/_Kamikakushi/Scenes/Village.unity
+    path: Assets/_Kamikakushi/Scenes/VillageScene.unity
     guid: 943ff1926088a994f99633efd4298bd7
   - enabled: 1
     path: Assets/_Kamikakushi/Scenes/ForestScene.unity
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Kamikakushi/Scenes/Ending.unity
     guid: beb1644cf79f4fa46985ed47419c09d9
+  - enabled: 1
+    path: Assets/_Kamikakushi/Scenes/BadEnding.unity
+    guid: 68cf1e82ecf6f2e429894d2180c66f90
   m_configObjects: {}

@@ -12,6 +12,8 @@ namespace _Kamikakushi.Contents.Manager
     {
         [SerializeField]
         public static GameManagers instance;
+        
+        private bool trueEnding;
         void Awake()
         {
             if (instance == null)

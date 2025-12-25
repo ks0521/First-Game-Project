@@ -18,13 +18,15 @@ namespace _Kamikakushi.Contents.InteractAction
         [SerializeField] bool wasActived = false;
         //한번만 실행해야하는지
         [SerializeField] bool isOnce = false;
+        //활성화시키는지 비활성화시키는지
+        [SerializeField] bool canActive = true;
         public void Execute(PlayerManager player, IInteractable source)
         {
             //이전에 실행했고, 한번만 실행해야 한다면 excute 막음
             if (wasActived && isOnce) return;
             if (target != null)
             {
-                target.SetActive(true);
+                target.SetActive(canActive);
                 wasActived = true;
             }
             else
