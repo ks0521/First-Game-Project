@@ -8,13 +8,15 @@ namespace _Kamikakushi.Contents.UI
 {
     public class ButtonClicked : MonoBehaviour
     {
+
         public void GameStart()
         {
-            GameManagers.instance.LoadScene((int)Map.House);
+            GameManagers.instance?.NewGame();
+
         }
         public void OpenSetting()
         {
-            //Manual.SetActive(true);
+            UIManager.Instance.OpenSettings();
         }
         public void Quit()
         {

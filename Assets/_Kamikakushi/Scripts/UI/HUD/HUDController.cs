@@ -24,9 +24,13 @@ public class HUDController : MonoBehaviour
     [SerializeField] PlayerEvents events;
     float targetHPFill = 1f;
     float targetSanityFill = 1f;
-
     [SerializeField] TextMeshProUGUI objective;
     [SerializeField] UIManager uiManager;
+
+    [SerializeField] float punchScale = 1.08f;
+    [SerializeField] float punchTime = 0.12f;
+    [SerializeField] float glowHold;
+    private Coroutine coPunch;
 
     private void OnEnable()
     {
@@ -94,10 +98,49 @@ public class HUDController : MonoBehaviour
 
     public void ChangeObjective(string text)
     {
-        if (string.IsNullOrEmpty(text)) return;
-        //중복방지
-        if (curtext == text) return;
-        curtext = text;
         objective.text = text;
+        //실행중에 기존 코루틴 실행중이면 중지시키고 새로온거 실행
+        if (coPunch != null) StopCoroutine(coPunch);
+        coPunch = StartCoroutine(CoPunchObjective());
+    }
+
+    private IEnumerator CoPunchObjective()
+    {
+        var rt = objective.rectTransform;
+
+        Vector3 baseScale = Vector3.one;
+        Color baseColor = objective.color;
+
+        objective.color = new Color(baseColor.r, baseColor.g, baseColor.b, 1f);
+
+        yield return Scale(rt, baseScale, baseScale * punchScale, punchTime);
+
+        yield return new WaitForSecondsRealtime(glowHold);
+
+        yield return Scale(rt, rt.localScale, baseScale, punchTime);
+
+        objective.color = baseColor;
+        //다 끝났으면 null로 사용중 여부 알려줌
+        coPunch = null;
+
+    }
+
+    private IEnumerator Scale(RectTransform rt , Vector3 from, Vector3 to, float time)
+    {
+        //시간값 이상하면 그냥 바로 바꿔버림
+        if (time <= 0)
+        {
+            rt.localScale = to;
+            yield break;
+        }
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / time;
+            rt.localScale = Vector3.Lerp(from, to, t);
+            yield return null;
+        }
+        rt.localScale = to;
     }
 }

@@ -18,15 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.084
+      value: 15.346878
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.56
+      value: 0.38389888
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.69
+      value: -8.349491
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -77,7 +77,16 @@ PrefabInstance:
       addedObject: {fileID: 3806267620685895444}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7328611897399609840}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7096921928771108143}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2316006344228832712}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7298941920787391313}
   m_SourcePrefab: {fileID: 100100000, guid: af7ddd64953b17a4093eaa4c12077df3, type: 3}
 --- !u!1 &3273713081636902976 stripped
 GameObject:
@@ -100,10 +109,38 @@ MonoBehaviour:
   result:
     success: 0
     message: 
-  data: {fileID: 11400000, guid: 8c2adabb73a1d994dbc59e1a72a94f69, type: 2}
   overrideMessage: "\uC5B4\uB518\uAC00 \uBD88\uAE38\uD55C \uB290\uB08C\uC774 \uB4E0\uB2E4
     \uBB34\uC5B8\uAC00\uAC00 \uC544\uC774\uB97C \uC7A1\uC544\uBA39\uB294 \uBB38\uC591\uC774\uB2E4"
-  overrideDisplayName: "\uBD88\uAE38\uD55C \uBB38\uC591"
+  defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
+  displayName: 
+--- !u!114 &7328611897399609840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273713081636902976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210c5eb35fbcf994fa18bc51177f6ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAudio: {fileID: 0}
+  type: 10
+--- !u!114 &7096921928771108143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273713081636902976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0a825a637870d4b8e42448e54a229b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  maps: 4
 --- !u!65 &2316006344228832712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,3 +162,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7298941920787391313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273713081636902976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be04aaeb20d6add4694e125dcc63010e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 8c2adabb73a1d994dbc59e1a72a94f69, type: 2}

@@ -28,7 +28,7 @@ public class CrosshairController : MonoBehaviour
     [Header("UI Table")]
     public List<PromptUIData> uiTable;
 
-
+    Coroutine CoPrint;
     private Dictionary<PromptKey, PromptUIData> table;
     private string crosshairContext;
     private bool isBlocked;
@@ -52,7 +52,12 @@ public class CrosshairController : MonoBehaviour
         crosshairImage.sprite = defaultCrosshair;
         promptText.text = "";
     }
-
+    public void ShowText(string text)
+    {
+        //새로운 프린트 요청이 들어오면 기존거 중지 후 실행
+        if (CoPrint != null) StopCoroutine(CoPrint);
+        CoPrint = StartCoroutine(PrintResult(text));
+    }
     // 실제 상호작용 메시지를 UI에 표시
     public void ShowInteractResult(InteractResult result, InteractContext context)
     {
@@ -67,8 +72,9 @@ public class CrosshairController : MonoBehaviour
         {
             crosshairImage.sprite = data.crosshair;
         }
-
-        StartCoroutine(PrintResult(result.message));
+        //새로운 프린트 요청이 들어오면 기존거 중지 후 실행
+        if(CoPrint != null) StopCoroutine(CoPrint);
+        CoPrint = StartCoroutine(PrintResult(result.message));
     }
     IEnumerator PrintResult(string text)
     {
@@ -78,6 +84,7 @@ public class CrosshairController : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         resultText.text = "";
+        CoPrint = null;
     }
     // 일반 상호작용 프롬프트
     public void ShowPrompt(InteractContext context)

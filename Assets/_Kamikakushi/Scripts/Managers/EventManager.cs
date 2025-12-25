@@ -1,24 +1,23 @@
-﻿using _Kamikakushi.Contents.Player;
+﻿using _Kamikakushi.Contents.Manager;
+using _Kamikakushi.Contents.Player;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
     [SerializeField] GameObject target;
     [SerializeField] PlayerEvents playerEvents;
-    bool isEnable;
     private void Update()
     {
-        if (target.activeSelf) isEnable = true;
-        if(isEnable)
+        if(GameManagers.instance.NowStep() == ProgressStep.Tutorial_Hide)
         {
             if (!target.activeSelf)
             {
-                playerEvents.OnChangeObjective("휴식 취하기");
-                isEnable = false;
+                Debug.Log("귀신 사라짐");
+                GameManagers.instance.SetStep(ProgressStep.Tutorial_Break);
+                gameObject.SetActive(false);
             }
         }
     }

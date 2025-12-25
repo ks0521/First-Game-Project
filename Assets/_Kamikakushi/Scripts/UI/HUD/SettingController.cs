@@ -19,7 +19,7 @@ public class SettingController : MonoBehaviour
     int windowWidth;
     int windowHeight;
 
-    UIManager uIManager;
+    [SerializeField]UIManager uIManager;
     [SerializeField] GameObject Inventory;
 
     [SerializeField] AudioMixer mixer;
@@ -41,7 +41,6 @@ public class SettingController : MonoBehaviour
     {
         if (settingPanel != null)
             settingPanel.SetActive(false);
-        uIManager = GetComponentInParent<UIManager>();
         SetBrightness(1f);
 
         windowWidth = Screen.width;
@@ -85,14 +84,14 @@ public class SettingController : MonoBehaviour
     public void SetWindowMode(bool isOn)
     {
         if (!isOn) return;
-
+        Debug.Log("창모드 전환");
         Screen.SetResolution(windowWidth, windowHeight, FullScreenMode.Windowed);
     }
 
     public void SetFullscreenMode(bool isOn)
     {
         if (!isOn) return;
-
+        Debug.Log("전체화면 전환");
         // 전체화면 들어가기 전에 창모드 해상도 저장
         windowWidth = Screen.width;
         windowHeight = Screen.height;

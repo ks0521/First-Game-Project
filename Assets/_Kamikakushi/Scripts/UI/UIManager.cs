@@ -22,10 +22,10 @@ namespace _Kamikakushi.Contents.UI
     /// </summary>
     public class UIManager : MonoBehaviour
     {
-        static UIManager Instance;
+        public static UIManager Instance;
 
-        [SerializeField]ReadingController readingController;
-        [SerializeField] CrosshairController crosshairController;
+        [SerializeField] ReadingController readingController;
+        [SerializeField] public CrosshairController crosshairController;
         [SerializeField] SettingController settingController;
         [SerializeField] InventoryController inventoryController;
         //현재 어떤창이 열려있는 창의 상태 확인(없음/인벤/설정/리딩)
@@ -52,10 +52,16 @@ namespace _Kamikakushi.Contents.UI
         public PlayerInventory PlayerInventory { get; private set; } // 필요하면
         public PlayerInteract PlayerInteract { get; private set; }   // 필요하면
 
-
+        bool allowHotKey;
+        public void SetAllowHotKey(bool value) => allowHotKey = value;
         bool isClosing;
         void Awake()
         {
+            if(Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
             Instance = this;
             inventoryCanvas?.SetActive(false);
             settingCanvas?.SetActive(false);
@@ -189,7 +195,7 @@ namespace _Kamikakushi.Contents.UI
             curStatus = UIStatus.Inventory;
             Debug.Log($"{curStatus}창 열기");
         }
-        void OpenSettings()
+        public void OpenSettings()
         {
             if (curStatus != UIStatus.GamePlay)
             {

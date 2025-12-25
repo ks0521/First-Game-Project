@@ -1,4 +1,5 @@
-﻿using _Kamikakushi.Contents.Player;
+﻿using _Kamikakushi.Contents.Manager;
+using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,15 +20,12 @@ public class CheckPoint1 : MonoBehaviour
         Gizmos.DrawWireCube(box.center, box.size);
 
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent<PlayerEvents>(out playerEvents))
         {
             Debug.Log("등장");
-            playerEvents.OnChangeObjective("마을로 돌아가기");
+            GameManagers.instance.SetStep(ProgressStep.Forest_Middle);
             obj.SetActive(true);
             gameObject.SetActive(false);
         }
