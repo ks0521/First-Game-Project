@@ -4,7 +4,6 @@ using _Kamikakushi.Contents.Manager;
 using Project.Inventory;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using _Kamikakushi.Utills.Enums;
 namespace _Kamikakushi.Contents.InteractAction

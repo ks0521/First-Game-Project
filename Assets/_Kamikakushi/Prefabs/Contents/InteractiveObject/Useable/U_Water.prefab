@@ -291,8 +291,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7857630800643779115}
   - component: {fileID: 2669746084409798190}
-  - component: {fileID: 5377378678454213520}
-  - component: {fileID: 6558316217193087145}
+  - component: {fileID: 4060533074602242431}
+  - component: {fileID: 6650350758262010620}
   - component: {fileID: 813295300036370356}
   m_Layer: 12
   m_Name: U_Water
@@ -335,14 +335,10 @@ MonoBehaviour:
   result:
     success: 0
     message: 
-  overrideMessage: 
+  overrideMessage: "\uC2DC\uC6D0\uD55C \uAC10\uAC01\uC5D0 \uC815\uC2E0\uC774 \uB3CC\uC544\uC628\uB2E4"
   defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
   displayName: 
-  itemName: "\uBB3C"
-  resultMessage: "\uC815\uC2E0\uC774 \uC870\uAE08 \uB610\uB837\uD574\uC9C4\uB2E4"
-  increseHp: 0
-  increseSanity: 20
---- !u!114 &5377378678454213520
+--- !u!114 &4060533074602242431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,11 +347,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8653310143748090341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9437dd3d058bc4e4ba055a123267cd69, type: 3}
+  m_Script: {fileID: 11500000, guid: fac75ee3b4bb6d94483d6b329209c97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   recovery: 5
---- !u!114 &6558316217193087145
+--- !u!114 &6650350758262010620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,7 +360,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8653310143748090341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7131a9e50470fe84c8d47c86ed6303f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 01326b0e7bcd2c943add83f3670f8269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   recovery: 20

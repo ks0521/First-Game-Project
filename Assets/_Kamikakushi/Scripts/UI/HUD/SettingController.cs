@@ -21,7 +21,6 @@ public class SettingController : MonoBehaviour
 
     UIManager uIManager;
     [SerializeField] GameObject Inventory;
-    [SerializeField] PlayerController playerController;
 
     [SerializeField] AudioMixer mixer;
     [SerializeField] Slider masterSlider;

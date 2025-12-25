@@ -33,16 +33,13 @@ namespace _Kamikakushi.Audio
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
+            if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
                 return;
             }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
 
             //SFX클립들을 딕셔너리에 저장
             SFXClipDict = new Dictionary<SFXType, AudioClip>();

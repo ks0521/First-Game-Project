@@ -1,6 +1,7 @@
 ﻿using _Kamikakushi.Contents.Player;
 using _Kamikakushi.Utills.Structs;
 using Project.Inventory;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace _Kamikakushi.Contents.UI
     /// </summary>
     public class UIManager : MonoBehaviour
     {
-        static UIManager instance;
+        static UIManager Instance;
 
         [SerializeField]ReadingController readingController;
         [SerializeField] CrosshairController crosshairController;
@@ -29,19 +30,33 @@ namespace _Kamikakushi.Contents.UI
         [SerializeField] InventoryController inventoryController;
         //현재 어떤창이 열려있는 창의 상태 확인(없음/인벤/설정/리딩)
         [SerializeField] PlayerController playerController;
-        [SerializeField] PlayerEvents playerEvents;
+        [SerializeField] public PlayerEvents playerEvents;
         [SerializeField] GameObject inventoryCanvas;
         [SerializeField] GameObject settingCanvas;
         [SerializeField] GameObject crosshair;
         [SerializeField] GameObject readingCanvas;
         [SerializeField] UIStatus curStatus;
+        public UIStatus CurStatus => curStatus;
         [SerializeField] InteractContext currentContext;
 
+        public event Action<UIStatus> OnClose;
+        //매니저에서 플레이어의 정보를 받아왔음을 알림
+        public event Action OnResist;
+        private UIStatus prevStatus;
         ReadableData data;
+        [SerializeField] private RectTransform crosshairTransform;
+
+        public RectTransform CrosshairTransform => crosshairTransform;
+        public PlayerManager PlayerManager { get; private set; }
+        public PlayerManager PlayerController { get; private set; }
+        public PlayerInventory PlayerInventory { get; private set; } // 필요하면
+        public PlayerInteract PlayerInteract { get; private set; }   // 필요하면
+
 
         bool isClosing;
         void Awake()
         {
+            Instance = this;
             inventoryCanvas?.SetActive(false);
             settingCanvas?.SetActive(false);
             readingCanvas?.SetActive(false);
@@ -50,21 +65,18 @@ namespace _Kamikakushi.Contents.UI
         private void OnEnable()
         {
             //플레이어 컨텍스트 구독
-            playerEvents.GetInteractContext += OnFound;
-            playerEvents.RaycastOut += OnLost;
-            playerEvents.GetInteractResult += OnInteractResult;
+            SubscribePlayerEvents();
         }
         private void OnDisable()
         {
-            //비활성화시 구독해제
-            if (playerEvents == null) return;
-            playerEvents.GetInteractContext -= OnFound;
-            playerEvents.RaycastOut -= OnLost;
-            playerEvents.GetInteractResult -= OnInteractResult;
+            UnsubscribePlayerEvents();
         }
 
         void Update()
         {
+            if (PlayerManager == null || playerEvents == null || playerController == null)
+                return;
+
             if (Input.GetKeyDown(KeyCode.I))
             {
                 if (curStatus == UIStatus.Inventory)
@@ -92,9 +104,48 @@ namespace _Kamikakushi.Contents.UI
             }
         }
 
+        //시작할때 플레이어쪽에서 해당 함수 실행해서 등록해줘야함
+        public void PlayerResist(PlayerManager player)
+        {
+            if(player == null)
+            {
+                Debug.LogWarning("UI창에서 플레이어 초기 등록 실패!");
+                return;
+            }
+            //기존 연결된 playerevent가 있으면 이벤트 구독 해제(새 등록이 왔기 때문)
+            UnsubscribePlayerEvents();
+            PlayerManager = player;
+            playerEvents = player.events;
+            playerController = player.controller;
+            PlayerInventory = player.inven;
+            //새로 등록된 playerevent에 이벤트 등록
+            SubscribePlayerEvents();
+            OnResist?.Invoke();
+        }
+        void SubscribePlayerEvents()
+        {
+            if (playerEvents != null)
+            {
+                playerEvents.GetInteractContext += OnFound;
+                playerEvents.RaycastOut += OnLost;
+                playerEvents.GetInteractResult += OnInteractResult;
+            }
+        }
+        void UnsubscribePlayerEvents()
+        {
+            if (playerEvents != null)
+            {
+                playerEvents.GetInteractContext -= OnFound;
+                playerEvents.RaycastOut -= OnLost;
+                playerEvents.GetInteractResult -= OnInteractResult;
+            }
+            
+        }
         //창을 여닫기 전 공통으로 하는 작업
         void EnterUIMode()
         {
+            if (playerController == null || playerEvents == null) return;
+
             //플레이어 조작 비활성화
             playerController.enabled = false;
             //크로스헤어 비활성화
@@ -110,6 +161,7 @@ namespace _Kamikakushi.Contents.UI
         }
         void ExitUIMode()
         {
+            if (playerController == null || playerEvents == null) return;
             //플레이어 조작 활성화
             playerController.enabled = true;
             //크로스헤어 활성화
@@ -167,6 +219,8 @@ namespace _Kamikakushi.Contents.UI
             if (curStatus == UIStatus.GamePlay) return;
             if (isClosing) return;
             isClosing = true;
+            //이벤트 발송용 UIStatus 저장
+            prevStatus = curStatus;
             switch (curStatus)
             {
                 case UIStatus.Inventory:
@@ -182,6 +236,8 @@ namespace _Kamikakushi.Contents.UI
             ExitUIMode();
             curStatus = UIStatus.GamePlay;
             isClosing = false;
+            //어떤 종류의 UI가 종료되었는지 발행
+            OnClose?.Invoke(prevStatus);
             Debug.Log($"창 종료, 현재 {curStatus}상태");
         }
 

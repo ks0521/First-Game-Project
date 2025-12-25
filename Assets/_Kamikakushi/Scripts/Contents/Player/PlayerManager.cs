@@ -26,20 +26,21 @@ namespace _Kamikakushi.Contents.Player
         [SerializeField] public playerStat stat;
         //public HUDController hud;
         public PlayerInventory inven;
+        public PlayerController controller;
         public PlayerEvents events;
         public PlayerHide hide;
         PlayerHit hit;
 
-        private float battery;
 
         void Awake()
         {
-            battery = 100;
             handeditems = null;
             inven = GetComponent<PlayerInventory>();
             events = GetComponent<PlayerEvents>();
             hit = GetComponent<PlayerHit>();
             hide = GetComponent<PlayerHide>();
+            controller = GetComponent<PlayerController>();
+            
             stat.Hp = stat.MaxHp;
             stat.Sanity = stat.MaxSanity;
             //초기값으로 hp창 변경
@@ -49,23 +50,43 @@ namespace _Kamikakushi.Contents.Player
         void Start()
         {
             events.OnPlayerStatChange(stat);
-            InventoryController.Instance.GetInventoryItems = inven.GetItems;
-            InventoryController.Instance.OnItemEquipped += SelectItem;
+            StartCoroutine(UIResist());
+        }
+        private IEnumerator UIResist()
+        {
+            // UIManager가 DontDestroy로 올라올 시간을 1프레임 줌
+            yield return null;
+
+            var ui = FindObjectOfType<UIManager>(true);
+            if (ui == null)
+            {
+                Debug.LogWarning("PlayerManager: UIManager를 찾지 못함");
+                yield break;
+            }
+            reader = ui;
+            ui.PlayerResist(this);
+        }
+        private void OnEnable()
+        {
+            if (InventoryController.Instance != null)
+            {
+                InventoryController.Instance.GetInventoryItems += inven.GetItems;
+                InventoryController.Instance.OnItemEquipped += SelectItem;
+            }
+            else Debug.LogWarning("인벤토리컨트롤러 싱글톤 부재! PlayerManager - OnEnable");
             events.PlayerHitEvent += Damaged;
         }
-
         private void OnDisable()
         {
-            events.PlayerHitEvent -= Damaged;
-            InventoryController.Instance.OnItemEquipped -= SelectItem;
-        }
-        private void FixedUpdate()
-        {
-            if (flash.activeSelf)
+            if (InventoryController.Instance != null)
             {
-                battery -= 0.02f;
+                InventoryController.Instance.GetInventoryItems -= inven.GetItems;
+                InventoryController.Instance.OnItemEquipped -= SelectItem;
             }
+            else Debug.LogWarning("인벤토리컨트롤러 싱글톤 부재! PlayerManager - OndDisable");
+            events.PlayerHitEvent -= Damaged;
         }
+
         void Update()
         {
             //테스트용 코드
@@ -113,15 +134,16 @@ namespace _Kamikakushi.Contents.Player
         }
         public void UseHandedItem()
         {
-            if (inven.Remove(handeditems))
+            if (inven.Remove(handeditems) && InventoryController.Instance != null)
             {
                 InventoryController.Instance.OnItemConsumed();
             }
+            else Debug.LogWarning("인벤토리컨트롤러 싱글톤 부재!");
             //inventory 인스턴트에 정보전달해주기
         }
         public void HpRecovery(float recovery)
         {
-            stat.Hp+= recovery;
+            stat.Hp += recovery;
             events.OnPlayerStatChange(stat);
         }
         public void SanityRecovery(float recovery)
