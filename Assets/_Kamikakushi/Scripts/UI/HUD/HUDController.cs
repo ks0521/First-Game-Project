@@ -34,31 +34,46 @@ public class HUDController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (uiManager == null)
-            uiManager = GetComponentInParent<UIManager>();
-        if (uiManager == null)
-            uiManager = FindObjectOfType<UIManager>(true);
-
-        uiManager.OnResist += Bind;
+        if (UIManager.Instance == null)
+        {
+            Debug.LogWarning("UI매니저 인스턴스 없음");
+            return;
+        }
+        UIManager.Instance.OnResist += Bind;
 
         // 이미 플레이어가 등록된 상태일 수 있으니 바로 한 번 바인드 시도(중요)
         Bind();
     }
+    private void Start()
+    {
+        //onenable단에서 안됐을때 start단에서 한번 더 시도
+        if (UIManager.Instance == null)
+        {
+            Debug.LogWarning("InteractionUIEventReceiver: UIManager 없음");
+            return;
+        }
+
+        UIManager.Instance.OnResist += Bind;
+        Bind();
+    }
     private void OnDisable()
     {
-        if (uiManager != null)
-        uiManager.OnResist -= Bind;
+        if (UIManager.Instance == null)
+        {
+            Debug.Log("UI매니저 인스턴스 없음");
+        }
+        UIManager.Instance.OnResist -= Bind;
     }
     void Bind()
     {
-        if (uiManager == null || uiManager.playerEvents == null)
+        if (UIManager.Instance == null)
         {
             Debug.LogWarning("HUD컨트롤러에서 플레이어 이벤트 등록 실패!");
             return;
         }
-        //씬이동이나 기다 재시작으로 인해 bing재호출시 기존 이벤트는 구독해제
+        //씬이동이나 기다 재시작으로 인해 bind재호출시 기존 이벤트는 구독해제
         if(events != null) events.PlayerStatChange -= UpdateState;
-        events = uiManager.playerEvents;
+        events = UIManager.Instance.playerEvents;
         //새롭게 이벤트 구독
         if (events != null) events.PlayerStatChange += UpdateState;
     }

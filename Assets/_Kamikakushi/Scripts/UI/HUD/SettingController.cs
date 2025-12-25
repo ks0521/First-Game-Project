@@ -22,21 +22,6 @@ public class SettingController : MonoBehaviour
     [SerializeField]UIManager uIManager;
     [SerializeField] GameObject Inventory;
 
-    [SerializeField] AudioMixer mixer;
-    [SerializeField] Slider masterSlider;
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider sfxSlider;
-    private const string Master = "MasterVol";
-    private const string BGM = "BGMVol";
-    private const string SFX = "SFXVol";
-    private void Awake()
-    {
-        //각 슬라이더 값 변화할때마다 변화한 value를 받아서 SetVolume 함수에 전달
-        masterSlider.onValueChanged.AddListener(value => SetVolume(Master, value));
-        bgmSlider.onValueChanged.AddListener(value => SetVolume(BGM, value));
-        sfxSlider.onValueChanged.AddListener(value => SetVolume(SFX, value));
-    }
-
     private void Start()
     {
         if (settingPanel != null)
@@ -51,25 +36,10 @@ public class SettingController : MonoBehaviour
         else
             windowedToggle.isOn = true;
     }
-    //음량조절
-    void SetVolume(string param, float value)
-    {
-        //value가 0이면 log스케일할때 -inf로 가버림
-        value = Mathf.Clamp(value, 0.0001f, 1f);
-
-        //log_10(0.0001) = 4 , log_10(1) = 0 => -80db ~ 0db
-        value = Mathf.Log10(value) * 20f;
-        mixer.SetFloat(param, value);
-    }
 
     public void OnClickSave()
     {
         Debug.Log("게임이 저장되었습니다.");
-    }
-
-    public void SetMasterVolume(float value)
-    {
-        AudioListener.volume = value;
     }
 
     public void SetBrightness(float value)

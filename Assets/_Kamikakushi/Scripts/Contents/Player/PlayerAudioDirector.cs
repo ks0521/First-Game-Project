@@ -6,6 +6,7 @@ using _Kamikakushi.Utills.Structs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -73,6 +74,8 @@ namespace _Kamikakushi.Contents.Player
                 monster.OnChaseEnd -= ChaserDelete;
             }
             chaser.Clear();
+            //게임오버시 노이즈 끄기
+            AudioManager.Instance.setNoise(0);
         }
         void ChaeserAdd(MonsterTest _monster) => chaser.Add(_monster);
         void ChaserDelete(MonsterTest _monster) => chaser.Remove(_monster);
