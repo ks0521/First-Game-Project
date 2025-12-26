@@ -22,12 +22,13 @@ namespace _Kamikakushi.Contents.UI
     /// </summary>
     public class UIManager : MonoBehaviour
     {
-        static UIManager Instance;
+        public static UIManager Instance;
 
-        [SerializeField]ReadingController readingController;
-        [SerializeField] CrosshairController crosshairController;
-        [SerializeField] SettingController settingController;
-        [SerializeField] InventoryController inventoryController;
+        [SerializeField] public ReadingController readingController;
+        [SerializeField] public CrosshairController crosshairController;
+        [SerializeField] public SettingController settingController;
+        [SerializeField] public InventoryController inventoryController;
+        [SerializeField] public HUDController hudController;
         //현재 어떤창이 열려있는 창의 상태 확인(없음/인벤/설정/리딩)
         [SerializeField] PlayerController playerController;
         [SerializeField] public PlayerEvents playerEvents;
@@ -35,6 +36,7 @@ namespace _Kamikakushi.Contents.UI
         [SerializeField] GameObject settingCanvas;
         [SerializeField] GameObject crosshair;
         [SerializeField] GameObject readingCanvas;
+        [SerializeField] GameObject ScreenFadedCanvas;
         [SerializeField] UIStatus curStatus;
         public UIStatus CurStatus => curStatus;
         [SerializeField] InteractContext currentContext;
@@ -52,11 +54,20 @@ namespace _Kamikakushi.Contents.UI
         public PlayerInventory PlayerInventory { get; private set; } // 필요하면
         public PlayerInteract PlayerInteract { get; private set; }   // 필요하면
 
-
-        bool isClosing;
+        bool allowHotKey;
+        public void SetAllowHotKey(bool value) => allowHotKey = value;
+        [SerializeField]bool isClosing;
         void Awake()
         {
+            if(Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
             Instance = this;
+            //instance 활성화 후 hudcontroller 활성화하여 연결을 보장
+            //hudController.enabled = true;
+
             inventoryCanvas?.SetActive(false);
             settingCanvas?.SetActive(false);
             readingCanvas?.SetActive(false);
@@ -189,7 +200,7 @@ namespace _Kamikakushi.Contents.UI
             curStatus = UIStatus.Inventory;
             Debug.Log($"{curStatus}창 열기");
         }
-        void OpenSettings()
+        public void OpenSettings()
         {
             if (curStatus != UIStatus.GamePlay)
             {

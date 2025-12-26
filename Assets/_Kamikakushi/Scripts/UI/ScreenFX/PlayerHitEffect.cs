@@ -75,6 +75,8 @@ namespace _Kamikakushi.Contents.UI.ScreenFX
         private void Start()
         {
             if (events == null) events = GetComponentInParent<PlayerEvents>();
+            Debug.Log($"[PlayerHitEffect] events = {(events == null ? "NULL" : events.name)}");
+
             if (events != null)
                 events.PlayerHitEvent += OnPlayerHit;
         }
@@ -190,9 +192,9 @@ namespace _Kamikakushi.Contents.UI.ScreenFX
             switch (type)
             {
                 case HitType.Physical:
-                    color.postExposure.value = -0.3f;
+                    color.postExposure.value = -1f;
                     color.colorFilter.value = new Color(0.9f, 0.8f, 0.8f);
-                    color.saturation.value = -0.3f;
+                    color.saturation.value = -30f;
 
                     vignette.color.value = new Color(0.12f, 0f, 0f);
                     vignette.intensity.value = 0.25f;

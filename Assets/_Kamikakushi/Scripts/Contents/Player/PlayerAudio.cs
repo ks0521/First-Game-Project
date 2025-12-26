@@ -24,13 +24,13 @@ namespace _Kamikakushi.Contents.Player
 
         private void Start()
         {
-            heartbeat.clip = AudioManager.Instance.GetLoop(SFXType.Heartbeat);
+            heartbeat.clip = AudioManager.Instance?.GetLoop(SFXType.Heartbeat);
             if (heartbeat.clip == null)
             {
                 Debug.LogWarning("AudioManager에 심장소리 없음!");
                 return;
             }
-            breath.clip = AudioManager.Instance.GetLoop(SFXType.HideBreath);
+            breath.clip = AudioManager.Instance?.GetLoop(SFXType.HideBreath);
             if (breath.clip == null)
             {
                 Debug.LogWarning("AudioManager에 호흡소리 없음!");

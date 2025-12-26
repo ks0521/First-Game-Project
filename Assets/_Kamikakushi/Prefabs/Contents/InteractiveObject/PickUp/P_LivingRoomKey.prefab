@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1508765130452242327, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2498504952586042402, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -64,6 +68,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_LivingRoomKey
       objectReference: {fileID: 0}
+    - target: {fileID: 3019568617730713240, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723547211238572199, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875691210554700269, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79,7 +95,7 @@ PrefabInstance:
       addedObject: {fileID: 5424894302883061197}
     - targetCorrespondingSourceObject: {fileID: 3019568617730713240, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 441859257714512935}
+      addedObject: {fileID: 7029985309740615370}
     - targetCorrespondingSourceObject: {fileID: 3019568617730713240, guid: 5dd5a1ab6047d4848b7668734815016f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7153137353829546454}
@@ -157,7 +173,7 @@ MonoBehaviour:
   defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
   displayName: "\uAC70\uC2E4 \uC5F4\uC1E0"
   data: {fileID: 11400000, guid: b27a81f4c18963545ad2e772e1d74b85, type: 2}
---- !u!114 &441859257714512935
+--- !u!114 &7029985309740615370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,12 +182,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1115736792017186138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a659b736be52a584586a122f394c23f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b8e6ac665e61bd47a2f9f627eed7a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: "\uC18C\uD30C \uC870\uC0AC\uD558\uAE30"
-  wasActived: 0
-  isOnce: 0
+  step: 20
+  isOnce: 1
 --- !u!114 &7153137353829546454
 MonoBehaviour:
   m_ObjectHideFlags: 0

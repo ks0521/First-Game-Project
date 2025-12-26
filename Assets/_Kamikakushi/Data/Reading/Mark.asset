@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mark
   m_EditorClassIdentifier: 
   title: "\uBD88\uAE38\uD55C \uBB38\uC591"
-  body: "\uCD5C\uADFC\uC5D0 \uB9CC\uB4E4\uC5B4\uC9C4\uB4EF\uD55C \uBD88\uAE38\uD55C
-    \uBB38\uC591\uC774\uB2E4..."
+  body: "\uC5B4\uB518\uAC00 \uBD88\uAE38\uD55C \uB290\uB08C\uC758 \n\uC544\uC774\uB97C
+    \uC7A1\uC544\uBA39\uB294 \uBB34\uC5B8\uAC00\uB97C \uBB18\uC0AC\uD55C \uBB38\uC591\uC774\uB2E4\n\uB0A0\uC9DC\uB294...
+    \uBA70\uCE60 \uC804\uC774\uB2E4"
   images: {fileID: 21300000, guid: 9ed29424e58a9f749b061c41ee9f5921, type: 3}

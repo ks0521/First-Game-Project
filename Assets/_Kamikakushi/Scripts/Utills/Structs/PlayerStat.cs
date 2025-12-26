@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _Kamikakushi.Contents.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace _Kamikakushi.Utills.Structs
             {
                 hp = value;
                 if(hp>MaxHp) hp = MaxHp;
+                
             }
         }
         public float Sanity
@@ -24,6 +26,7 @@ namespace _Kamikakushi.Utills.Structs
             {
                 sanity = value;
                 if(sanity > MaxSanity) sanity = MaxSanity;
+                
             }
         }
         public readonly float MaxSanity => 100;
