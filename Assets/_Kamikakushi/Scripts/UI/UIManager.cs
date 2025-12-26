@@ -56,7 +56,7 @@ namespace _Kamikakushi.Contents.UI
 
         bool allowHotKey;
         public void SetAllowHotKey(bool value) => allowHotKey = value;
-        bool isClosing;
+        [SerializeField]bool isClosing;
         void Awake()
         {
             if(Instance != null && Instance != this)

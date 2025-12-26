@@ -11,7 +11,7 @@ namespace _Kamikakushi.Contents.Data
     {
         public Map map;
         public ProgressStep step;
-        public List<int> clue;
+        public int clueCount;
     }
 
 }

@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.78867924, g: 0.78867924, b: 0.78867924, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.038
+  m_FogDensity: 0.1
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -2861,6 +2861,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2099330856820156472, guid: 585154451d38cbf41b21e9b26b1b8761, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1637702338}
+    - targetCorrespondingSourceObject: {fileID: 2099330856820156472, guid: 585154451d38cbf41b21e9b26b1b8761, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1637702340}
   m_SourcePrefab: {fileID: 100100000, guid: 585154451d38cbf41b21e9b26b1b8761, type: 3}
 --- !u!1 &1637702337 stripped
 GameObject:
@@ -2899,6 +2902,20 @@ MonoBehaviour:
   overrideMessage: "\uB9C8\uC744\uB85C \uB3CC\uC544\uAC00\uAE30"
   defaultMessage: "\uC0C1\uD638\uC791\uC6A9\uD588\uB2E4..."
   displayName: "\uD45C\uC9C0\uD310"
+--- !u!114 &1637702340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637702337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8e6ac665e61bd47a2f9f627eed7a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 90
+  isOnce: 1
 --- !u!1001 &1706631704
 PrefabInstance:
   m_ObjectHideFlags: 0

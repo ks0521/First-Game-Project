@@ -21,8 +21,8 @@ namespace _Kamikakushi.Contents.Manager
         Tutorial_ReadLetter = 0,
         Tutorial_AcquireKey = 10,
         Tutorial_InvestigateLivingRoom = 20,
-        Tutorial_Hide = 35,
-        Tutorial_Break = 30,
+        Tutorial_Hide = 30,
+        Tutorial_Break = 35,
         //마을
         Village_FindClue = 40,
         Village_GoForest = 50,
@@ -45,6 +45,9 @@ namespace _Kamikakushi.Contents.Manager
         public event Action<Map> SceneLoad;
         public Map currentMap;
         string text;
+        const string MAP = "SAVE_MAP";
+        const string PROGRESS = "SAVE_PROGRESS";
+        const string CLUE = "SAVE_CLUECOUNT";
         void Awake()
         {
             if (instance == null)
@@ -52,6 +55,9 @@ namespace _Kamikakushi.Contents.Manager
                 instance = this;
                 DontDestroyOnLoad(gameObject);
                 currentMap = 0;
+
+                SceneManager.sceneLoaded += OnSceneLoaded;
+
             }
             else
             {
@@ -64,30 +70,65 @@ namespace _Kamikakushi.Contents.Manager
             data = new SaveData();
             data.map = Map.House;
             data.step = ProgressStep.Tutorial_ReadLetter;
-            data.clue = new List<int>();
+            data.clueCount = 0;
             trueEnding = false;
-            ApplyStep();
             LoadScene((int)data.map);
         }
         public void LoadGame()
         {
-            data = LoadFromDisk(); 
+            data = LoadFromDisk();
+            Debug.Log($"[LOAD RAW] map:{PlayerPrefs.GetInt(MAP, -1)} step:{PlayerPrefs.GetInt(PROGRESS, -1)} clue:{PlayerPrefs.GetInt(CLUE, -1)}");
+
+            if (data.step<ProgressStep.Village_FindClue)
+            {
+                Debug.Log("튜토리얼");
+                data.step = ProgressStep.Tutorial_ReadLetter;
+                data.map = Map.House;
+            }
+            else if (data.step < ProgressStep.Forest_FindClue)
+            {
+                Debug.Log("마을");
+                data.step = ProgressStep.Village_FindClue;
+                data.map = Map.Village;
+            }
+            else
+            {
+                Debug.Log("숲");
+                data.step = ProgressStep.Forest_FindClue;
+                data.map = Map.Forest;
+            }
+
+            LoadScene((int)data.map);
+
+        }
+        public void SaveGame()
+        {
+            PlayerPrefs.SetInt(MAP, (int)data.map);
+            PlayerPrefs.SetInt(PROGRESS, (int)data.step);
+            PlayerPrefs.SetInt(CLUE, data.clueCount);
+            PlayerPrefs.Save();
+            Debug.Log($"[SAVE] map:{data.map} step:{data.step} clue:{data.clueCount}");
+            Debug.Log($"[SAVE] master:{PlayerPrefs.GetFloat("VOL_MASTER_01", -1)}");
+
         }
         private SaveData LoadFromDisk()
         {
             SaveData data = new SaveData();
             //playerprefs 등 저장된 정보 받아오기
+            data.map = (Map)PlayerPrefs.GetInt(MAP, 0);
+            data.step=(ProgressStep)PlayerPrefs.GetInt(PROGRESS, 0);
+            data.clueCount = PlayerPrefs.GetInt(CLUE, 0);
             return data;
         }
         //게임 시작 / 불러오기, 씬 로드 후 초기값 설정 등 
         public void ApplyStep()
         {
-            if(ObjectiveTextTable.Text.TryGetValue(data.step,out var text))
+            if(ObjectiveTextTable.Text.TryGetValue(data.step,out var objtext))
             {
                 var hud = FindObjectOfType<HUDController>(true);
                 if (hud != null)
                 {
-                    hud.ChangeObjective(text);
+                    hud.ChangeObjective(objtext);
                 }
             }
 
@@ -95,29 +136,53 @@ namespace _Kamikakushi.Contents.Manager
         }
         public void LoadScene(int index)
         {
-            if (index >= 0 && index < (int)Map.length)
-            {
-                SceneManager.LoadScene(index);
-                SceneLoad?.Invoke((Map)index);
-                currentMap = ((Map)index);
-                UIManager.Instance.crosshairController.SetDefault();
-            }
+            if (index < 0 || index >= (int)Map.length) return;
+
+            currentMap = (Map)index;
+            data.map = currentMap;
+
+            // 여기서는 로드만!
+            SceneManager.LoadScene(index);
         }
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // 빌드 인덱스 기준으로 맵 동기화(안전)
+            int buildIndex = scene.buildIndex;
+            if (buildIndex >= 0 && buildIndex < (int)Map.length)
+            {
+                currentMap = (Map)buildIndex;
+                data.map = currentMap;
+            }
+
+            // 씬 로드 후에야 HUD/UIManager 찾는 게 안전
+            ApplyStep();
+            UIManager.Instance?.crosshairController?.SetDefault();
+            SceneLoad?.Invoke(currentMap);
+        }
+
         public void SetStep(ProgressStep _step)
         {
             if (data == null) data = new SaveData();
             //중복 갱신 방지
             if (data.step == _step) return;
             data.step = _step;
+            SaveGame();
             if(ObjectiveTextTable.Text.TryGetValue(_step,out text))
             {
                 var hud = FindObjectOfType<HUDController>(true);
                 if (hud != null) hud.ChangeObjective(text);
             }
+            
         }
         public ProgressStep NowStep()
         {
             return data.step;
+        }
+        private void OnDestroy()
+        {
+            // DontDestroy라도 혹시 파괴될 수 있으니 해제(안전)
+            if (instance == this)
+                SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }

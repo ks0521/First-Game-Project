@@ -73,10 +73,15 @@ public class SettingController : MonoBehaviour
         );
     }
     //세팅창 닫기
-    public void CloseSetting() { uIManager.CloseCurrent(); }
+    public void CloseSetting() 
+    {
+        Debug.Log("종료버튼 눌림");
+        uIManager.CloseCurrent();
+    }
     public void QuitGame()
     {
         Debug.Log("게임 종료");
+        CloseSetting();
 
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

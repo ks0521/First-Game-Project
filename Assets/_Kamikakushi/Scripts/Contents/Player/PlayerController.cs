@@ -19,7 +19,7 @@ namespace _Kamikakushi.Contents.Player
         float yaw;
         float pitch;
 
-        float moveSpeed = 15f;
+        float moveSpeed = 4.8f;
         float h;
         float v;
         //중력 관리용

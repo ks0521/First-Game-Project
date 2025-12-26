@@ -3053,7 +3053,7 @@ MonoBehaviour:
   data:
     map: 0
     step: 0
-    clue: 
+    clueCount: 0
   trueEnding: 1
   currentMap: 0
 --- !u!4 &1040076100
@@ -5126,6 +5126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player5
       objectReference: {fileID: 0}
+    - target: {fileID: 5231936687829342187, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5919787193328813379, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.22
@@ -5171,6 +5175,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
+--- !u!114 &1948642330 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8354889484317945834, guid: 963bcae208e95d44b89fd14cf58deb6f, type: 3}
+  m_PrefabInstance: {fileID: 1948642329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8409006a3e5bc4bb5790332e22cc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1953830578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5359,6 +5374,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: R_Mark
       objectReference: {fileID: 0}
+    - target: {fileID: 3806267620685895444, guid: ba63218dffea8a24b81e321f6986d5b4, type: 3}
+      propertyPath: displayName
+      value: "\uBB38\uC591"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806267620685895444, guid: ba63218dffea8a24b81e321f6986d5b4, type: 3}
+      propertyPath: overrideMessage
+      value: "\uC624\uB798\uB41C\uAC83 \uAC19\uC9C0 \uC54A\uC740 \uBAA8\uC591\uC758
+        \uC885\uC774\uC774\uB2E4."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5409,6 +5433,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3852633788388719631, guid: 4eb7fdc6c1ae7e74ab74d0860854ec2f, type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5478088095828104508, guid: 4eb7fdc6c1ae7e74ab74d0860854ec2f, type: 3}
       propertyPath: m_Radius
       value: 26.76
@@ -5518,6 +5546,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_LivingRoomKey
       objectReference: {fileID: 0}
+    - target: {fileID: 7029985309740615370, guid: 1ca2f4c2d8f27eb4fb27c36fe0b6e5c9, type: 3}
+      propertyPath: isOnce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153137353829546454, guid: 1ca2f4c2d8f27eb4fb27c36fe0b6e5c9, type: 3}
+      propertyPath: playerAudio
+      value: 
+      objectReference: {fileID: 1948642330}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

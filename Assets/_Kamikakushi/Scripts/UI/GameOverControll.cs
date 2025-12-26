@@ -10,7 +10,7 @@ namespace _Kamikakushi.Contents.UI
     {
         public static GameOverControll Instance;
         [SerializeField] private CanvasGroup fadeGroup; // CanvasGroup 붙은 오브젝트
-        [SerializeField] private float fadeDuration = 2.0f;
+        [SerializeField] private float fadeDuration = 3.0f;
         [SerializeField] private string mainSceneName = "MainMenu";
 
         private bool isGameOver;
@@ -32,6 +32,7 @@ namespace _Kamikakushi.Contents.UI
         }
         public void GameOver()
         {
+            Debug.Log("게임종료");
             if (isGameOver) return;
             isGameOver = true;
 
@@ -49,10 +50,10 @@ namespace _Kamikakushi.Contents.UI
 
             GameManagers.instance.LoadScene((int)Map.Main);
             //깜빡임 방지
+            Cursor.lockState = CursorLockMode.None;
             yield return null;
             yield return FadeTo(0, 0.5f);
             if (fadeGroup != null) fadeGroup.blocksRaycasts = false;
-            Cursor.lockState = CursorLockMode.None;
             isGameOver = false;
         }
 
@@ -72,10 +73,6 @@ namespace _Kamikakushi.Contents.UI
             }
 
             fadeGroup.alpha = targetAlpha;
-        }
-        void Update()
-        {
-            
         }
     }
 

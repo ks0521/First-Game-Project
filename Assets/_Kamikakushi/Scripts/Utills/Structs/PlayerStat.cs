@@ -16,7 +16,7 @@ namespace _Kamikakushi.Utills.Structs
             {
                 hp = value;
                 if(hp>MaxHp) hp = MaxHp;
-                if (hp <= 0) GameOverControll.Instance.GameOver();
+                
             }
         }
         public float Sanity
@@ -26,7 +26,7 @@ namespace _Kamikakushi.Utills.Structs
             {
                 sanity = value;
                 if(sanity > MaxSanity) sanity = MaxSanity;
-                if (sanity <= 0) GameOverControll.Instance.GameOver();
+                
             }
         }
         public readonly float MaxSanity => 100;

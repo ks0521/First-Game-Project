@@ -19,7 +19,7 @@ namespace _Kamikakushi.Utills
         { ProgressStep.Forest_FindClue, "숲속에서 단서를 수집하기" },
         { ProgressStep.Forest_Middle, "마을로 돌아가" },
         { ProgressStep.Forest_Run, "괴이에게서 도망치기" },
-        { ProgressStep.Finale_House, "저택으로 돌아가기" },
+        { ProgressStep.Finale_House, "저택의 비밀 찾기" },
     };
     }
 }

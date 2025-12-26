@@ -1,4 +1,5 @@
 ﻿using _Kamikakushi.Contents.Item;
+using _Kamikakushi.Contents.Manager;
 using _Kamikakushi.Contents.UI;
 using _Kamikakushi.Utills.Enums;
 using _Kamikakushi.Utills.Interfaces;
@@ -30,7 +31,7 @@ namespace _Kamikakushi.Contents.Player
         public PlayerEvents events;
         public PlayerHide hide;
         PlayerHit hit;
-
+        bool isDead;
 
         void Awake()
         {
@@ -108,6 +109,7 @@ namespace _Kamikakushi.Contents.Player
         }
         void Damaged(Vector3 target, float damage, float time, HitType type)
         {
+            if (isDead) return;
             if (type == HitType.Physical)
             {
                 stat.Hp -= damage;
@@ -118,6 +120,13 @@ namespace _Kamikakushi.Contents.Player
             }
             events.OnPlayerStatChange(stat);
             StartCoroutine(NoHit(time));
+            if(stat.Hp <=0 || stat.Sanity <= 0)
+            {
+                Debug.Log($"[DEAD] GameOverControll.Instance = {(GameOverControll.Instance == null ? "NULL" : "OK")}");
+
+                isDead = true;
+                GameOverControll.Instance?.GameOver();
+            }
         }
         IEnumerator NoHit(float time)
         {

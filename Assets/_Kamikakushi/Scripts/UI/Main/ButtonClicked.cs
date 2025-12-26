@@ -8,15 +8,28 @@ namespace _Kamikakushi.Contents.UI
 {
     public class ButtonClicked : MonoBehaviour
     {
-
+        public void Continue()
+        {
+            if (GameManagers.instance == null)
+            {
+                Debug.LogError("GameManagers 인스턴스가 없습니다. 메인씬에 배치되어 있는지 확인하세요.");
+                return;
+            }
+            GameManagers.instance.LoadGame();
+        }
         public void GameStart()
         {
+            if (GameManagers.instance == null)
+            {
+                Debug.LogError("GameManagers 인스턴스가 없습니다. 메인씬에 배치되어 있는지 확인하세요.");
+                return;
+            }
             GameManagers.instance?.NewGame();
 
         }
         public void OpenSetting()
         {
-            UIManager.Instance.OpenSettings();
+            UIManager.Instance?.OpenSettings();
         }
         public void Quit()
         {
