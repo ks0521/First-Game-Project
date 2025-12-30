@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Threading;
+using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.UI.ScrollRect;
 
@@ -33,6 +35,11 @@ namespace _Kamikakushi.Contents.Monster
         protected float waitTimer = 0f;
 
         public bool IsTouchingPlayer => isTouchingPlayer;
+
+        public event Action<Monster> OnChaseStarted;
+        bool isStarted;
+        public event Action<Monster> OnChaseEnd;
+        bool isEnded;
 
         protected virtual void Awake()
         {
@@ -125,7 +132,11 @@ namespace _Kamikakushi.Contents.Monster
         public virtual void OnPlayerDetected(Vector3 targetPos)
         {
             if (isTouchingPlayer) return;
-
+            if (!isStarted)
+            {
+                OnChaseStarted?.Invoke(this);
+                isStarted = true;
+            }
             currentTargetPos = targetPos;
 
             isChasing = true;
@@ -182,6 +193,8 @@ namespace _Kamikakushi.Contents.Monster
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
             }
+            OnChaseEnd?.Invoke(this);
+            isStarted = false;
         }
 
         // =========================
@@ -194,6 +207,8 @@ namespace _Kamikakushi.Contents.Monster
 
             detector?.SetEnable(false);
             animator?.SetFloat("Speed", 0f);
+            OnChaseEnd?.Invoke(this);
+            isStarted = false;
         }
 
         public virtual void OnRespawned()

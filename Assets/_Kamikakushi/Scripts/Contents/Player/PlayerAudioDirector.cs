@@ -1,5 +1,7 @@
 ﻿using _Kamikakushi.Audio;
 using _Kamikakushi.Contents.Player.Test;
+using _Kamikakushi.Contents.Monster;
+
 using _Kamikakushi.Utills.Audio;
 using _Kamikakushi.Utills.Interfaces;
 using _Kamikakushi.Utills.Structs;
@@ -16,7 +18,7 @@ namespace _Kamikakushi.Contents.Player
     {
         [SerializeField] private PlayerAudio playerAudio; //피격, 발소리 등 플레이어 관련 sfx
         [SerializeField] private PlayerManager playerManager;
-        [SerializeField] private HashSet<MonsterTest> chaser;
+        [SerializeField] private HashSet<_Kamikakushi.Contents.Monster.Monster> chaser;
 
         private bool isHide;
         [SerializeField] private float interval = 0.4f;
@@ -47,13 +49,13 @@ namespace _Kamikakushi.Contents.Player
             playerAudio = GetComponent<PlayerAudio>();
             playerManager = GetComponent<PlayerManager>();
             //현재 플레이어를 쫓고 있는 몬스터집합
-            chaser = new HashSet<MonsterTest>();
+            chaser = new HashSet<_Kamikakushi.Contents.Monster.Monster>();
             StartCoroutine(AudioUpdate(interval));
         }
         
         private void OnEnable()
         {
-            foreach (var monster in FindObjectsByType<MonsterTest>(
+            foreach (var monster in FindObjectsByType<_Kamikakushi.Contents.Monster.Monster>(
                 FindObjectsInactive.Include,
                 FindObjectsSortMode.None
                 ))
@@ -65,7 +67,7 @@ namespace _Kamikakushi.Contents.Player
         }
         private void OnDisable()
         {
-            foreach (var monster in FindObjectsByType<MonsterTest>(
+            foreach (var monster in FindObjectsByType<_Kamikakushi.Contents.Monster.Monster>(
                 FindObjectsInactive.Include,
                 FindObjectsSortMode.None
                 ))
@@ -77,8 +79,8 @@ namespace _Kamikakushi.Contents.Player
             //게임오버시 노이즈 끄기
             AudioManager.Instance.setNoise(0);
         }
-        void ChaeserAdd(MonsterTest _monster) => chaser.Add(_monster);
-        void ChaserDelete(MonsterTest _monster) => chaser.Remove(_monster);
+        void ChaeserAdd(_Kamikakushi.Contents.Monster.Monster _monster) => chaser.Add(_monster);
+        void ChaserDelete(_Kamikakushi.Contents.Monster.Monster _monster) => chaser.Remove(_monster);
 
         IEnumerator AudioUpdate(float interval)
         {
