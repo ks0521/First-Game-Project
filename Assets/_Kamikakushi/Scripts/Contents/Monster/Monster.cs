@@ -1,234 +1,75 @@
-﻿using UnityEngine;
+﻿using _Kamikakushi.Contents.Monster;
+using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.UI.ScrollRect;
-
-namespace _Kamikakushi.Contents.Monster
+public interface IMonsterState
 {
-    public abstract class Monster : MonoBehaviour
+    void Enter();
+    void Update();
+    void Exit();
+}
+public abstract class Monster : MonoBehaviour
+{
+    [Header("Settings")]
+    public float speed = 3.5f;
+    public float giveUpPlayerDistance = 15f;
+    public float waitBeforeReturnTime = 3f;
+    public float returnStopDistance = 0.5f;
+
+    protected NavMeshAgent agent;
+    protected Animator animator;
+    protected Detector detector;
+    protected Transform player;
+
+    public Vector3 StartPos { get; private set; }
+
+    protected IMonsterState currentState;
+
+    // Chase Event
+    public event System.Action OnChaseStarted;
+    public event System.Action OnChaseEnded;
+
+    protected virtual void Awake()
     {
-        [Header("Base Settings")]
-        [SerializeField] protected Detector detector;
-        [SerializeField] protected float speed = 3.5f;
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
+        detector = GetComponent<Detector>();
 
-        [Header("Chase / Return")]
-        [SerializeField] protected float giveUpPlayerDistance = 15f; // 플레이어와 거리
-        [SerializeField] protected float waitBeforeReturnTime = 3f;  // ⭐ 멈추는 시간
-        [SerializeField] protected float returnStopDistance = 0.5f;
+        StartPos = transform.position;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        protected NavMeshAgent agent;
-        protected Animator animator;
+        agent.speed = speed;
+        agent.isStopped = true;
 
-        protected Vector3 startPos;
-        protected Vector3 currentTargetPos;
-        protected Transform player;
+        ChangeState(new MonsterIdleState(this));
+    }
 
-        protected bool isChasing = false;
-        protected bool isWaitingToReturn = false; // ⭐ 추가
-        protected bool isReturning = false;
-        protected bool isTouchingPlayer = false;
+    protected virtual void Update()
+    {
+        currentState?.Update();
+        UpdateAnimator();
+    }
 
-        private float waitTimer = 0f;
+    public void ChangeState(IMonsterState newState)
+    {
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
+    }
 
-        public bool IsTouchingPlayer => isTouchingPlayer;
+    public void InvokeChaseStart() => OnChaseStarted?.Invoke();
+    public void InvokeChaseEnd() => OnChaseEnded?.Invoke();
 
-        protected virtual void Awake()
-        {
-            animator = GetComponentInChildren<Animator>();
-            startPos = transform.position;
+    protected abstract void Move(Vector3 targetPos);
 
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    public void MoveTo(Vector3 pos)
+    {
+        agent.isStopped = false;
+        Move(pos);
+    }
 
-            agent = GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.speed = speed;
-                agent.isStopped = true;
-            }
-
-            detector?.Init(this);
-        }
-
-        // Update 봉인
-        private void Update()
-        {
-            if (isTouchingPlayer)
-                return;
-
-            OnMonsterUpdate();
-            UpdateAnimator();
-        }
-
-        // =========================
-        // 공통 상태 로직
-        // =========================
-        protected virtual void OnMonsterUpdate()
-        {
-            // 🔴 추적 중
-            if (isChasing)
-            {
-                if (player != null)
-                {
-                    float dist = Vector3.Distance(transform.position, player.position);
-
-                    if (dist >= giveUpPlayerDistance)
-                    {
-                        StartWaitBeforeReturn();
-                        return;
-                    }
-                }
-
-                MoveTo(currentTargetPos);
-                return;
-            }
-
-            // 🟡 멈춰서 대기 중
-            if (isWaitingToReturn)
-            {
-                waitTimer += Time.deltaTime;
-
-                if (waitTimer >= waitBeforeReturnTime)
-                {
-                    StartReturn();
-                }
-                return;
-            }
-
-            // 🔵 복귀 중
-            if (isReturning)
-            {
-                MoveTo(startPos);
-
-                if (Vector3.Distance(transform.position, startPos)
-                    <= returnStopDistance)
-                {
-                    StopAll();
-                }
-            }
-        }
-
-        // =========================
-        // 이동
-        // =========================
-        protected abstract void Move(Vector3 targetPos);
-
-        protected void MoveTo(Vector3 targetPos)
-        {
-            Move(targetPos);
-        }
-
-        // =========================
-        // 감지
-        // =========================
-        public virtual void OnPlayerDetected(Vector3 targetPos)
-        {
-            if (isTouchingPlayer) return;
-
-            currentTargetPos = targetPos;
-
-            isChasing = true;
-            isWaitingToReturn = false;
-            isReturning = false;
-
-            waitTimer = 0f;
-
-            if (agent != null)
-                agent.isStopped = false;
-        }
-
-        // =========================
-        // 상태 전환
-        // =========================
-        protected void StartWaitBeforeReturn()
-        {
-            isChasing = false;
-            isWaitingToReturn = true;
-            isReturning = false;
-
-            waitTimer = 0f;
-
-            if (agent != null)
-            {
-                agent.ResetPath();
-                agent.isStopped = true; // ⭐ 완전 정지
-            }
-        }
-
-        protected void StartReturn()
-        {
-            isWaitingToReturn = false;
-            isReturning = true;
-
-            if (agent != null)
-            {
-                agent.isStopped = false;
-                agent.ResetPath();
-            }
-        }
-
-        protected void StopAll()
-        {
-            isChasing = false;
-            isWaitingToReturn = false;
-            isReturning = false;
-
-            waitTimer = 0f;
-
-            if (agent != null)
-            {
-                agent.ResetPath();
-                agent.isStopped = true;
-                agent.velocity = Vector3.zero;
-            }
-        }
-
-        // =========================
-        // 접촉 / 리스폰
-        // =========================
-        public virtual void OnTouchedPlayer()
-        {
-            isTouchingPlayer = true;
-            StopAll();
-
-            detector?.SetEnable(false);
-            animator?.SetFloat("Speed", 0f);
-        }
-
-        public virtual void OnRespawned()
-        {
-            isTouchingPlayer = false;
-            StopAll();
-
-            if (agent != null)
-                agent.Warp(startPos);
-            else
-                transform.position = startPos;
-
-            detector?.SetEnable(true);
-            animator?.SetFloat("Speed", 0f);
-        }
-
-        // =========================
-        // Animator (논리 기준)
-        // =========================
-        private Vector3 lastPosition;
-
-        protected virtual void UpdateAnimator()
-        {
-            if (animator == null)
-                return;
-
-            // 🔥 실제 이동 거리 기반 속도 계산 (NavMesh / Transform 공통)
-            float moveSpeed =
-                (transform.position - lastPosition).magnitude
-                / Mathf.Max(Time.deltaTime, 0.0001f);
-
-            // 미세한 떨림 제거
-            if (moveSpeed < 0.05f)
-                moveSpeed = 0f;
-
-            animator.SetFloat("Speed", moveSpeed);
-
-            lastPosition = transform.position;
-        }
+    protected void UpdateAnimator()
+    {
+        if (animator == null) return;
+        animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 }
