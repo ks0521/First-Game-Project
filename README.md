@@ -48,8 +48,6 @@
 
 ## 5. 팀 구성 및 역할
 
-> 아래는 GitHub 공개용 템플릿입니다. 실제 이름/역할로 교체해 사용하세요.
-
 - **문규성**: `게임 플레이 구현` — 플레이어 조작, 상호작용, 진행 로직 
 - **김민재**: `UI` — HUD, 인벤토리, 설정/가독성 개선, 연출
 - **이인제**: `몬스터 컨텐츠` — 몬스터 로직
@@ -67,18 +65,10 @@
 
 ## 7. 실행 방법
 
-### 7.1 요구 사항
-- Unity Hub 설치
-- Unity Editor **2022.3.62f2** 설치
-
-### 7.2 실행 절차
-1. 이 저장소를 클론합니다.
-   ```bash
-   git clone <REPOSITORY_URL>
-   ```
-2. Unity Hub에서 **Add project**로 클론한 폴더를 추가합니다.
-3. 에디터 버전을 `2022.3.62f2`로 맞춘 뒤 프로젝트를 엽니다.
-4. `Assets/_Kamikakushi/Scenes/MainMenu.unity` 또는 `TutorialScene.unity`를 열고 Play 합니다.
+### 7.1 실행 절차
+1. [최신 릴리즈버전](https://github.com/ks0521/First-Game-Project/releases)을 다운로드합니다.
+2. 압축을 해제합니다.
+3. 폴더 안의 `KamiKaKushi.exe` 파일을 실행합니다.
 
 ## 8. 상세 문서 링크
 
@@ -89,7 +79,7 @@
 
 ## 9. 플레이 영상 / 스크린샷
 
-- 플레이 영상: `[https://youtu.be/v1zOEZXVuqY]`
+- [플레이 영상](https://youtu.be/v1zOEZXVuqY)
 - 스크린샷:
 
 | 장면 | 이미지 |
@@ -102,3 +92,4 @@
 > `docs/images` 폴더를 생성하고 실제 이미지 파일을 넣으면 GitHub에서 바로 표시됩니다.
 
 ---
+  
