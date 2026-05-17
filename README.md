@@ -84,12 +84,10 @@
 
 | 장면 | 이미지 |
 |---|---|
-| 메인 메뉴 | ![main-menu](docs/images/main-menu.png) |
-| 탐색 장면 | ![exploration](docs/images/exploration.png) |
-| 인벤토리 UI | ![inventory](docs/images/inventory.png) |
-| 엔딩 장면 | ![ending](docs/images/ending.png) |
+| 메인 메뉴 | ![main-menu](docs/images/KamiKakushi_Main.png) |
+| 탐색 장면 | ![exploration](docs/images/KamiKakushi_Interaction.png) |
+| 인벤토리 UI | ![inventory](docs/images/KamiKakushi_Inventory.png) |
 
-> `docs/images` 폴더를 생성하고 실제 이미지 파일을 넣으면 GitHub에서 바로 표시됩니다.
 
 ---
   
